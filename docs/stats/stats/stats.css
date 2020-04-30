@@ -1,0 +1,14 @@
+.stats_percent {
+  font-weight: bold;	
+}
+#stats > table {
+  margin-left:auto; 
+  margin-right:auto;
+}
+.stats_note {
+  font-size: x-small;
+  width: min-content;
+}
+.stats_all .stats_hi2txt {
+  background-color:palegreen;
+}

@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KGB744P');</script>
+        <!-- End Google Tag Manager -->
+        <title>Archives</title>
+    </head>
+    <body>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KGB744P"
+                       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+        <table border="1">
+          <tr><th>Release</th><th>Java 7+</th><th>C#, using .NET framework 4.5+</th></tr>
+        <%
+           def formatSize(long v) {
+               if (v < 1024) return v + " B";
+               int z = (63 - Long.numberOfLeadingZeros(v)) / 10;
+               return String.format("%.1f %sB", (double)v / (1L << (z*10)), " KMGTPE".charAt(z));
+           }
+           def releases = layout.files(new File("$projectDir/docs/archives").listFiles()).collect().stream().map{file -> file.name.replace("hi2txt@","").replaceAll("@.*","")}.distinct().collect().sort().reverse()
+           println ""
+           releases.each{ rel ->
+             print "<tr><td>$rel</td>"
+             def jfiles = layout.files(new File("$projectDir/docs/archives").listFiles()).collect().stream().filter{file -> file.name.contains("Java") && file.name.contains("@"+rel+"@")}.collect()
+             if (!jfiles.isEmpty()) {
+               def jfile = jfiles[0]
+               print "<td><a href=\"archives/${jfile.name}\">${jfile.name}</a> (${formatSize(jfile.length())})</td>"
+             }
+             def cfiles = layout.files(new File("$projectDir/docs/archives").listFiles()).collect().stream().filter{file -> file.name.contains("CSharp") && file.name.contains("@"+rel+"@")}.collect()
+             if (cfiles.size() == 1) {
+               def cfile = cfiles[0]
+               print "<td><a href=\"archives/${cfile.name}\">${cfile.name}</a> (${formatSize(cfile.length())})</td>"
+             }
+             println "</tr>"
+           }%>
+        </table>
+    </body>
+</html>

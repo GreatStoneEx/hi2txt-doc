@@ -1,2 +1,9 @@
 version '1.0-SNAPSHOT'
 
+task expandTemplates(type: Copy) {
+    from 'src/main/template'
+    into 'docs'
+    include '*.html.template'
+    rename '(.*).template', '$1'
+    expand(projectDir: projectDir, layout: layout)
+}

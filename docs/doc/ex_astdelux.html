@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=windows-1252" http-equiv="content-type">
+  <title>hi2txt: example: astdelux</title>
+  <script type="text/javascript" src="../ua.js"></script>
+  <style type="text/css">
+ .xml_tags {  
+  font-family: "Courier New", Courier, monospace;  
+}
+
+ .xml_focus {  
+  font-weight: bold;  
+  color: #009900;
+}
+ .xml_focus2 {  
+  font-weight: bold;  
+  color: #3333ff;
+}
+  </style>
+</head>
+
+<body>
+<h2 style="text-align: center;"><span style="font-weight: bold;">Example:
+Asteroid Deluxe</span></h2>
+
+<p>There is only one nvram file nativly saved for this game, without any
+location.dat entry.<br>
+Get the nvram file size: &lt;mame&gt;/nvram/astdelux/earom =&gt; size: <span
+style="font-weight: bold; color: #009900;">64 </span>bytes</p>
+[XML] 
+
+<div class="xml_tags">
+<span>&lt;structure&gt;...<br>
+  &lt;check&gt;...<br>
+<span class="xml_focus">    &lt;size&gt;64&lt;/size&gt;<br>
+</span>  &lt;/check&gt;<br>
+&lt;/structure&gt;</span></div>
+<span></span><br>
+Let's take a snapshot of the ingame high scores, after some trials.<br>
+<img title="ingame" alt="" src="media/astdelux/snap/astdelux.png"><br>
+<br>
+We are seeing X high scores:<br>
+
+<pre>1: 2240    VA
+2: 1880   C B
+3: 1580   YAA
+4:  610   QAE<br></pre>
+<br>
+Let's have a look inside the nvram.<br>
+<img title="hexa" alt="" src="media/astdelux/astdelux_001.png"><br>
+<br>
+By chance, sometimes seems quite obvious about the scores, confirmed after some
+other trials.<br>
+<img title="hexa" alt="" src="media/astdelux/astdelux_002.png"><br>
+<br>
+First, only 3 high scores are stored in the nvram.<br>
+Then, the hexa decimal value is the decimal value to display, meaning that
+attributes type = INT and base =16 must be used.<br>
+So, each score are stored on 3 bytes (attibute size = 3).<br>
+Finally, the 3 bytes are inverted, i.e. stored in little endian, driving the
+attribute endianness = little_endian.<br>
+And.. perhaps names are between, allowing us to use a loop?<br>
+[XML]<br>
+<span class="xml_tags">&lt;loop <span
+class="xml_focus2">count="3"</span>&gt;<br>
+  &lt;elt <span class="xml_focus">size="3" type="int"  id="SCORE"
+endianness="little_endian" base="16"</span>/&gt;<br>
+  &lt;elt size="4" type="raw" id="UNKNWON"/&gt; &lt;!-- name here? //--&gt;<br>
+&lt;/loop&gt;</span><br>
+<br>
+Our target names are: &lt;space&gt;VA, C&lt;space&gt;B, YAA<br>
+As the last 'unknwon' data has two 0x0B, so 0x0B means perhaps 'A' and letters
+seem to be in the natural order.<br>
+Let put the letters in front of their hexa and decimal codes, as well as the
+targeted ascii decimal, to see if some transformations can be highlighted.<br>
+<br>
+
+
+<table class="wikitable"
+style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+  <tbody>
+    <tr>
+      <td style="text-align: center; background-color: #ccccff;"><span
+        style="font-weight: bold;">Letter</span></td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;"><span
+        style="font-weight: bold;">-&gt;hexa</span></td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;"><span
+        style="font-weight: bold;">-&gt;decimal</span></td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;"><span
+        style="font-weight: bold;">-&gt;all decimal</span></td>
+      <td style="text-align: center; background-color: #ccffff;"><span
+        style="font-weight: bold;">-&gt; transformation 1</span></td>
+      <td style="text-align: center; background-color: #ccccff;"><span
+        style="font-weight: bold;">-&gt; ascii decimal</span></td>
+      <td style="text-align: center; background-color: #ccccff;"><span
+        style="font-weight: bold;">-&gt; target ascii decimal</span></td>
+    </tr>
+    <tr>
+      <td style="text-align: center; background-color: #ccccff;">A</td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;">0B</td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;">11</td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;">11</td>
+      <td style="text-align: center; background-color: #ccffff;">+54<br>
+      </td>
+      <td style="text-align: center; background-color: #ccccff;">65</td>
+      <td style="text-align: center; background-color: #ccccff;">65</td>
+    </tr>
+    <tr>
+      <td style="text-align: center; background-color: #ccccff;">B</td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;">0C<br>
+      </td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;">12<br>
+      </td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;">12</td>
+      <td style="text-align: center; background-color: #ccffff;">+54</td>
+      <td style="text-align: center; background-color: #ccccff;">66</td>
+      <td style="text-align: center; background-color: #ccccff;">66</td>
+    </tr>
+    <tr>
+      <td style="text-align: center; background-color: #ccccff;">C</td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;">0D<br>
+      </td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;">13<br>
+      </td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;">13</td>
+      <td style="text-align: center; background-color: #ccffff;">+54</td>
+      <td style="text-align: center; background-color: #ccccff;">67</td>
+      <td style="text-align: center; background-color: #ccccff;">67</td>
+    </tr>
+    <tr>
+      <td style="text-align: center; background-color: #ccccff;">D</td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+      </td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+      </td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;">14</td>
+      <td style="text-align: center; background-color: #ccffff;">+54</td>
+      <td style="text-align: center; background-color: #ccccff;">68</td>
+      <td style="text-align: center; background-color: #ccccff;">68</td>
+    </tr>
+    <tr>
+      <td style="text-align: center; background-color: #ccccff;">...</td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+      </td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+      </td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;">...</td>
+      <td style="text-align: center; background-color: #ccffff;">+54</td>
+      <td style="text-align: center; background-color: #ccccff;">...</td>
+      <td style="text-align: center; background-color: #ccccff;">...</td>
+    </tr>
+    <tr>
+      <td
+      style="text-align: center; background-color: #ccccff;">&lt;space&gt;</td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;">00<br>
+      </td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;">0<br>
+      </td>
+      <td
+      style="background: none repeat scroll 0% 0% white; text-align: center;">0</td>
+      <td style="text-align: center; background-color: #ccffff;">+32</td>
+      <td style="text-align: center; background-color: #ccccff;">32</td>
+      <td style="text-align: center; background-color: #ccccff;">32</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+So, 1 transformation can be applied: ascii offset = 54, expect for
+&lt;space&gt;.<br class="Apple-interchange-newline">
+And last byte seems to be no part of the name, meaning size = 3.<br>
+<br>
+<img title="hexa" alt=""
+src="file:///E:/dev/hi2txt/bin/doc/media/astdelux/astdelux_003.png"><br>
+<br>
+[XML]<br>
+<span class="xml_tags">&lt;loop count="3"&gt;<br>
+  &lt;elt size="3" type="int"  id="SCORE" endianness="little_endian"
+base="16"/&gt;<br>
+  <span class="xml_focus">&lt;elt size="3" type="text" id="NAME" 
+ascii-offset="54"/&gt;</span><br>
+  &lt;elt size="1" type="raw"  id="UNKNWON"/&gt;<br>
+&lt;/loop&gt;</span><br>
+<br>
+If we modify directly a score inside the nvram and reload the game, the new
+score is not accepted.<br>
+So, the guess is that the last unknwon byte is a control byte, some sort of
+checksum, preventing easy hack in memory or nvram.<br>
+<br>
+<img title="hexa" alt="" src="media/astdelux/astdelux_004.png"><br>
+<br>
+[XML]<br>
+<span class="xml_tags">&lt;loop count="3"&gt;<br>
+  &lt;elt size="3" type="int"  id="SCORE" endianness="little_endian"
+base="16"/&gt;<br>
+  &lt;elt size="3" type="text" id="NAME"   ascii-offset="54"/&gt;<br>
+  <span class="xml_focus">&lt;elt size="1" type="raw" 
+id="CHECKSUM"/&gt;</span><br>
+&lt;/loop&gt;</span><br>
+<br>
+Testing all possible hexadecimal positions and specifically 'space' leads to
+the following additional charset and decoding.<br>
+<br>
+<img title="hexa" alt="" src="media/astdelux/astdelux_005.png"><br>
+<br>
+ [XML]<span class="xml_tags"><br>
+&lt;structure&gt;<br>
+  ...<br>
+  &lt;loop count="3"&gt;<br>
+    &lt;elt size="3" type="int"  id="SCORE" endianness="little_endian"
+base="16"/&gt;<br>
+    &lt;elt size="3" type="text" id="NAME"  <span
+class="xml_focus">charset="astdelux"</span> ascii-offset="54"/&gt;<br>
+    &lt;elt size="1" type="raw"  id="CHECKSUM"/&gt;<br>
+  &lt;/loop&gt;<br>
+&lt;/structure&gt;<br>
+<span class="xml_focus">&lt;charset id="astdelux"&gt;<br>
+  &lt;char src="0x00" dst=" "/&gt;<br>
+  &lt;char src="0xFF" dst=" "/&gt;<br>
+&lt;/charset&gt;</span><br>
+</span><br>
+Now we need to display the decoded elements into the output part.<br>
+The 'loop' will turn into a 'table', 'elements' into 'columns'.<br>
+<br>
+[XML]<br>
+<span class="xml_tags">&lt;output&gt;<br>
+  &lt;table&gt;<br>
+    &lt;column id="SCORE"/&gt;<br>
+    &lt;column id="NAME"/&gt;<br>
+    &lt;column id="CHECKSUM"/&gt;<br>
+  &lt;/table&gt;<br>
+&lt;/output&gt;</span><br>
+<br>
+Let's make explicit in the output that checksum has been kept in hexa (default
+behavior of the RAW type), by adding the "0x" prefix, using the implicit
+special format dedicated.<br>
+We will also display it only if debug mode is activated (-rd), as having a
+checksum is not really displaying high scores, by using display = "debug" :)<br>
+<br>
+[XML]<br>
+<span class="xml_tags">&lt;column id="CHECKSUM" <span
+class="xml_focus">format="0x"</span> <span
+class="xml_focus2">display="debug"</span>/&gt;</span><br>
+<br>
+Finally, adding a rank column is always welcome to mimic a high score table,
+using the current index of each line inside the table (src = "index"), starting
+from 1 instead of 0 (format = "+1", another direct implicit format)<br>
+<br>
+[XML]<span class="xml_tags"><br>
+&lt;output&gt;<br>
+  &lt;table&gt;<br>
+    <span class="xml_focus">&lt;column id="RANK" src="index"
+format="+1"/&gt;</span><br>
+    &lt;column id="SCORE"/&gt;<br>
+    &lt;column id="NAME"/&gt;<br>
+    &lt;column id="CHECKSUM" format="0x" display="debug"/&gt;<br>
+  &lt;/table&gt;<br>
+&lt;/output&gt;</span><br>
+<br>
+And that's all! Here is the final XML description:<br>
+<br>
+[XML]<br>
+<span class="xml_tags">&lt;?xml version="1.0" encoding="utf-8"
+standalone="no"?&gt;<br>
+&lt;!DOCTYPE hi2txt SYSTEM "hi2txt.dtd"&gt;<br>
+&lt;hi2txt&gt;<br>
+  &lt;!--<br>
+    tested with mame 0.148 and related hiscore.dat<br>
+      source: HiToText<br>
+  //--&gt;  <br>
+  &lt;structure file="earom"&gt;<br>
+    &lt;check&gt;<br>
+      &lt;!-- optional: if defined, it allows to select the good structure
+versus the provided file<br>
+                     useful if multiple structures are defined but hiscore.dat
+not provided //--&gt;<br>
+      &lt;size&gt;64&lt;/size&gt;<br>
+    &lt;/check&gt;<br>
+    &lt;loop count="3"&gt;<br>
+      &lt;elt size="3" type="int"  id="SCORE" endianness="little_endian"
+base="16"/&gt;<br>
+      &lt;elt size="3" type="text" id="NAME"  charset="astdelux"
+ascii-offset="54"/&gt;<br>
+      &lt;elt size="1" type="raw"  id="CHECKSUM"/&gt;<br>
+    &lt;/loop&gt;<br>
+  &lt;/structure&gt;<br>
+  &lt;output&gt;<br>
+    &lt;table&gt;<br>
+      &lt;column id="RANK" src="index" format="+1"/&gt;<br>
+      &lt;column id="SCORE"/&gt;<br>
+      &lt;column id="NAME"/&gt;<br>
+      &lt;column id="CHECKSUM" format="0x" display="debug"/&gt;<br>
+    &lt;/table&gt;<br>
+  &lt;/output&gt;<br>
+  &lt;charset id="astdelux"&gt;<br>
+    &lt;char src="0x00" dst=" "/&gt;<br>
+    &lt;char src="0xFF" dst=" "/&gt;<br>
+  &lt;/charset&gt;<br>
+&lt;/hi2txt&gt;<br>
+</span><br>
+ ...leading to such display, using -ra parameter:<br>
+<span class="xml_tags">RANK|SCORE|NAME<br>
+1|2240| VA<br>
+2|1880|C B<br>
+3|1580|YAA</span><br>
+<br>
+or this one, using -rd parameter:<br>
+<span class="xml_tags">RANK|SCORE|NAME<span
+class="xml_focus">|CHECKSUM</span><br>
+1|2240| VA<span class="xml_focus">|0x8D</span><br>
+2|1880|C B<span class="xml_focus">|0xB1</span><br>
+3|1580|YAA<span class="xml_focus">|0xCE</span><br>
+</span><br>
+A front-end can then easily display (with some fancy colors):<br>
+<span class="xml_tags">RANK SCORE NAME<br>
+   1  2240   VA<br>
+   2  1880  C B<br>
+   3  1580  YAA<br>
+</span><br>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=windows-1252" http-equiv="content-type">
+  <title>hi2txt: command-line parameters</title>
+  <script type="text/javascript" src="../ua.js">
+ </script>
+</head>
+
+<body>
+<h2 style="text-align: center;"><span style="font-weight: bold;">All
+command-line parameters <span style="color:#c0c0c0">[version
+1.4+]</span></span></h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>-r<br>
+      </td>
+      <td>read main high score entries </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-ra<br>
+      </td>
+      <td>read all high score entries </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-rd<br>
+      </td>
+      <td>read all high score entries as well as debug entries; also activate
+        traces </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-hiscoredat | -hs </td>
+      <td><span style="color:#c0c0c0">(optional)</span> path to hiscore.dat
+        related to the hiscore file to read. default is built from
+        &lt;hi_file_path&gt;/../../hiscore.dat<br>
+        hiscore.dat file allows to select the right hiscores content format
+        when a game is supporting different locations from different
+        hiscore.dat files<br>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-descr | -ds </td>
+      <td><span style="color:#c0c0c0">(optional)</span> path to xml description
+        db. default is ./db/ and can be omitted if the application in launched
+        from where it is installed.</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-l<br>
+      </td>
+      <td><span style="color:#c0c0c0">(optional)</span> list games </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-location<br>
+      </td>
+      <td><span style="color:#c0c0c0">(optional)</span> display supported
+        memory location when listing games </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-h<br>
+      </td>
+      <td><span style="color:#c0c0c0">(optional)</span> display help </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-v<br>
+      </td>
+      <td><span style="color:#c0c0c0">(optional)</span> display version </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-notrace<br>
+      </td>
+      <td><span style="color:#c0c0c0">(optional)</span> disable trace, even in
+        debug display </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-trace<br>
+      </td>
+      <td><span style="color:#c0c0c0">(optional)</span> enable trace </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-score-grouping "yes|no"<br>
+      </td>
+      <td><span style="color:#c0c0c0">(optional)</span> group 'SCORE' numbers
+        for better readability (default: "no") 
+        <pre>                -score-grouping yes
+SCORE|NAME      SCORE|NAME
+10000000|CAP    10.000.000|CAP
+9000000|COM     9.000.000|COM</pre>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-score-grouping-separator "&lt;string&gt;"<br>
+      </td>
+      <td><span style="color:#c0c0c0">(optional)</span> define the separator
+        for score grouping (default: ".") 
+        <pre>                -score-grouping yes -score-grouping-separator ","
+SCORE|NAME      SCORE|NAME
+10000000|CAP    10,000,000|CAP
+9000000|COM     9,000,000|COM</pre>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-score-grouping-size &lt;integer&gt;"<br>
+      </td>
+      <td><span style="color:#c0c0c0">(optional)</span> define the size of the
+        score grouping (default: 3) 
+        <pre>                --score-grouping yes -score-grouping-size 2
+SCORE|NAME      SCORE|NAME
+10000000|CAP    10.00.00.00|CAP
+9000000|COM     9.00.00.00|COM</pre>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-keep-field "&lt;field_name&gt;"<br>
+      </td>
+      <td><span style="color:#c0c0c0">(optional)</span> define which field to
+        keep when displaying the output. If this parameter is not specified,
+        all fields are displayed. 
+
+        <p>this parameter can be repeated to declare multiple fields </p>
+        <pre>                -keep-field "SCORE"
+SCORE|NAME      SCORE
+10000000|CAP    10000000<br>9000000|COM     9000000
+8000000|CAP     8000000</pre>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-keep-table-value "&lt;field&gt;:&lt;value&gt;"<br>
+      </td>
+      <td><span style="color:#c0c0c0">(optional)</span> only table lines
+        containing the specified value for the specified column will be
+        displayed, allowing for example to keep only your own score<br>
+        this parameter can be repeated to declare multiple values 
+        <pre>                -keep-table-value "NAME:COM"
+SCORE|NAME      SCORE|NAME
+10000000|CAP    9000000|COM
+9000000|COM
+8000000|CAP</pre>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-keep-first-score "yes|no"<br>
+      </td>
+      <td><span style="color:#c0c0c0">(optional)</span> force to keep only
+        first line, even if not in the scope of -keep-field/-keep-table-value 
+        <pre>                -keep-first-score "yes"
+SCORE|NAME      SCORE|NAME
+10000000|CAP    10000000|CAP
+9000000|COM     
+8000000|CAP
+                -keep-first-score "yes" -keep-table-value "NAME:COM"
+SCORE|NAME      SCORE|NAME
+10000000|CAP    10000000|CAP
+9000000|COM     9000000|COM
+8000000|CAP</pre>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-hide-column "&lt;field_name&gt;" </td>
+      <td><span style="color:#c0c0c0">(optional)</span> define which field must
+        be hidden (i.e. not displayed) </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-max-lines &lt;integer&gt; </td>
+      <td><span style="color:#c0c0c0">(optional)</span> maximum number of lines
+        to be displayed into a table </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-max-columns &lt;integer&gt; </td>
+      <td><span style="color:#c0c0c0">(optional)</span> maximum number of
+        columns to be displayed into a table</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>&lt;hi_file_path&gt; </td>
+      <td>game hi file to read </td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+
+<div style="left: 106px; top: 52px; height: 290px;">
+</div>
+</body>
+</html>

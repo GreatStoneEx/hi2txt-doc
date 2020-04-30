@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=windows-1252" http-equiv="content-type">
+    <title>hi2txt: example: dodonpachi</title>
+    <script type="text/javascript" src="../ua.js"></script>
+    <style type="text/css">
+.xml_tags {  
+  font-family: "Courier New", Courier, monospace;  
+}
+
+.xml_focus {  
+  font-weight: bold;  
+  color: #009900;
+}
+.xml_focus2 {  
+  font-weight: bold;  
+  color: #3333ff;
+}
+
+</style> </head>
+  <body>
+    <h2 style="text-align: center;"><span style="font-weight: bold;">Example:
+        Dodonpachi</span></h2>
+    <h2><span style="font-weight: bold;"></span></h2>
+    <p>Get hi file size: &lt;mame&gt;/hi/ddonpach.hi&nbsp; =&gt; size: <span style="font-weight: bold; color: #009900;">104</span><span
+        style="font-weight: bold;"> </span>bytes</p>
+    <img src="./media/ddonpach/ddonpach_001.png" alt=""
+      title="do donpachi hi file content"><br>
+    <br>
+    [XML]
+    <div class="xml_tags">&lt;structure <span class="xml_focus2">file=".hi"</span>&gt;...<br>
+      &nbsp; &lt;check&gt;...<br>
+      <span class="xml_focus">&nbsp;&nbsp;&nbsp; &lt;size&gt;104&lt;/size&gt;<br>
+      </span>&nbsp; &lt;/check&gt;<br>
+      &lt;/structure&gt;</div>
+    <br>
+    Get hiscore.dat information<br>
+    &lt;mame&gt;/hiscore.dat<br>
+    <div class="xml_tags"> ...<br>
+      ddonpach:<br>
+      ddonpachj:<br>
+      <span style="font-weight: bold; color: #009900;"> 0:1016ea:64:00:05<br>
+        0:101626:4:00:06</span><br>
+      ... </div>
+    <br>
+    [XML]<br>
+    <div class="xml_tags"> &lt;structure&gt;...<br>
+      &nbsp; &lt;check&gt;...<br>
+      &nbsp;&nbsp;&nbsp; <span class="xml_focus">&lt;definition&gt;</span><span
+        class="xml_focus">0:1016ea:64:00:05<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        0:101626:4:00:06&lt;/definition</span><span class="xml_focus">&gt;</span><br>
+      &nbsp; &lt;/check&gt;<br>
+      &lt;/structure&gt; </div>
+    <br>
+    When the 5th score only is modified, bytes index 16 to 19 and bytes index 98
+    to 99 are modified.<br>
+    <img title="SCORE data" alt="" src="./media/ddonpach/ddonpach_002.png"><br>
+    <br>
+    bytes 16-19: 0030 2720<br>
+    bytes 98-99: 0006<br>
+    <br>
+    We need to compare these hexadecimal data to the ingame snapshot, where the
+    5th score visible is: 3027206<br>
+    <img title="Ingame snapshot" alt="" src="./media/ddonpach/snap/ddonpach.png"><br>
+    <br>
+    How to go from these bytes to this score?<br>
+    Obviously, score uses 2 elements in the input structure. These 2 elements
+    are combined into one value, using the formula:<br>
+    (bytes 16-&gt;19)*10+(bytes 98-&gt;99), with integers value represented in
+    base 16 (integer value = hexa value).<br>
+    <br>
+    2 elements (SCORE1, SCORE2) needs to be defined<br>
+    [XML]
+    <div class="xml_tags"> &lt;structure&gt;<br>
+      &nbsp; &lt;elt size="16" type="raw" id="RAW1"/&gt;&nbsp;
+      <div class="xml_focus">&nbsp; &lt;elt size="4" type="int"&nbsp;
+        id="SCORE1" base="16"/&gt;</div>
+      &nbsp; &lt;elt size="78" type="raw" id="RAW2"/&gt;&nbsp;
+      <div class="xml_focus">&nbsp; &lt;elt size="2" type="int"&nbsp;
+        id="SCORE2" base="16"/&gt;</div>
+      &nbsp; &lt;elt size="4" type="raw" id="RAW13"/&gt;<br>
+      &lt;/structure&gt;</div>
+    <br>
+    and one output field can sum the two elements using a dedicated format
+    (sum), using also another "*10" format for the 1st part of the score.<br>
+    [XML]
+    <div class="xml_tags"> &lt;output&gt;<br>
+      &lt;field id="SCORE" <span class="xml_focus">format="sum_scores"</span>&gt;<br>
+      &lt;/output&gt;<br>
+      <div class="xml_focus2">&lt;format
+        id="multiply_10"&gt;&lt;multiply&gt;10&lt;/multiply&gt;&lt;/format&gt;</div>
+      <div class="xml_focus">&lt;format id="sum_scores"&gt;<br>
+        &nbsp; &lt;sum&gt;<br>
+        &nbsp;&nbsp;&nbsp; &lt;field id="SCORE1" <span class="xml_focus2">format="multiply_10"</span>/&gt;<br>
+        &nbsp;&nbsp;&nbsp; &lt;field id="SCORE2"/&gt;<br>
+        &nbsp; &lt;/sum&gt;<br>
+        &lt;/format&gt;</div>
+    </div>
+    <br>
+    As simple format can be automatically defined based on its id, the following
+    syntax is allowed for "*10":<br>
+    [XML]<br>
+    <div class="xml_tags">&lt;output&gt;<br>
+      &lt;field id="SCORE" format="sum_scores"&gt;<br>
+      &lt;/output&gt;<br>
+      &lt;format id="sum_scores"&gt;<br>
+      &nbsp; &lt;sum&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;field id="SCORE1" <span class="xml_focus2">format="*10"/&gt;
+        &lt;!-- implicit format definition //--&gt;</span><br>
+      &nbsp;&nbsp;&nbsp; &lt;field id="SCORE2"/&gt;<br>
+      &nbsp; &lt;/sum&gt;<br>
+      &lt;/format&gt;</div>
+    <br>
+    Then, it become obvious that the 4th other scores are stored just before,
+    allowing us to use a loop for elements definition and a table for output.<br>
+    [XML]<br>
+    <div class="xml_tags">&lt;structure&gt;<br>
+      <span class="xml_focus">&lt;loop count="5"&gt;</span>&lt;elt size="4"
+      type="int"&nbsp; id="SCORE1" base="16"/&gt;<span class="xml_focus">&lt;/loop&gt;</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &lt;elt size="70" type="raw" id="RAW2"/&gt;<br>
+      <span class="xml_focus">&lt;loop count="5"&gt;</span>&lt;elt size="2"
+      type="int"&nbsp; id="SCORE2" base="16"/&gt;<span class="xml_focus">&lt;/loop&gt;</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &lt;elt size="4" type="raw" id="RAW13"/&gt;<br>
+      &lt;/structure&gt;</div>
+    <br>
+    Using a loop, an internal array will store the elements:<br>
+    <table border="0">
+      <tbody>
+        <tr style="background-color: silver; color: black; font-weight: bold;">
+          <td>index<br>
+          </td>
+          <td>column SCORE1<br>
+          </td>
+          <td>column SCORE2<br>
+          </td>
+        </tr>
+        <tr>
+          <td>0<br>
+          </td>
+          <td> 46839552 </td>
+          <td>0<br>
+          </td>
+        </tr>
+        <tr>
+          <td>1<br>
+          </td>
+          <td> 590806 </td>
+          <td>5<br>
+          </td>
+        </tr>
+        <tr>
+          <td>2<br>
+          </td>
+          <td> 563768 </td>
+          <td>0<br>
+          </td>
+        </tr>
+        <tr>
+          <td>3<br>
+          </td>
+          <td> 554433 </td>
+          <td>7<br>
+          </td>
+        </tr>
+        <tr>
+          <td>4<br>
+          </td>
+          <td> 302720 </td>
+          <td>6<br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    So, an output table can define these columns from the internal array.<br>
+    The table index will be displayed using a virtual RANK column, taken from
+    the array index (src="index") and increased by 1 (format="+1").<br>
+    [XML]<br>
+    <div class="xml_tags"> &lt;output&gt;<br>
+      <div class="xml_focus">&nbsp; &lt;table&gt;<br>
+        &nbsp;&nbsp;&nbsp; &lt;column id="RANK" <span class="xml_focus2">src="index"
+          format="+1"</span>/&gt; &lt;!-- implicit format definition //--&gt;<br>
+        &nbsp; &nbsp; &lt;column id="SCORE" format="sum_scores"&gt;<br>
+        &nbsp; &lt;/table&gt;</div>
+      &lt;/output&gt;<br>
+      &lt;format id="sum_scores"&gt;<br>
+      &nbsp; &lt;sum&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;column id="SCORE1" format="*10"/&gt; &lt;!--
+      implicit format definition //--&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;column id="SCORE2"/&gt;<br>
+      &nbsp; &lt;/sum&gt;<br>
+      &lt;/format&gt;</div>
+    <br>
+    Seeing the ingame snapshot, some data are still missing: NAME, AREA,
+    SPACESHIP, POWERUP, MAXHIT<br>
+    Let's take NAME.<br>
+    these data seem to be stored in bytes index 20 to 49, so 6 bytes per name
+    (20-&gt;49 = 30 bytes, 30 / 5 = 6).<br>
+    <img title="hexa" alt="" src="media/ddonpach/ddonpach_003.png"><br>
+    <br>
+    [XML]<br>
+    <div class="xml_tags">&lt;structure&gt;<br>
+      ...<br>
+      &nbsp; &lt;loop count="5"&gt;<span class="xml_focus">&lt;elt size="6"
+        type="text" id="NAME"/&gt;</span>&lt;/loop&gt;<br>
+      ...<br>
+      &lt;/structure&gt;</div>
+    <br>
+    We need to understand how to extract accurate value in an ascii table to
+    display these names.<br>
+    Seeing hexa data, every odd bytes for a name is set to 01.<br>
+    NAME1: 01C0 01A4 0194 =&gt; ? =&gt; PIE<br>
+    If we skip them, we have 3 remaining bytes, for 3 letters in the ingame
+    snapshot: good step.<br>
+    <img title="hexa" alt="" src="media/ddonpach/ddonpach_004.png"><br>
+    <br>
+    [XML]<br>
+    <div class="xml_tags">&lt;elt size="6" type="text" id="NAME" <span class="xml_focus">byte-skip="odd"</span>/&gt;</div>
+    <br>
+    We are still far from the real name :)<br>
+    NAME1: C0 A4 94 =&gt; ? =&gt; PIE<br>
+    Let put the letters in front of their hexa and decimal codes, as well as the
+    targeted ascii decimal, to see if some transformations can be highlighted.<br>
+    <br>
+    <table class="wikitable" style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+      <tbody>
+        <tr>
+          <td style="text-align: center; background-color: #ccccff;"><span style="font-weight: bold;">Letter</span></td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><span
+              style="font-weight: bold;">-&gt;hexa</span></td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><span
+              style="font-weight: bold;">-&gt;decimal</span></td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><span
+              style="font-weight: bold;">-&gt;all decimal</span></td>
+          <td style="text-align: center; background-color: #ccffff;"><span style="font-weight: bold;">-&gt;
+              transformation 1</span></td>
+          <td><span style="font-weight: bold;">-&gt; decimal / 4</span></td>
+          <td style="text-align: center; background-color: #ccffff;"><span style="font-weight: bold;">-&gt;
+              transformation 2</span></td>
+          <td style="text-align: center; background-color: #ccccff;"><span style="font-weight: bold;">-&gt;
+              ascii decimal</span></td>
+          <td style="text-align: center; background-color: #ccccff;"><span style="font-weight: bold;">-&gt;
+              target ascii decimal</span></td>
+        </tr>
+        <tr>
+          <td style="text-align: center; background-color: #ccccff;">E</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">94</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">148</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">148</td>
+          <td style="text-align: center; background-color: #ccffff;"><br>
+          </td>
+          <td>37</td>
+          <td style="text-align: center; background-color: #ccffff;">+32</td>
+          <td style="text-align: center; background-color: #ccccff;">69</td>
+          <td style="text-align: center; background-color: #ccccff;">69</td>
+        </tr>
+        <tr>
+          <td style="text-align: center; background-color: #ccccff;">F</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">152</td>
+          <td style="text-align: center; background-color: #ccffff;">+4</td>
+          <td>38</td>
+          <td style="text-align: center; background-color: #ccffff;">+32</td>
+          <td style="text-align: center; background-color: #ccccff;">70</td>
+          <td style="text-align: center; background-color: #ccccff;">70</td>
+        </tr>
+        <tr>
+          <td style="text-align: center; background-color: #ccccff;">G</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">156</td>
+          <td style="text-align: center; background-color: #ccffff;">+4</td>
+          <td>39</td>
+          <td style="text-align: center; background-color: #ccffff;">+32</td>
+          <td style="text-align: center; background-color: #ccccff;">71</td>
+          <td style="text-align: center; background-color: #ccccff;">71</td>
+        </tr>
+        <tr>
+          <td style="text-align: center; background-color: #ccccff;">H</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">160</td>
+          <td style="text-align: center; background-color: #ccffff;">+4</td>
+          <td>40</td>
+          <td style="text-align: center; background-color: #ccffff;">+32</td>
+          <td style="text-align: center; background-color: #ccccff;">72</td>
+          <td style="text-align: center; background-color: #ccccff;">72</td>
+        </tr>
+        <tr>
+          <td style="text-align: center; background-color: #ccccff;">I</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">A4</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">164</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">164</td>
+          <td style="text-align: center; background-color: #ccffff;">+4</td>
+          <td>41</td>
+          <td style="text-align: center; background-color: #ccffff;">+32</td>
+          <td style="text-align: center; background-color: #ccccff;">73</td>
+          <td style="text-align: center; background-color: #ccccff;">73</td>
+        </tr>
+        <tr>
+          <td style="text-align: center; background-color: #ccccff;">J</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">168</td>
+          <td style="text-align: center; background-color: #ccffff;">+4</td>
+          <td>42</td>
+          <td style="text-align: center; background-color: #ccffff;">+32</td>
+          <td style="text-align: center; background-color: #ccccff;">74</td>
+          <td style="text-align: center; background-color: #ccccff;">74</td>
+        </tr>
+        <tr>
+          <td style="text-align: center; background-color: #ccccff;">K</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">172</td>
+          <td style="text-align: center; background-color: #ccffff;">+4</td>
+          <td>43</td>
+          <td style="text-align: center; background-color: #ccffff;">+32</td>
+          <td style="text-align: center; background-color: #ccccff;">75</td>
+          <td style="text-align: center; background-color: #ccccff;">75</td>
+        </tr>
+        <tr>
+          <td style="text-align: center; background-color: #ccccff;">L</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">176</td>
+          <td style="text-align: center; background-color: #ccffff;">+4</td>
+          <td>44</td>
+          <td style="text-align: center; background-color: #ccffff;">+32</td>
+          <td style="text-align: center; background-color: #ccccff;">76</td>
+          <td style="text-align: center; background-color: #ccccff;">76</td>
+        </tr>
+        <tr>
+          <td style="text-align: center; background-color: #ccccff;">M</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">180</td>
+          <td style="text-align: center; background-color: #ccffff;">+4</td>
+          <td>45</td>
+          <td style="text-align: center; background-color: #ccffff;">+32</td>
+          <td style="text-align: center; background-color: #ccccff;">77</td>
+          <td style="text-align: center; background-color: #ccccff;">77</td>
+        </tr>
+        <tr>
+          <td style="text-align: center; background-color: #ccccff;">N</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">184</td>
+          <td style="text-align: center; background-color: #ccffff;">+4</td>
+          <td>46</td>
+          <td style="text-align: center; background-color: #ccffff;">+32</td>
+          <td style="text-align: center; background-color: #ccccff;">78</td>
+          <td style="text-align: center; background-color: #ccccff;">78</td>
+        </tr>
+        <tr>
+          <td style="text-align: center; background-color: #ccccff;">O</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;"><br>
+          </td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">188</td>
+          <td style="text-align: center; background-color: #ccffff;">+4</td>
+          <td>47</td>
+          <td style="text-align: center; background-color: #ccffff;">+32</td>
+          <td style="text-align: center; background-color: #ccccff;">79</td>
+          <td style="text-align: center; background-color: #ccccff;">79</td>
+        </tr>
+        <tr>
+          <td style="text-align: center; background-color: #ccccff;">P</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">C0</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">192</td>
+          <td style="background: none repeat scroll 0% 0% white; text-align: center;">192</td>
+          <td style="text-align: center; background-color: #ccffff;">+4</td>
+          <td>48</td>
+          <td style="text-align: center; background-color: #ccffff;">+32</td>
+          <td style="text-align: center; background-color: #ccccff;">80</td>
+          <td style="text-align: center; background-color: #ccccff;">80</td>
+        </tr>
+        <tr>
+        </tr>
+      </tbody>
+    </table>
+    <br class="Apple-interchange-newline">
+    So, 2 transformations can be applied: ascii step = 4 and ascii offset = 32<br>
+    [XML]<br>
+    <div class="xml_tags">&lt;elt size="6" type="text" id="NAME" byte-skip="odd"
+      <span class="xml_focus">ascii-step="4" ascii-offset="32"</span>/&gt;</div>
+    <br>
+    Testing each possible letters and more specifically special characters, we
+    find that 2 characters (" ", ".") don't match the standard ascii table with
+    such algorithm and need a specific translation, using charset/char/src/dst.<br>
+    [XML]<br>
+    <div class="xml_tags">&lt;structure&gt;<br>
+      ...<br>
+      &lt;elt size="6" type="text" id="NAME" byte-skip="odd" ascii-step="4"
+      ascii-offset="32" <span class="xml_focus">charset="ddonpach"</span>/&gt;<br>
+      ...<br>
+      &lt;/structure&gt;<br>
+      ...<br>
+      <div class="xml_focus">&lt;charset id="ddonpach"&gt;<br>
+        &nbsp; &lt;char src="0x00" dst=" "/&gt;<br>
+        &nbsp; &lt;char src="0x38" dst="."/&gt;<br>
+        &lt;/charset&gt;</div>
+      ...<br>
+      &lt;output&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;table&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="xml_focus2">&lt;column
+        id="NAME"</span>/&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;/table&gt;<br>
+      &lt;/output&gt;</div>
+    <br>
+    Now, focusing on MAXHIT shows that we have again a sequence of 5 values, on
+    2 bytes, encoded in base 16, just before SCORE2.<br>
+    <img title="hexa" alt="" src="media/ddonpach/ddonpach_005.png"><br>
+    <br>
+    [XML]<br>
+    <div class="xml_tags">&lt;structure&gt;<br>
+      &nbsp; ...<br>
+      &nbsp; <span class="xml_focus">&lt;loop count="5"&gt;&lt;elt size="2"
+        type="int" id="MAXHIT" base="16"/&gt;&lt;/loop&gt;</span><br>
+      &nbsp; ...<br>
+      &lt;/structure&gt;<br>
+      &lt;output&gt;<br>
+      &nbsp; &lt;table&gt;<br>
+      &nbsp;&nbsp;&nbsp; ...<br>
+      &nbsp;&nbsp;&nbsp; <span class="xml_focus">&lt;column id="MAXHIT"/&gt;</span><br>
+      &nbsp; &lt;/table&gt;<br>
+      &lt;/output&gt;</div>
+    <br>
+    SPACESHIP and POWERUP are quite similar but interleaved in one loop for the
+    2 sequence of elements and stored only on 1 byte each, before MAXHIT.<br>
+    <img title="hexa" alt="" src="media/ddonpach/ddonpach_006.png"><br>
+    [XML]<br>
+    <div class="xml_tags">&lt;structure&gt;<br>
+      ...<br>
+      &lt;loop count="5"&gt;<br>
+      &nbsp; <span class="xml_focus">&lt;elt size="1" type="int"&nbsp;
+        id="SPACESHIP" base="16"/&gt;</span><br>
+      &nbsp; <span class="xml_focus2">&lt;elt size="1" type="int"&nbsp;
+        id="POWERUP"&nbsp;&nbsp; base="16"/&gt;</span><br>
+      &lt;/loop&gt;<br>
+      ...<br>
+      &lt;/structure&gt;<br>
+      <br>
+      &lt;output&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;table&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="xml_focus">&lt;column
+        id="SPACESHIP"/&gt;</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="xml_focus2">&lt;column
+        id="POWERUP"/&gt;</span><br>
+      &nbsp;&nbsp;&nbsp; &lt;/table&gt;<br>
+      &lt;/output&gt;</div>
+    <br>
+    If we want to display user-friendly information instead of integers for
+    SPACESHIP and POWERUP, let's define another format using case/src/dst list.<br>
+    [XML]<br>
+    <div class="xml_tags">&lt;output&gt;<br>
+      &nbsp; &lt;table&gt;<br>
+      &nbsp;&nbsp;&nbsp; ...<br>
+      &nbsp;&nbsp;&nbsp; &lt;column
+      id="SPACESHIP"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="xml_focus">
+        format="spaceship"</span>/&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;column
+      id="POWERUP"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+        class="xml_focus2"> format="powerup"</span>/&gt;<br>
+      &nbsp; &lt;/table&gt;<br>
+      &lt;/output&gt;<br>
+      &nbsp;<span class="xml_focus2">&lt;format id="powerup"&gt;<br>
+        &nbsp; &lt;case src="0" dst="SHOT"/&gt;<br>
+        &nbsp; &lt;case src="1" dst="LASER"/&gt;<br>
+        &lt;/format&gt;</span> <br>
+      <span class="xml_focus"> &lt;format id="spaceship"&gt;<br>
+        &nbsp; &lt;case src="0" dst="<span style="color: red;">RED</span>"/&gt;<br>
+        &nbsp; &lt;case src="1" dst="<span style="color: #3333ff;">BLUE</span>"/&gt;<br>
+        &nbsp; &lt;case src="2" dst="GREEN"/&gt;<br>
+        &lt;/format&gt;<br>
+      </span></div>
+    <span> </span><br>
+    Last data is AREA.<br>
+    The area is composed on 2 elements: the LOOP and the STAGE, located after
+    the NAMEs.<br>
+    <img title="hexa" alt="" src="media/ddonpach/ddonpach_007.png"><br>
+    <br>
+    [XML]<br>
+    <div class="xml_tags">&lt;structure&gt;<br>
+      &nbsp; ...<br>
+      &nbsp; &lt;loop count="5"&gt;<span class="xml_focus">&lt;elt size="2"
+        type="int"&nbsp; id="LOOP"/&gt;</span>&lt;/loop&gt;<br>
+      &nbsp; &lt;loop count="5"&gt;<span class="xml_focus2">&lt;elt size="2"
+        type="int"&nbsp; id="STAGE"/&gt;</span>&lt;/loop&gt;<br>
+      &nbsp; ...<br>
+      &lt;/structure&gt;</div>
+    <br>
+    The display algorithm is somewhat complicated.<br>
+    The area concatenate loop with stage through "-", only for a loop &gt; 1.<br>
+    For a loop &lt;= 1, the area is the stage.<br>
+    Also, if all loops and stage have been completed, the game display "ALL"
+    instead of "&lt;loop&gt;-&lt;stage&gt;"<br>
+    <br>
+    So, first, the column AREA will uses 2 formats, sequentially.<br>
+    One ("area") to concatenate loop and stage and one ("area_all") to handle
+    the specific case "ALL".<br>
+    [XML]<br>
+    <div class="xml_tags">&lt;output&gt;<br>
+      &nbsp; &lt;table&gt;<br>
+      &nbsp;&nbsp;&nbsp; ...<br>
+      &nbsp;&nbsp;&nbsp; &lt;column id="AREA" format="<span class="xml_focus">area</span>;<span
+        class="xml_focus2">area_all</span>"/&gt;<br>
+      &nbsp;&nbsp;&nbsp; ...<br>
+      &nbsp; &lt;/table&gt;<br>
+      &lt;/output&gt;<br>
+      <span class="xml_focus">&lt;format id="area"&gt;<br>
+        &nbsp; &lt;concat&gt;<br>
+        &nbsp;&nbsp;&nbsp; &lt;column id="LOOP"&nbsp;
+        format="default_loop;-"/&gt;<br>
+        &nbsp;&nbsp;&nbsp; &lt;column id="STAGE" format="default_stage"/&gt;<br>
+        &nbsp; &lt;/concat&gt;<br>
+        &lt;/format&gt;</span> <br>
+      <span class="xml_focus2">&lt;format id="area_all"&gt;&lt;case src="254-7"
+        dst="ALL"/&gt;&lt;/format&gt;</span></div>
+    <br>
+    The LOOP part will also use 2 formats: one to ignore loop value &lt; 1
+    ("default_loop") and one ("-") to append a suffix to the loop, if the loop
+    value if not empty.<br>
+    [XML]<br>
+    <div class="xml_tags">
+      <div class="xml_focus">&lt;format id="default_loop"&gt;<br>
+        &nbsp; &lt;case src="0" dst=""/&gt;<br>
+        &nbsp; &lt;case src="1" dst=""/&gt;<br>
+        &lt;/format&gt;</div>
+      <div class="xml_focus2">&lt;format
+        id="-"&gt;&lt;suffix&gt;-&lt;/suffix&gt;&lt;/format&gt;</div>
+    </div>
+    <br>
+    The STAGE will just handle a default value if value is 0.<br>
+    [XML]<br>
+    <div class="xml_tags">&lt;format id="default_stage"&gt;&lt;case src="0"
+      dst="1"/&gt;&lt;/format&gt;</div>
+    <br>
+    Finally, 4 bytes remain at the end of the file, modified each time a new
+    high score is put at the top.<br>
+    So, we have here an element storing the TOP SCORE (= SCORE index 0 in the
+    scores array).<br>
+    This data can be displayed as an extra field, only visible when all data are
+    requested (-ra), to let the default output be simple as possible.<br>
+    <br>
+    [XML]<br>
+    <div class="xml_tags">&lt;structure&gt;<br>
+      ...<br>
+      &nbsp; <span class="xml_focus">&lt;elt size="4" type="int" id="TOP SCORE"
+        base="16"/&gt;</span><br>
+      &lt;/structure&gt;<br>
+      &lt;output&gt;<br>
+      &nbsp; ...<br>
+      &nbsp; <span class="xml_focus">&lt;field id="TOP SCORE" format="*10" <span
+          class="xml_focus2">display="extra"</span>/&gt;</span><br>
+      &lt;/output&gt;</div>
+    <br>
+    Seeing the top score, we should expect to have an additional array of 5*2
+    bytes defining the last part of the score.<br>
+    So, we can assume that the hiscore.dat location is not accurate enough and
+    miss to store the full top score...<br>
+    <br>
+    And that's it! The full XML description has been put on the table.<br>
+    [XML]<br>
+    <div class="xml_tags">&lt;?xml version="1.0" encoding="utf-8"
+      standalone="no"?&gt;<br>
+      &lt;!DOCTYPE hi2txt SYSTEM "hi2txt.dtd"&gt;<br>
+      &lt;hi2txt&gt;<br>
+      &nbsp; &lt;structure file=".hi"&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;check&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;!-- optional: if defined and
+      hiscore.dat provided, it allows to select the good structure version the
+      provided file //--&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;definition&gt;0:1016ea:64:00:05<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      0:101626:4:00:06&lt;/definition&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;!-- optional: if defined, it allows to
+      select the good structure version the provided file<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      useful if multiple structures are defined, but hiscore.dat not provided
+      //--&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;size&gt;104&lt;/size&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;/check&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;loop count="5"&gt;&lt;elt size="4" type="int"&nbsp;
+      id="SCORE1"&nbsp;&nbsp;&nbsp; base="16"/&gt;&lt;/loop&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;loop count="5"&gt;&lt;elt size="6" type="text"
+      id="NAME"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; byte-skip="odd" ascii-step="4"
+      ascii-offset="32" charset="ddonpach"/&gt;&lt;/loop&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;loop count="5"&gt;&lt;elt size="2" type="int"&nbsp;
+      id="LOOP"/&gt;&lt;/loop&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;loop count="5"&gt;&lt;elt size="2" type="int"&nbsp;
+      id="STAGE"/&gt;&lt;/loop&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;loop count="5"&gt;&lt;elt size="1" type="int"&nbsp;
+      id="SPACESHIP" base="16"/&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &lt;elt size="1" type="int"&nbsp; id="POWERUP"&nbsp;&nbsp;
+      base="16"/&gt;&lt;/loop&gt;&nbsp;&nbsp;&nbsp; <br>
+      &nbsp;&nbsp;&nbsp; &lt;loop count="5"&gt;&lt;elt size="2" type="int"&nbsp;
+      id="MAXHIT"&nbsp;&nbsp;&nbsp; base="16"/&gt;&lt;/loop&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;loop count="5"&gt;&lt;elt size="2" type="int"&nbsp;
+      id="SCORE2"&nbsp;&nbsp;&nbsp; base="16"/&gt;&lt;/loop&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &lt;elt size="4" type="int"&nbsp; id="TOP SCORE" base="16"/&gt;<br>
+      &nbsp; &lt;/structure&gt;<br>
+      &nbsp;&nbsp;&nbsp; <br>
+      &nbsp; &lt;output&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;table&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;column id="RANK" src="index"
+      format="+1"/&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;column
+      id="SCORE"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      format="score"/&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;column id="NAME"/&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;column
+      id="AREA"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      format="area;area_all"/&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;column
+      id="SPACESHIP"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      format="spaceship"/&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;column
+      id="POWERUP"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      format="powerup"/&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;column id="MAXHIT"/&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;/table&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;field id="TOP SCORE" format="*10"
+      display="extra"/&gt;<br>
+      &nbsp; &lt;/output&gt;<br>
+      &nbsp;&nbsp;&nbsp; <br>
+      &nbsp; &lt;format id="+1"&gt;&lt;add&gt;1&lt;/add&gt;&lt;/format&gt;
+      &lt;!-- not strictly necessary //--&gt;<br>
+      &nbsp; &lt;format
+      id="*10"&gt;&lt;multiply&gt;10&lt;/multiply&gt;&lt;/format&gt; &lt;!-- not
+      strictly necessary //--&gt;<br>
+      &nbsp; &lt;format id="score"&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;sum&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;column id="SCORE1" format="*10"/&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;column id="SCORE2"/&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;/sum&gt;<br>
+      &nbsp; &lt;/format&gt;<br>
+      &nbsp; &lt;format id="default_loop"&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;case src="0" dst=""/&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;case src="1" dst=""/&gt;<br>
+      &nbsp; &lt;/format&gt;<br>
+      &nbsp; &lt;format id="-"&gt;&lt;suffix&gt;-&lt;/suffix&gt;&lt;/format&gt;<br>
+      &nbsp; &lt;format id="default_stage"&gt;&lt;case src="0"
+      dst="1"/&gt;&lt;/format&gt;<br>
+      &nbsp; &lt;format id="area"&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;concat&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;column id="LOOP"&nbsp;
+      format="default_loop;-"/&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;column id="STAGE"
+      format="default_stage"/&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;/concat&gt;<br>
+      &nbsp; &lt;/format&gt;<br>
+      &nbsp; &lt;format id="area_all"&gt;&lt;case src="254-7"
+      dst="ALL"/&gt;&lt;/format&gt;<br>
+      &nbsp; &lt;format id="powerup"&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;case src="0" dst="SHOT"/&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;case src="1" dst="LASER"/&gt;<br>
+      &nbsp; &lt;/format&gt;<br>
+      &nbsp; &lt;format id="spaceship"&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;case src="0" dst="RED"/&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;case src="1" dst="BLUE"/&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;case src="2" dst="GREEN"/&gt;<br>
+      &nbsp; &lt;/format&gt;<br>
+      &nbsp; <br>
+      &nbsp; &lt;charset id="ddonpach"&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;char src="0x00" dst=" "/&gt;<br>
+      &nbsp;&nbsp;&nbsp; &lt;char src="0x38" dst="."/&gt;<br>
+      &nbsp; &lt;/charset&gt;<br>
+      &lt;/hi2txt&gt;</div>
+    <br>
+    When hi2txt will decode these high scores, the output will be something like
+    this:<br>
+    <div class="xml_tags">RANK|SCORE|NAME|AREA|SPACESHIP|POWERUP|MAXHIT<br>
+      1|468395520|PIE|ALL|RED|SHOT|359<br>
+      2|5908065|OSD|1|BLUE|LASER|96<br>
+      3|5637680|PIE|2-3|GREEN|SHOT|139<br>
+      4|5544337|H.S|1|BLUE|LASER|96<br>
+      5|3027206|PIE|5|RED|SHOT|170<br>
+      <br>
+      TOP SCORE<br>
+      468395520</div>
+    <br>
+    And a front-end can then easily display (with some fancy colors):<br>
+    <span class="xml_tags">RANK&nbsp;&nbsp;&nbsp;&nbsp; SCORE NAME AREA
+      SPACESHIP POWERUP MAXHIT<br>
+      &nbsp;&nbsp; 1 468395520&nbsp; PIE&nbsp;
+      ALL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RED&nbsp;&nbsp;&nbsp;
+      SHOT&nbsp;&nbsp;&nbsp; 359<br>
+      &nbsp;&nbsp; 2&nbsp;&nbsp; 5908065&nbsp; OSD&nbsp;&nbsp;&nbsp;
+      1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BLUE&nbsp;&nbsp; LASER &nbsp; &nbsp; 96<br>
+      &nbsp;&nbsp; 3&nbsp;&nbsp; 5637680&nbsp; PIE&nbsp;
+      2-3&nbsp;&nbsp;&nbsp;&nbsp; GREEN&nbsp;&nbsp;&nbsp; SHOT&nbsp;&nbsp;&nbsp;
+      139<br>
+      &nbsp;&nbsp; 4&nbsp;&nbsp; 5544337&nbsp; H.S&nbsp;&nbsp;&nbsp; 1 &nbsp;
+      &nbsp;&nbsp; BLUE&nbsp;&nbsp; LASER&nbsp;&nbsp;&nbsp;&nbsp; 96<br>
+      &nbsp;&nbsp; 5&nbsp;&nbsp; 3027206&nbsp; PIE&nbsp;&nbsp;&nbsp;
+      5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RED&nbsp;&nbsp;&nbsp;
+      SHOT&nbsp;&nbsp;&nbsp; 170<br>
+    </span><br>
+  </body>
+</html>

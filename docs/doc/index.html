@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type"
+  content="application/xhtml+xml; charset=iso-8859-1" />
+  <title>hi2txt: overview</title>
+  <script type="text/javascript" src="../ua.js">
+  </script>
+  <meta name="generator" content="Amaya, see http://www.w3.org/Amaya/" />
+  <style type="text/css">
+ .section {  
+  
+}
+
+ .section_title {
+  font-weight: bold;
+}</style>
+</head>
+
+<body>
+<h2 style=" text-align: center;"><span style="font-weight: bold;">hi2txt
+Overview</span></h2>
+
+<p><a href="#introduction">Introduction</a><br />
+<a href="#highscores">What are high scores?</a><br />
+<a href="#usage">How to read high scores from a mame installation?</a><br />
+<a href="#newgame">How to support a new game? </a><br />
+<a href="xml.html">XML description reference </a><br />
+<a href="#examples">Step-by-step examples</a><br />
+<a href="help.html">It doesn't work...</a><br />
+<a href="#contact">Contact</a><br />
+</p>
+
+<div class="section">
+
+<div class="section_title">
+<p></p>
+
+<p>Introduction</p>
+</div>
+
+<p style="text-align: justify;">hi2txt allows to convert mame (and similar
+emulators) high scores files (hi/nvram binary files) into readable text files,
+targeting integration into third party software like frontend (see below
+screenshot), or centralized leaderboard sharing friends score.</p>
+
+<p>It is written either in Java 7+ or either in CSharp (dotNET 4.5+), depending
+on the version you choose.</p>
+
+<p></p>
+
+<p><img alt="frontend" src="media/frontend.png" width="960" height="540" /></p>
+
+<p></p>
+
+<p style="text-align: justify;">The functionality is completely inspired from
+the hitotext tool created by Fyrecrypts, even if all the code have been written
+from scratch, as well as the XML syntax. A huge thanks to all these guys for
+the unbelievable amount of work achieved by decoding many many many games
+hiscores! Note that hi2txt doesn't allow writing/formating hiscores at all,
+which remains an exclusive feature of hitotext :)</p>
+
+<p style="text-align: justify;">Why another tool? First, for my own pleasure as
+a hobbyist, allowing high scores display in my personal mame cabinet front-end
+and increasing my programming skills. Then because high score competition is
+the heart of Arcade games along with 1-CC! Finally to learn from the experience
+of hitotext, keeping this wonderful functionality alive.</p>
+<ul>
+  <li>No game-specific decoding algorithm hard-coded</li>
+  <li>Fully scriptable using XML and a flexible syntax</li>
+  <li>Easy update: one XML description file per game</li>
+  <li>Automatic decoding selection if different hiscores structure for the same
+    game</li>
+  <li>Big integer support for very high high score</li>
+  <li>Read high scores (<span style="text-decoration: line-through;">no
+    Write</span>)</li>
+</ul>
+
+<p>If you appreciate the tool, all possible help to support more games and
+suggest new features, is warmly welcome, or at least a little thank you !<br />
+This software is dual-licensed as postcard-ware and screenshot-ware: either
+send me a postcard from your town and/or a screenshot of your high scores
+displayed using hi2txt on your Cab/PC/whatever :)<br />
+(see '<a href="#contact">Contact</a>' section)</p>
+</div>
+
+<div class="section">
+
+<div class="section_title">
+<p></p>
+
+<p>What are high scores?</p>
+</div>
+
+<p><span style="text-decoration: underline;">Native high scores</span><br />
+Mame is a game emulator<br />
+It is working with ROMs of the supported games<br />
+If a game has a native support for saving high scores, mame saves them inside
+the related nvram file (non volative random access memory)<br />
+     <code>mame/nvram/&lt;game&gt;/&lt;nvram_file&gt;</code><br />
+Iif a game doesn't natively support high scores saving... the high scores are
+not saved :)</p>
+
+<p><span style="text-decoration: underline;">Unofficial high scores</span><br />
+Saving high scores for these games is a non standard feature, not supported
+officially by mame<br />
+To activate it:</p>
+<ul>
+  <li>get a derivative builds of mame compiled with the hiscores patch</li>
+  <li>get a hiscore.dat file describing to the mame patch, for each supported
+    game, where is the memory location to read/write to save/load hiscores</li>
+  <li>put the hiscore.dat file in the same directory than mame executable</li>
+</ul>
+
+<p>Alternatively, from native mame 0.172+, a hiscore plugin is embedded and is
+compatible with hi2txt 1.7+.</p>
+
+<p>Iin this case, mame saves the high scores inside the related hi file<br />
+    <code>mame/hi/&lt;game&gt;/&lt;game&gt;.hi</code><br />
+Note that hiscore.dat file doesn't support yet all mame games</p>
+
+<p><span style="text-decoration: underline;">Reading high scores</span><br />
+High scores in nvram and hi files are stored using game-specific format<br />
+A specific description of the nvram/hi files content is needed to understand
+how the high scores are stored and consequently display them is user-friendly
+format like text<br />
+A game supported by hi2txt means that a specific description exists<br />
+    <code>hi2txt/db/&lt;game&gt;.xml</code><br />
+Note that hi2txt doesn't support yet all hiscore.dat games</p>
+
+<p><br />
+</p>
+</div>
+
+<div class="section">
+
+<div class="section_title">
+<a name="usage"></a>How to read high scores from a mame installation?</div>
+
+<p><span style="text-decoration: underline;">Task</span>: <span
+style="font-weight: bold;">extract hiscores in text format</span><br />
+<code>hi2txt.bat -hiscoredat &lt;hiscore.dat_file&gt; [-descr
+&lt;descriptions_directory&gt;] [-trace | -notrace] -r &lt;hi_file_path&gt;<br
+/>
+  ex: hi2txt.bat -hiscoredat &lt;mame_installation&gt;/hiscore.dat -r
+&lt;mame_installation&gt;/hi/ddonpach<br />
+  output example:<br />
+RANK|SCORE|NAME|AREA|SPACESHIP|POWERUP|MAXHIT<br />
+1|468395520|PIE|ALL|RED|SHOT|359<br />
+2|5908065|OSD|1|BLUE|LASER|96<br />
+3|5637680|PIE|2-3|GREEN|SHOT|139<br />
+4|5544337|H.S|1|BLUE|LASER|96<br />
+5|3027206|PIE|5|RED|SHOT|170<br />
+</code><br />
+<span style="text-decoration: underline;">Task</span>: <span
+style="font-weight: bold;">extract hiscores and extra data in text
+format</span><br />
+<code>hi2txt.bat -hiscoredat &lt;hiscore.dat_file&gt; [-descr
+&lt;descriptions_directory&gt;] [-trace | -notrace] -ra &lt;hi_file_path&gt;<br
+/>
+  ex: hi2txt.bat -hiscoredat &lt;mame_installation&gt;/hiscore.dat -ra
+&lt;mame_installation&gt;/hi/ddonpach<br />
+  output example:<br />
+RANK|SCORE|NAME|AREA|SPACESHIP|POWERUP|MAXHIT<br />
+1|468395520|PIE|ALL|RED|SHOT|359<br />
+2|5908065|OSD|1|BLUE|LASER|96<br />
+3|5637680|PIE|2-3|GREEN|SHOT|139<br />
+4|5544337|H.S|1|BLUE|LASER|96<br />
+5|3027206|PIE|5|RED|SHOT|170<br />
+<br />
+TOP SCORE<br />
+468395520<br />
+</code><br />
+<span style="text-decoration: underline;">Task</span>: <span
+style="font-weight: bold;">list supported games</span><br />
+<code>hi2txt.bat [-descr &lt;descriptions_directory&gt;] -l
+[-location]</code><br />
+<br />
+<span style="text-decoration: underline;">Task</span>: <span
+style="font-weight: bold;">get version</span><br />
+<code>hi2txt.bat -v</code><br />
+<br />
+<span style="text-decoration: underline;">Task</span>: <span
+style="font-weight: bold;">get help</span><br />
+<code>hi2txt.bat -h</code><br />
+<br />
+<a href="usage.html">all command-line parameters</a></p>
+
+<p><br />
+</p>
+</div>
+
+<div class="section">
+
+<div class="section_title">
+<a name="newgame"></a>How to support a new game?</div>
+
+<p>A new xml description file must be added into the description database.<br />
+This description needs to describe how to extract the meaningful data in text
+format from the game related hi and/or nvram files.<br />
+The description language is in xml, using specific tags.</p>
+
+<p>Recommended methodology to build a hiscores description:</p>
+<ul>
+  <li><span style="font-weight: bold;">run </span>the game in the emulator</li>
+  <li>wait for the high scores table display and take a <span
+    style="font-weight: bold;">screenshot </span>(F12 by default) 
+    <ul>
+      <li>for some games, you can display multiple high scores tables: try to
+        hit BUTTON1, LEFT, RIGHT, TOP, BOTTOM to display all of them</li>
+    </ul>
+  </li>
+  <li>if no relevant high scores yet, <span style="font-weight: bold;">play
+    </span>the game a couple of times to add some high scores</li>
+  <li>if it is too hard to have a high scores, <span
+    style="font-weight: bold;">cheat</span>.dat support is your friend 
+    <ul>
+      <li>get cheat.7z and put it in the same directory than the emulator
+        executable, in compressed format</li>
+      <li>activate cheat in mame.ini (cheat 1)</li>
+      <li>mame.ini can be created by running mame.exe -cc</li>
+      <li>when playing the game, open settings (TAB) and go to the cheat
+        section to activate the cheat you need</li>
+    </ul>
+  </li>
+  <li>if it is too long to wait for the high scores table display, or to
+    conclude a play, <span style="font-weight: bold;">increase emulation
+    speed</span> (F10 by default)</li>
+  <li><span style="font-weight: bold;">quit</span> the emulator</li>
+  <li>a hi and/or nvram file should have been <span
+    style="font-weight: bold;">created </span>in the related directories of the
+    emulator</li>
+  <li>the hi/nvram file must <span style="font-weight: bold;">matches</span>
+    the screenshot, allowing you to validate what you try to extract</li>
+  <li><span style="font-weight: bold;">understand </span>how the data are
+    stored in the hi/nvram file</li>
+  <li><span style="font-weight: bold;">describe</span> the data, from the
+    template in &lt;hi2txt&gt;/db/_template.xml, using syntax described in the
+    XML description reference (see link below)</li>
+</ul>
+
+<p><br />
+</p>
+</div>
+
+<div class="section">
+
+<div class="section_title">
+<a id="xml" href="xml.html">XML description reference</a><br />
+<br />
+<br />
+</div>
+</div>
+
+<div class="section">
+
+<div class="section_title">
+<a name="examples"></a>Step-by-step examples</div>
+<ul>
+  <li><a href="ex_ddonpach.html">dodonpachi</a></li>
+  <li><a href="ex_astdelux.html" title="astdelux">astdelux</a></li>
+  <li>...</li>
+</ul>
+</div>
+<br />
+
+
+<div class="section">
+
+<div class="section_title">
+<a name="contact"></a>Contact</div>
+
+<p>hi2txt at free.fr</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=windows-1252" http-equiv="content-type">
+  <title>hi2txt: it doesn't work</title>
+  <script type="text/javascript" src="../ua.js">
+ </script>
+</head>
+
+<body>
+
+<h1 style="text-align: center; ">
+  It doesn't&nbsp;work&nbsp;:(<br /></h1>
+<p>When<span style="font-size: 14.4px;">&nbsp;extracting&nbsp;</span>hiscores<span style="font-size: 14.4px;">&nbsp;</span>is<span style="font-size: 14.4px;">&nbsp;</span>not<span style="font-size: 14.4px;"> </span>working<span style="font-size: 14.4px;">&nbsp;as </span>expected<span style="font-size: 14.4px;">, let's do </span>some<span style="font-size: 14.4px;"> </span>debugging<span style="font-size: 14.4px;"> </span>together<span style="font-size: 14.4px;">.</span></p>
+<p><span style="font-size: 14.4px;">Note that&nbsp;I cannot&nbsp;debug&nbsp;an issue if a testcase cannot&nbsp;be provided&nbsp;outside&nbsp;of a potential&nbsp;external&nbsp;tool&nbsp;calling&nbsp;hi2txt utility.</span><br /></p>
+<p><strong><br /></strong></p>
+<p><strong>Step&nbsp;1: understand the&nbsp;basic</strong></p>
+<p>hi2txt decodes&nbsp;game&nbsp;hiscores,&nbsp;taking&nbsp;them from&nbsp;a file generated:</p>
+<ul>
+  <li>either&nbsp;natively&nbsp;by&nbsp;mame (nvram), often&nbsp;into&nbsp;&lt;your_mame_install_path&gt;\nvram\&lt;game&gt;\&lt;some files with&nbsp;hiscores&nbsp;burried inside&gt;</li>
+  <li>either&nbsp;by&nbsp;a LUA plugin (hiscore), relying&nbsp;on a file describing&nbsp;where the&nbsp;scores are stored&nbsp;inside&nbsp;the&nbsp;in-game memory&nbsp;during a play: hiscore.dat&nbsp;file, maintained by&nbsp;Leezer, producing a ".hi"&nbsp;file, often&nbsp;into&nbsp;&lt;your_mame_install_path&gt;\hi\&lt;game&gt;.hi</li>
+</ul>
+<p><span style="font-size: 14.4px;">hi2txt also needs a description of&nbsp;the&nbsp;score file content itself to decode&nbsp;it, provided by&nbsp;hi2txt.zip&nbsp;companion, where&nbsp;is stored&nbsp;all&nbsp;games&nbsp;hiscores&nbsp;file descriptions (hit2txt.zip&nbsp;-&gt; &lt;game&gt;.xml).</span></p>
+<p><span style="font-size: 14.4px;">hi2txt checks&nbsp;that&nbsp;&lt;game&gt;.xml content description is&nbsp;matching hiscore.dat&nbsp;memory&nbsp;location (address, size, etc.) as hiscore.dat&nbsp;can&nbsp;be updated&nbsp;by&nbsp;Leezer&nbsp;to&nbsp;better&nbsp;dump&nbsp;hiscores, and hi2txt must adapt in this case.</span></p>
+<p><span style="font-size: 14.4px;">Still&nbsp;with&nbsp;me?</span></p>
+<p><span style="font-size: 14.4px;"></span><br /></p>
+<p></p>
+<p><strong>Step<span style="font-size: 14.4px;">&nbsp;2:&nbsp;</span>locate<span style="font-size: 14.4px;">&nbsp;</span>all<span style="font-size: 14.4px;"> </span>the<span style="font-size: 14.4px;"> parts, </span>outside<span style="font-size: 14.4px;">&nbsp;</span>of<span style="font-size: 14.4px;">&nbsp;an&nbsp;</span>external<span style="font-size: 14.4px;">&nbsp;software </span>calling<span style="font-size: 14.4px;"> hi2txt</span></strong><br /></p>
+<ul>
+  <li>Locate&nbsp;hi2txt tool: hi2txt.exe&nbsp;or hi2txt.bat (let's call it &lt;your_hi2txt_install_path&gt;)</li>
+  <li>Locate&nbsp;hi2txt game&nbsp;hiscores&nbsp;file content descriptions: hi2txt.zip&nbsp;(often&nbsp;inside &lt;your_hi2txt_install_path&gt;/hi2txt.zip)<br /></li>
+  <li>Locate&nbsp;mame&nbsp;used&nbsp;(let'is call&nbsp;it &lt;your_mame_install_path&gt;)</li>
+  <li>Locate&nbsp;hiscore.dat&nbsp;file used&nbsp;(often&nbsp;inside&nbsp;&lt;your_mame_install_path&gt;/plugins/hiscore/hiscore.dat)</li>
+  <li>Locate&nbsp;the&nbsp;game&nbsp;hiscores files (often&nbsp;inside&nbsp;&lt;your_mame_install_path&gt;/hi/&lt;game&gt;.hi&nbsp;or&nbsp;&lt;your_mame_install_path&gt;/nvram/&lt;game&gt;/...)<br /></li>
+</ul>
+<p><strong><br /></strong></p>
+<p><strong>Step&nbsp;3: be&nbsp;sure that&nbsp;hiscores&nbsp;can&nbsp;be&nbsp;saved by&nbsp;mame
+</strong>
+  <br /></p>
+<ul>
+  <li>you&nbsp;found a hiscore&nbsp;plugin, along with&nbsp;a&nbsp;hiscore.dat&nbsp;file, inside&nbsp;your mame&nbsp;installation</li>
+  <li>&lt;your_mame_install_path&gt;/mame.ini:&nbsp;plugins 1</li>
+  <li>&lt;your_mame_install_path&gt;/mame.ini:&nbsp;nvram_directory nvram</li>
+  <li>&lt;your_mame_install_path&gt;/plugin.ini:&nbsp;hiscore 1</li>
+</ul>
+<p><strong><br /></strong></p>
+<p><strong>Step&nbsp;4: be&nbsp;sure that&nbsp;this&nbsp;game&nbsp;hiscores&nbsp;can&nbsp;be&nbsp;decoded&nbsp;by&nbsp;hi2txt</strong><br /></p>
+<ul>
+  <li>you&nbsp;found&nbsp;the installed&nbsp;hi2txt utility&nbsp;</li>
+  <li>hi2txt utility&nbsp;is&nbsp;supporting&nbsp;the&nbsp;game:
+    <ul>
+      <li>open a Windows command&nbsp;prompt or a Windows powershell</li>
+      <li>list all&nbsp;supported games&nbsp;and check&nbsp;if yours is&nbsp;here: &lt;your_hi2txt_install_path&gt;/hi2txt.exe&nbsp;-l</li>
+      <li>... or directly pipe it&nbsp;to&nbsp;"find" command: &lt;your_hi2txt_install_path&gt;/hi2txt.exe&nbsp;-l | find '"donpachi"'</li>
+    </ul>
+  </li>
+</ul>
+<p><strong><br /></strong></p>
+<p><strong>Step&nbsp;5: call&nbsp;the&nbsp;hiscores&nbsp;decoding yourself</strong></p>
+<p>&lt;your_hi2txt_install_path&gt;/hi2txt.exe&nbsp;-hiscoredat&nbsp;&lt;your_mame_install_path&gt;/plugins/hiscore/hiscore.dat&nbsp;-r&nbsp;&lt;your_mame_install_path&gt;/hi/&lt;game&gt;</p>
+<p>activate debug mode:</p>
+<p>&lt;your_hi2txt_install_path&gt;/hi2txt.exe&nbsp;-hiscoredat&nbsp;&lt;your_mame_install_path&gt;/plugins/hiscore/hiscore.dat&nbsp;-rd &lt;your_mame_install_path&gt;/hi/&lt;game&gt;</p>
+<p><strong><br /></strong></p>
+<p><strong>Step&nbsp;6: known problems and solutions</strong></p>
+<ul>
+  <li>there is&nbsp;already a&nbsp;.hi&nbsp;file written with&nbsp;a different&nbsp;hiscore.dat&nbsp;file and the&nbsp;new one&nbsp;is&nbsp;trying to&nbsp;read/write&nbsp;the .hi&nbsp;file but with&nbsp;a new&nbsp;size, preventing&nbsp;the&nbsp;hiscore&nbsp;plugin&nbsp;to&nbsp;work&nbsp;for this game
+    <ul>
+      <li>solution: delete this&nbsp;.hi&nbsp;file (but you&nbsp;will&nbsp;lose&nbsp;your&nbsp;hiscores...)<br /></li>
+    </ul>
+  </li>
+  <li>mame&nbsp;version is&nbsp;too&nbsp;old
+    <ul>
+      <li>solution: update to&nbsp;latest&nbsp;mame&nbsp;(ex: 0.219)<br /></li>
+    </ul>
+  </li>
+  <li>mame&nbsp;version is&nbsp;too&nbsp;recent and some&nbsp;changes have not&nbsp;yet&nbsp;been&nbsp;supported&nbsp;by&nbsp;hi2txt
+    <ul>
+      <li>solution: report the&nbsp;issue (see step&nbsp;7) and I will&nbsp;try&nbsp;to&nbsp;support the&nbsp;game</li>
+    </ul>
+  </li>
+  <li>hiscore.dat&nbsp;is&nbsp;too&nbsp;old&nbsp;and game&nbsp;memory location is&nbsp;not&nbsp;supported&nbsp;by&nbsp;hi2txt
+    <ul>
+      <li>solution: report the&nbsp;issue (see step&nbsp;7) and I will&nbsp;try&nbsp;to&nbsp;support the&nbsp;game
+
+        <br /></li>
+    </ul>
+  </li>
+  <li>hiscore.dat&nbsp;is&nbsp;too&nbsp;recent and some&nbsp;changes have not&nbsp;yet&nbsp;been&nbsp;supported&nbsp;by&nbsp;hi2txt
+    <ul>
+      <li>solution: report the&nbsp;issue (see step&nbsp;7) and I will&nbsp;try&nbsp;to&nbsp;support the&nbsp;game<br /></li>
+    </ul>
+  </li>
+  <li>hiscore plugin&nbsp;is&nbsp;not&nbsp;activated in mame&nbsp;configuration
+    <ul>
+      <li>solution:&nbsp;activate the&nbsp;plugin&nbsp;(sees tep&nbsp;3)</li>
+    </ul>
+  </li>
+  <li>hi2txt.zip&nbsp;is&nbsp;too&nbsp;old&nbsp;for the&nbsp;mame&nbsp;installation
+    <ul>
+      <li>solution: install the latest&nbsp;hi2txt release<br /></li>
+    </ul>
+  </li>
+  <li>hi2txt.zip&nbsp;contains a buggy xml&nbsp;description to&nbsp;decode&nbsp;this&nbsp;game
+    <ul>
+      <li>solution: report the&nbsp;issue (see step&nbsp;7) and I will&nbsp;try&nbsp;to&nbsp;support the&nbsp;game<br /></li>
+    </ul>
+  </li>
+  <li>hi2txt.exe&nbsp;utility&nbsp;has a bug
+    <ul>
+      <li>solution: report the&nbsp;issue (see step&nbsp;7) and I will&nbsp;try&nbsp;to&nbsp;support the&nbsp;game
+
+        <br /></li>
+    </ul>
+  </li>
+  <li>the&nbsp;game is&nbsp;not&nbsp;yet&nbsp;supported&nbsp;by&nbsp;hiscore.dat&nbsp;file (no entry&nbsp;for the&nbsp;game&nbsp;inside)
+    <ul>
+      <li>ask&nbsp;to&nbsp;Leezer&nbsp;if he can&nbsp;support it</li>
+    </ul>
+  </li>
+  <li>the&nbsp;game&nbsp;is&nbsp;not&nbsp;yet&nbsp;supported&nbsp;by&nbsp;hi2txt utility
+    <ul>
+      <li>solution: ask&nbsp;and I will&nbsp;try&nbsp;to&nbsp;support the&nbsp;game
+
+      </li>
+    </ul>
+  </li>
+</ul>
+<p><strong><br /></strong></p>
+<p><strong>Step&nbsp;7: report the&nbsp;issue</strong></p>
+<p>In case you&nbsp;cannot see the&nbsp;scores, but you&nbsp;think&nbsp;you&nbsp;should, please&nbsp;report me (<b>hi2txt AT free.fr</b>) the&nbsp;issue with&nbsp;the&nbsp;following&nbsp;information:</p>
+<ol>
+  <li>email title: [issue] &lt;game&gt;</li>
+  <li>mame&nbsp;release (official/non-official? version? where&nbsp;can&nbsp;I download&nbsp;it&nbsp;if not&nbsp;the official&nbsp;one?)</li>
+  <li>attach<span style="font-size: 14.4px;">&nbsp;</span>the<span style="font-size: 14.4px;">&nbsp;</span>hiscore<span style="font-size: 14.4px;">.</span>dat<span style="font-size: 14.4px;">&nbsp;file if possible</span><br /></li>
+  <li>attach<span style="font-size: 14.4px;">&nbsp;</span>the<span style="font-size: 14.4px;">&nbsp;</span>game<span style="font-size: 14.4px;">&nbsp;.</span>hi<span style="font-size: 14.4px;"> file or </span>nvram<span style="font-size: 14.4px;">&nbsp;file if possible</span><br /></li>
+  <li>hi2txt version (displayed&nbsp;from&nbsp;"hi2txt.exe&nbsp;-v" command)
+
+  </li>
+  <li>in case of&nbsp;a modified&nbsp;hi2txt.zip, attach&nbsp;the&nbsp;game.xml taken&nbsp;from&nbsp;this&nbsp;zip&nbsp;if possible</li>
+  <li>what&nbsp;hiscores&nbsp;you&nbsp;expect to&nbsp;see&nbsp;from&nbsp;hi2txt
+
+  </li>
+  <li>what&nbsp;hiscores&nbsp;you&nbsp;get&nbsp;from&nbsp;hi2txt</li>
+  <li>attach&nbsp;the&nbsp;output&nbsp;of&nbsp;hi2txt.exe&nbsp;with&nbsp;the&nbsp;debug&nbsp;mode activated</li>
+</ol>
+<p>The&nbsp;more you&nbsp;provide, the&nbsp;easier&nbsp;it&nbsp;will&nbsp;be&nbsp;to&nbsp;help&nbsp;you.</p>
+<p><br /></p>
+<p>Cheers,</p>
+<p>GreatStone.</p>
+
+</body>
+</html>

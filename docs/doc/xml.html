@@ -1,0 +1,2866 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=windows-1252" http-equiv="content-type">
+  <title>hi2txt: XML description reference</title>
+  <script type="text/javascript" src="../ua.js">
+ </script>
+  <style type="text/css">
+ .parameter_example {  
+  background-color: #ffff99;  
+  font-family: "Courier New", Courier, monospace;  
+  padding-top: 4px;  
+  padding-right: 4px;  
+  padding-bottom: 4px;  
+  padding-left: 4px;
+}
+
+ .parameter {  
+  padding-top: 4px;  
+  padding-right: 0px;  
+  padding-bottom: 4px;  
+  padding-left: 8px;
+}
+
+ .parameter_syntax {  
+  font-weight: bold;
+}
+
+ .parameter_example_focus {  
+  font-weight: bold;  
+  color: #009900;
+}
+
+ .parameter_example_focus2 {  
+  font-weight: bold;  
+  color: #0000FF;
+}
+
+ .xml_tags {  
+  font-family: "Courier New", Courier, monospace;
+}
+
+ .xml_focus {  
+  font-weight: bold;  
+  color: #009900;
+}
+
+ .navigation_title {  
+  font-weight: bold;
+  padding-bottom: 13px;
+}
+
+ .navigation_box {  
+  border-top-width: 1px;  
+  border-right-width: 1px;  
+  border-bottom-width: 1px;  
+  border-left-width: 1px;  
+  border-top-style: solid;  
+  border-right-style: solid;  
+  border-bottom-style: solid;  
+  border-left-style: solid;  
+  background-color: #ffffcc;
+  padding-left: 13px;
+  padding-right: 13px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+}
+ .since {
+  color: #C0C0C0;
+}
+  </style>
+</head>
+
+<body>
+<h2 style="text-align: center;"><span style="font-weight: bold;">XML
+description reference</span> <span class="since">[version 1.9]</span></h2>
+
+<div class="navigation_box">
+
+<div class="navigation_title">
+Quick navigation<br>
+</div>
+
+<div>
+</div>
+
+<div>
+<span style="color: #33cc00;">structure</span> @<a style="color: #33cc00;"
+href="#tag_structure_file">file</a> @<a style="color: #33cc00;"
+href="#tag_structure_byteswap">byte-swap</a> @<a style="color: #33cc00;"
+href="#tag_structure_output">output</a> 
+
+<p><span style="color: #33cc00;"><a href="#tag_check"></a>structure</span> &gt;
+<a style="color:#ff8000" href="#tag_check">check</a> &gt; <a
+style="color:#ff8000" href="#tag_check_definition">definition</a>*, <a
+style="color:#ff8000" href="#tag_check_size">size</a>*<br>
+<span style="color: #33cc00;">structure</span> &gt; <a style="color: #33cc00;"
+href="#tag_elt">elt</a>* @<a style="color: #33cc00;" href="#tag_elt_id">id</a>
+@<a style="color: #33cc00;" href="#tag_elt_size">size</a> @<a
+style="color: #33cc00;" href="#tag_elt_type">type</a> @<a
+style="color: #33cc00;" href="#tag_elt_format">format</a> @<a
+style="color: #33cc00;" href="#tag_elt_decoding_profile">decoding-profile</a>
+@<a style="color: #33cc00;" href="#tag_elt_endianness">endianness</a> @<a
+style="color: #33cc00;" href="#tag_elt_byteskip">byte-skip</a> @<a
+style="color: #33cc00;" href="#tag_elt_bytetrim">byte-trim</a> @<a
+style="color: #33cc00;" href="#tag_elt_bytetrunc">byte-trunc</a> @<a
+style="color: #33cc00;" href="#tag_elt_byteswap">byte-swap</a> @<a
+style="color: #33cc00;" href="#tag_elt_nibbleskip">nibble-skip</a> @<a
+style="color: #33cc00;" href="#tag_elt_nibbletrim">nibble-trim</a> @<a
+style="color: #33cc00;" href="#tag_elt_bitswap">bit-swap</a> @<a
+style="color: #33cc00;" href="#tag_elt_bitmask">bitmask</a> @<a
+style="color: #33cc00;" href="#tag_elt_srcunitsize">src-unit-size</a> @<a
+style="color: #33cc00;" href="#tag_elt_dstunitsize">dst-unit-size</a> @<a
+style="color: #33cc00;" href="#tag_elt_swapskiporder">swap-skip-order</a> @<a
+style="color: #33cc00;" href="#tag_elt_base">base</a> @<a
+style="color: #33cc00;" href="#tag_elt_charset">charset</a> @<a
+style="color: #33cc00;" href="#tag_elt_asciioffset">ascii-offset</a> @<a
+style="color: #33cc00;" href="#tag_elt_asciistep">ascii-step</a> @<a
+style="color: #33cc00;" href="#tag_elt_tableindex">table-index</a> @<a
+style="color: #33cc00;"
+href="#tag_elt_tableindexformat">table-index-format</a><br>
+<span style="color: #33cc00;">structure</span> &gt; <a style="color: #33cc00;"
+href="#tag_loop">loop</a>* @<a style="color: #33cc00;"
+href="#tag_loop_start">start</a> @<a style="color: #33cc00;"
+href="#tag_loop_step">step</a> @<a style="color: #33cc00;"
+href="#tag_loop_count">count</a> @<a style="color: #33cc00;"
+href="#tag_loop_skipfirstbytes">skip-first-bytes</a> @<a
+style="color: #33cc00;" href="#tag_loop_skiplastbytes">skip-last-bytes</a><br>
+<span style="color: #3333ff;">output</span> @<a href="#tag_output_id">id</a><br>
+<span style="color: #3333ff;">output</span> &gt; <a
+href="#tag_field">field</a>* @<a href="#tag_field_id">id</a> @<a
+href="#tag_field_src">src</a> @<a href="#tag_field_format">format</a> @<a
+href="#tag_field_display">display</a><br>
+<span style="color: #3333ff;">output</span> &gt; <a
+href="#tag_table">table</a>* @<a href="#tag_table_id">id</a> @<a
+href="#tag_table_lineignore">line-ignore</a> @<a
+href="#tag_table_lineignoreoperator">line-ignore-operator</a> @<a
+href="#tag_table_sort">sort</a> @<a href="#tag_table_sortorder">sort-order</a>
+@<a href="#tag_table_sortformat">sort-format</a> @<a
+href="#tag_table_linesmax">lines-max</a> @<a
+href="#tag_table_display">display</a><br>
+<span style="color: #3333ff;">output</span> &gt; <a
+href="#tag_column">column</a>* @<a href="#tag_column_id">id</a> @<a
+href="#tag_column_src">src</a> @<a href="#tag_column_format">format</a> @<a
+href="#tag_column_display">display</a><br>
+<a href="#tag_format">format</a> @<a href="#tag_format_id">id</a> @<a
+href="#tag_format_formatter">formatter</a> @<a
+href="#tag_format_applyto">apply-to</a> @<a
+href="#tag_format_inputassubcolumnsinput">input-as-subcolumns-input</a><br>
+<a href="#tag_format">format</a> &gt; <a href="#tag_format_add">add</a> <a
+href="#tag_format_prefix">prefix</a> <a href="#tag_format_suffix">suffix</a> <a
+href="#tag_format_multiply">multiply</a> <a
+href="#tag_format_divide">divide</a> <a
+href="#tag_format_remainder">remainder</a> <a
+href="#tag_format_dividetrunc">divide_trunc</a> <a
+href="#tag_format_divideround">divide_round</a> <a
+href="#tag_format_sum">sum</a> <a href="#tag_format_concat">concat</a> <a
+href="#tag_format_min">min</a> <a href="#tag_format_max">max</a> <a
+href="#tag_format_pad">pad</a> <a href="#tag_format_trim">trim</a> <a
+href="#tag_format_substract">substract</a> <a
+href="#tag_format_trunc">trunc</a> <a href="#tag_format_round">round</a> <a
+href="#tag_format_replace">replace</a> <a href="#tag_format_shift">shift</a> <a
+href="#tag_format_uppercase">lowercase</a> <a
+href="#tag_format_uppercase">uppercase</a> <a
+href="#tag_format_capitalize">capitalize</a> <a
+href="#tag_format_loopindex">loopindex</a> <br>
+<a href="#tag_format">format</a> &gt; <a href="#tag_format_case">case</a>* @<a
+href="#tag_format_case_src">src</a> @<a href="#tag_format_case_src">dst</a> @<a
+href="#tag_format_case_src">default</a> @<a
+href="#tag_format_case_operator">operator</a> @<a
+href="#tag_format_case_operatorformat">operator-format</a> @<a
+href="#tag_format_case_format">format</a><br>
+<a href="#tag_charset">charset</a> @<a href="#tag_charset_id">id</a> &gt; <a
+href="#tag_charset_char">char</a>* @<a href="#tag_charset_char_src">src</a> @<a
+href="#tag_charset_char_src">dst</a> @<a
+href="#tag_charset_char_src">default</a><br>
+<a href="#tag_bitmask">bitmask</a> @<a href="#tag_bitmask_id">id</a> @<a
+href="#tag_bitmask_bytecompletion">byte-completion</a> &gt; <a
+href="#tag_bitmask_character">character</a>* @<a
+href="#tag_bitmask_character_mask">mask</a></p>
+</div>
+
+<div>
+</div>
+</div>
+
+<p><br>
+(note that a DTD is available in &lt;hi2txt&gt;/db/hi2txt.dtd)<br>
+The XML file defines which data definition version matches the hi/nvram files
+[<span style="color:#ff8000">check/definition/size</span>], how the data can be
+extracted [<span style="color:#008000">structure/elt/loop</span>] and what/how
+to display into text format [<span
+style="color:#0000ff">output/field/table</span>].<br>
+The tool needs to select the best structure of data if more than one are
+available, based on hiscore.dat location [<span
+style="color:#ff8000">check/definition</span>] used and resulting hi files size
+[<span style="color:#ff8000">check/size</span>].<br>
+It means that one XML description can be compatible with different hiscore.dat
+locations for the same game, and also that choosing the best data extraction is
+automatic.<br>
+A data extraction structure defines on which file it can be applied (<span
+style="color:#008000">structure@file</span>], and the different elements. </p>
+
+<div class="xml_tags">
+&lt;hi2txt&gt;<span style="color:#008000"><br>
+  &lt;structure&gt;</span><span style="color:#ff8000"><br>
+    &lt;check&gt;&lt;definition&gt;&lt;/definition&gt;&lt;size&gt;&lt;/size&gt;&lt;/check&gt;</span><br>
+    <span style="color: #009900;">&lt;elt/&gt;...<br>
+    &lt;loop&gt;&lt;elt/&gt;...&lt;/loop&gt;</span><span
+style="color:#008000"><br>
+  &lt;/structure&gt;</span><span style="color:#0000ff"><br>
+  &lt;output&gt;<br>
+   &lt;table&gt;&lt;column/&gt;...&lt;/table&gt;<br>
+   &lt;field/&gt;...<br>
+  &lt;/output&gt;</span><br>
+&lt;/hi2txt&gt;</div>
+
+<p></p>
+<pre>                                             game xml description<br>                                                       |<br>                                                       |
+                                                       |
+hiscore.dat A:<span style="color: #ff6600;">location 1</span>---------------&gt;|              V
+                                        |
+<span style="color: #ff6600;">hiscore file size</span> ---------------------&gt;| select <span style="color: #009900;">xml hi structure h1</span> -----&gt;|<br>                                                                           |
+<span style="color: #ff6600;">nvram file size</span> ------------------------&gt; select <span style="color: #009900;">xml nvram structure </span>-----&gt;|----&gt;|
+                                                                                 |
+hiscore.dat B:<span style="color: #ff6600;">location 2</span>---------------&gt;|                                        |---&gt; display<span style="color: #000099;"> xml output</span>
+                                        |                                        |
+<span style="color: #ff6600;">hiscore file size</span> ---------------------&gt;| select <span style="color: #009900;">xml hi structure h2</span> -----&gt;|----&gt;|<br>                                                                           |
+<span style="color: #ff6600;">nvram file size 2</span> ----------------------&gt; select <span style="color: #009900;">xml nvram structure n2</span> --&gt;|<br></pre>
+
+<p><br>
+</p>
+<span style="font-weight: bold;"><a id="tag_structure"
+name="tag_structure"></a><span
+style="text-decoration: underline;">structure</span></span><br>
+<br>
+
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_structure_file" name="tag_structure_file"></a>structure
+file="&lt;filename&gt;"</div>
+
+<div class="parameter_goal">
+mandatory filename allowing to associate a hi/nvram file to a structure, as
+some game can have hi and nvram files available at the same time, explaining
+that many structures can be defined in a single XML description.<br>
+the filename can be the complete filename (ex: nvram, eeprom, saveram, etc.) or
+the last part of the filename, as the file extension (.hi).</div>
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;structure <span class="parameter_example_focus">file=".hi"</span>&gt;<br>
+<br>
+ex: altbeast.xml<br>
+&lt;structure <span class="parameter_example_focus">file="nvram"</span>
+byte-swap="2"&gt;<br>
+<br>
+ex: astdelux.xml<br>
+&lt;structure <span class="parameter_example_focus">file="earom"</span>&gt;<br>
+<br>
+ex: mslug2.xml<br>
+&lt;structure <span class="parameter_example_focus">file="saveram"</span>
+byte-swap="2"&gt;<br>
+</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_structure_byteswap" name="tag_structure_byteswap"></a> structure
+?byte-swap="&lt;integer&gt;"</div>
+
+<div class="parameter_goal">
+optional integer specifying that every x bytes must be swapped, to simplify
+further elements decoding.<br>
+01 02 03 04 ... -&gt; byte swap 2 -&gt; 02 01 04 03 ...<br>
+01 02 03 04 ... -&gt; byte swap 4 -&gt; 04 03 02 01 ...</div>
+
+<div class="parameter_example">
+ex: altbeast.xml<br>
+&lt;structure file="nvram" <span
+class="parameter_example_focus">byte-swap="2"</span>&gt; </div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_structure_output" name="tag_structure_output"></a>structure
+?output="&lt;reference&gt;"</div>
+<span class="since">[since version 1.4]</span> 
+
+<div class="parameter_goal">
+optional reference specifying which output to use to display this structure.
+Use it when more than one structures need to be defined -for
+retro-compatibility with older versions of hiscore.dat- and associated with
+different outputs due to incompatibilities. </div>
+
+<div class="parameter_example">
+ex: fixeight.xml<br>
+&lt;structure <span
+class="parameter_example_focus">output="broken_topscore"</span>&gt;...&lt;/structure&gt;<br>
+&lt;output id="broken_topscore"&gt;...&lt;/output&gt; </div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_check_definition" name="tag_check_definition"></a>structure &gt;
+check &gt; ?definition "hiscore.dat_location"</div>
+
+<div class="parameter">
+
+<div class="parameter_goal">
+optional location specifying the expected location to match this structure</div>
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;structure&gt;...<br>
+  &lt;check&gt;...<br>
+    <span class="xml_focus">&lt;definition&gt;</span><span
+class="xml_focus">0:1016ea:64:00:05<br>
+                0:101626:4:00:06&lt;/definition</span><span
+class="xml_focus">&gt;</span><br>
+  &lt;/check&gt;<br>
+&lt;/structure&gt; </div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_check_size" name="tag_check_size"></a>structure &gt; check &gt;
+?size "&lt;integer&gt;"</div>
+optional integer specifying the expected input size to match this structure<br>
+
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;structure&gt;...<br>
+  &lt;check&gt;...<br>
+<span class="xml_focus">    &lt;size&gt;104&lt;/size&gt;<br>
+</span>  &lt;/check&gt;<br>
+&lt;/structure&gt;</div>
+</div>
+
+<p><br>
+</p>
+
+<p>Elements [<span style="color:#008000">elt</span>] can be text (<span
+style="color:#008000">type=txt</span>), number (<span
+style="color:#008000">type=int</span>), raw data (<span
+style="color:#008000">type=raw</span>)<br>
+Similar elements or group of elements (high score 1, high score 2, etc.) can be
+described using a loop [<span style="color:#008000">loop</span>] to have a
+clear definition.</p>
+
+<p><span style="font-weight: bold;"><a id="tag_elt" name="tag_elt"></a><span
+style="text-decoration: underline;">elt</span></span></p>
+<span style="font-weight: bold;">common properties</span><br>
+
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_id" name="tag_elt_id"></a>structure &gt; elt
+id="&lt;string&gt;"</div>
+
+<div class="parameter_goal">
+mandatory identifier allowing to associate a specific input element to an
+output field or column</div>
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;structure&gt;...&lt;elt size="4" type="int" <span
+class="parameter_example_focus">id="TOP SCORE"</span>
+base="16"/&gt;&lt;/structure&gt;<br>
+&lt;output&gt;...&lt;field <span class="parameter_example_focus">id="TOP
+SCORE"</span> format="*10" display="extra"/&gt;&lt;/output&gt; </div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_size" name="tag_elt_size"></a>structure &gt; elt
+size="&lt;integer&gt;"</div>
+mandatory integer specifying how many bytes must be read to decode a specific
+input element<br>
+
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;structure&gt;...&lt;elt <span
+class="parameter_example_focus">size="4"</span> type="int" id="TOP SCORE"
+base="16"/&gt;&lt;/structure&gt; </div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_type" name="tag_elt_type"></a>structure &gt; elt
+type="text|int|raw"</div>
+
+<div>
+mandatory type specifying how to decode a specific element: does it store text
+(text)? number (int)? unknown data (raw)?<br>
+using type = int automatically converts the input data into a decimal value in
+base 10 (in this case, when the decimal value is the one directly seen in the
+hexa file, it explain why back conversion to a decimal in base 16 is needed).
+All common and number-related related operations are supported.<br>
+using type = raw stores the input data as-is, as some sort of string, without
+any convertion at all (some explicit operations like bytes manipulations
+(byte-swap, byte-trim, endianness, nibble-skip, nibble-trim, bitmask) are still
+supported).<br>
+using type = text stores the input data as a string and allows all common,
+bytes-related and text-related decoding operations.</div>
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;structure&gt;...<br>
+  &lt;elt size="4" <span class="parameter_example_focus">type="int"</span>
+id="TOP SCORE" base="16"/&gt;<br>
+  &lt;elt size="6" <span class="parameter_example_focus">type="text"</span>
+id="NAME" byte-skip="odd" ascii-step="4" ascii-offset="32"
+charset="ddonpach"/&gt;<br>
+&lt;/structure&gt; </div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_format" name="tag_elt_format"></a>structure &gt; elt
+?format="&lt;format_identifier&gt;"<br>
+structure &gt; elt ?format="&lt;identifier1&gt;;&lt;identifier2&gt;;..."</div>
+
+<div class="parameter_goal">
+optional reference to a format identifier describing how to format the element
+to decode it.</div>
+its usage is rare, as it is used here only to allow native decoding purpose,
+i.e. if the conversion of the requested type (int,text,raw) if possible only
+through a specific formatting<br>
+it is recommended to use output field/column format to do assembly of elements
+(sum, etc.) or element transformation for display purpose (*10, etc.)<br>
+if the format identifier is simple enough, this format definition can be
+skipped as the program will automatically create it, computing its content from
+the identifier itself.<br>
+more than one format identifier can be specified, separated by ';'<br>
+see <a href="#tag_column_format">column format</a> for more information<br>
+
+
+<div class="parameter_example">
+ex: gng.xml<br>
+&lt;structure&gt;<br>
+  &lt;elt size="2" type="int" id="RANKPOINTER" <span
+class="parameter_example_focus">format="rp1;rp2"</span> byte-skip="odd"/&gt;<br>
+  ...<br>
+&lt;/structure&gt;<br>
+&lt;<span class="parameter_example_focus">format
+id="rp1"</span>&gt;&lt;substract&gt;44&lt;/substract&gt;&lt;/format&gt;<br>
+&lt;<span class="parameter_example_focus">format
+id="rp2"</span>&gt;&lt;divide&gt;7&lt;/divide&gt;&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_decoding_profile" name="tag_elt_decoding_profile"></a>structure
+&gt; elt ?decoding-profile="base-40|base-32|bcd|bcd-le"</div>
+
+<div class="parameter_goal">
+optional identifier selecting a pre-defined profile to decode an element<br>
+a profile is a pre-define set of element properties<br>
+it means that this set of individual properties can be explicitely used instead
+of the corresponding profile<br>
+profiles are shortcuts to quickly decode an element using a set of properties
+frequently used together<br>
+base-40<a href="#ref_002"><sup>[2]</sup></a>:<br>
+    src-unit-size="16"<br>
+    base="40"<br>
+    dst-unit-size="3"<br>
+    ascii-offset="64"<br>
+base-32:<br>
+    src-unit-size="16"<br>
+    base="32"<br>
+    dst-unit-size="3"<br>
+    ascii-offset="64"<br>
+bcd:<br>
+    nibble-skip="odd"<br>
+    base="16"<br>
+bcd-le:<br>
+    endianness="little_endian"<br>
+    nibble-skip="odd"<br>
+    base="16"</div>
+
+<div class="parameter_example">
+ex: trackfld.xml<br>
+&lt;elt size="2" type="text" id="NAME" <span
+class="parameter_example_focus">decoding-profile="base-32"</span>
+charset="trackfld"/&gt;<br>
+&lt;elt size="4" type="int" id="HAMMER SCORE" <span
+class="parameter_example_focus">decoding-profile="bcd"</span>/&gt;<br>
+<br>
+ex: gauntlet.xml<br>
+&lt;elt size="2" type="text" id="WARRIOR NAME" <span
+class="parameter_example_focus">decoding-profile="base-40"</span>
+charset="gauntlet"/&gt;<br>
+<br>
+ex: galaga.xml<br>
+&lt;elt size="6" type="int" id="SCORE" <span
+class="parameter_example_focus">decoding-profile="bcd-le"</span>
+byte-trim="0x24"/&gt;</div>
+</div>
+
+<p><span style="font-weight: bold;">byte manipulation properties</span></p>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_endianness" name="tag_elt_endianness"></a>structure &gt; elt
+?endianness="big_endian|little_endian"</div>
+optional identifier defining the endianness of a group of bytes (default =
+big_endian).<br>
+"The term 'Endian' refers to the order of storing bytes in computer memory. In
+'Big Endian' scheme, the most significant byte is stored in the lowest memory
+address (or big in first), while 'Little Endian' stores the least significant
+bytes in the lowest memory address. For example, the 32-bit integer 12345678H
+(2215053170<sub>10</sub>) is stored as 12H 34H 56H 78H in big endian; and 78H
+56H 34H 12H in little endian. An 16-bit integer 00H 01H is interpreted as 0001H
+in big endian, and 0100H as little endian."<a
+href="#ref_001"><sup>[1]</sup></a><br>
+
+
+<div class="parameter_example">
+ex: astdelux.xml<br>
+&lt;elt size="3" type="int" id="SCORE" <span
+class="parameter_example_focus">endianness="little_endian"</span>
+base="16"/&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_byteskip" name="tag_elt_byteskip"></a>structure &gt; elt
+?byte-skip="0x&lt;byte&gt;|odd|even|1000|0100|0010|0001"</div>
+
+<div class="parameter_goal">
+optional identifier allowing to remove all occurences of a specific byte, or
+all odd bytes, or all even bytes, or 3 bytes every 4 bytes.<br>
+01AB01CD<sub>16</sub> -&gt; byte-skip="odd" -&gt; ABCD<sub>16</sub><br>
+01AB01CD<sub>16</sub> -&gt; byte-skip="even" -&gt; 0101<sub>16</sub><br>
+01AB01CD<sub>16</sub> -&gt; byte-skip="0xAB" -&gt; 0101CD<sub>16</sub><br>
+01AB01CD<sub>16</sub> -&gt; byte-skip="1000" -&gt; 01<sub>16</sub><br>
+01AB01CD<sub>16</sub> -&gt; byte-skip="0100" -&gt; AB<sub>16</sub><br>
+01AB01CD<sub>16</sub> -&gt; byte-skip="0010" -&gt; 01<sub>16</sub><br>
+01AB01CD<sub>16</sub> -&gt; byte-skip="0001" -&gt; CD<sub>16</sub><br>
+
+
+<p>Flavors "1000", "0100", "0010" and "0001" act as a shortcut avoiding to
+defined the related bitmask.</p>
+
+<p>Ex:</p>
+<pre>  &lt;elt ... bitmask="bm"/&gt;</pre>
+<pre>  &lt;bitmask id="bm"&gt;</pre>
+<pre>  &lt;character mask="00000000 00000000 00000000 11111111 00000000 00000000 00000000 11111111 00000000 00000000 00000000 11111111"/&gt;</pre>
+<pre>  &lt;/bitmask&gt;</pre>
+
+<p>...can be replaced by...</p>
+<pre>  &lt;elt ... byte-skip="0001"/&gt;</pre>
+</div>
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;elt size="6" type="text" id="NAME" <span
+class="parameter_example_focus">byte-skip="odd"</span>/&gt; 
+
+<p>ex: espgal.xml</p>
+
+<p>&lt;elt size="12" type="text" id="NAME" <span
+class="parameter_example_focus">byte-skip="0001"</span> ascii-offset="65"
+ascii-step="4" charset="espgal"/&gt;</p>
+</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_bytetrim" name="tag_elt_bytetrim"></a>structure &gt; elt
+?byte-trim="0x&lt;byte&gt;"</div>
+
+<div class="parameter_goal">
+optional byte allowing to remove all occurences of this byte from the start of
+the data sequence.<br>
+01AB01CD<sub>16</sub> -&gt; byte-trim="0x01" -&gt; AB01CD<sub>16</sub><br>
+010101AB01CD<sub>16</sub> -&gt; byte-trim="0x01" -&gt; AB01CD<sub>16</sub></div>
+
+<div class="parameter_example">
+ex: galaga.xml<br>
+&lt;elt size="6" type="int" id="SCORE" decoding-profile="bcd-le" <span
+class="parameter_example_focus">byte-trim="0x24"</span>/&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_bytetrunc" name="tag_elt_bytetrunc"></a>structure &gt; elt
+?byte-trunc="0x&lt;byte&gt;"</div>
+
+<div class="parameter_goal">
+optional byte allowing to trunc this byte and all bytes after it. <span class="since">[since version 1.10]</span><br>
+AB00CDEF<sub>16</sub> -&gt; byte-trunc="0x00" -&gt; AB<sub>16</sub><br></div>
+
+<div class="parameter_example">
+ex: xmultipl.xml<br>
+&lt;elt size="9" type="text" id="NAME" <span
+class="parameter_example_focus">byte-trunc="0x00"</span> charset="charconv"/&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_byteswap" name="tag_elt_byteswap"></a>structure &gt; elt
+?byte-swap="&lt;integer&gt;"</div>
+optional integer specifying the number of bytes to swap together. this swapping
+is repeated as long as there are data available.<br>
+01020304<sub>16</sub> -&gt; byte-swap="2" -&gt; 02010403<sub>16</sub><br>
+01020304<sub>16</sub> -&gt; byte-swap="4" -&gt; 04030201<sub>16</sub><br>
+0102030405060708<sub>16</sub> -&gt; byte-swap="2" -&gt;
+0201040306050807<sub>16<br>
+</sub>0102030405060708<sub>16</sub> -&gt; byte-swap="4" -&gt;
+0403020108070605<sub>16</sub><br>
+
+
+<div class="parameter_example">
+ex: rastan.xml<br>
+&lt;elt size="12" type="text" id="TOP SCORE" endianness="little_endian" <span
+class="parameter_example_focus">byte-swap="2"</span> charset="topscore"
+src-unit-size="16"/&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_nibbleskip" name="tag_elt_nibbleskip"></a>structure &gt; elt
+?nibble-skip="odd|even"</div>
+
+<div class="parameter_goal">
+optional identifier allowing to remove all odd nibbles, or all even nibbles.<br>
+01AB01CD<sub>16</sub> -&gt; nibble-skip="odd" -&gt; 1B1D<sub>16</sub><br>
+01AB01CD<sub>16</sub> -&gt; nibble-skip="even" -&gt; 0A0C<sub>16</sub></div>
+
+<div class="parameter_example">
+ex: robotron.xml<br>
+&lt;elt size="6" type="text" id="NAME" <span
+class="parameter_example_focus">nibble-skip="odd"</span>
+charset="robotron"/&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_nibbletrim" name="tag_elt_nibbletrim"></a>structure &gt; elt
+?nibble-trim="0x&lt;nibble&gt;"</div>
+
+<div class="parameter_goal">
+optional identifier allowing to remove all occurences of a nibble from the start of
+the data sequence.<br>
+FFF123<sub>16</sub> -&gt; nibble-trim="0xF" -&gt; 0123<sub>16</sub><br>
+
+<div class="parameter_example">
+ex: altair.xml<br>
+&lt;elt size="5" type="int" id="SCORE" <span
+class="parameter_example_focus">nibble-trim="0xF"</span>
+ base="16"/&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_bitswap" name="tag_elt_bitswap"></a>structure &gt; elt
+?bit-swap="yes|no"</div>
+
+<div class="parameter_goal">
+optional boolean enabling or not bits swapping of each input byte<br>
+1A<sub>16</sub> -&gt; 00011010<sub>2</sub> -&gt; bit-swap="yes" -&gt;
+01011000<sub>2</sub> -&gt; 58<sub>16</sub> </div>
+
+<div class="parameter_example">
+ex: -<br>
+-</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_bitmask" name="tag_elt_bitmask"></a>structure &gt; elt
+?bitmask="&lt;bitmask_identifier&gt;"</div>
+optional identifier  specifying a bitmask definition to be used to select some
+bits of the input data.<br>
+see bitmask object definition for more information.<br>
+
+
+<div class="parameter_example">
+ex: klax.xml<br>
+&lt;elt size="7" type="int" id="SCORE" table-index="loop_index"
+table-index-format="*2" <span
+class="parameter_example_focus">bitmask="score_odd"</span>/&gt;<br>
+ ...<br>
+&lt;<span class="parameter_example_focus">bitmask id="score_odd"</span>&gt;  
+&lt;!-- 6        7        8        9       10       11       12 //--&gt;<br>
+  &lt;character       mask="11111111 00000000 00000000 00000000 11111111
+00000000 11111111"/&gt;<br>
+&lt;/bitmask&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_srcunitsize" name="tag_elt_srcunitsize"></a>structure &gt; elt
+?src-unit-size="&lt;integer&gt;"</div>
+
+<div class="parameter_goal">
+optional integer specifying how many bits must be taken into account, from the
+input data, to represent each unit of the defined element (default is 8
+bits)<br>
+a typical example is the decoding of string of characters, where the element
+defines a size if 2 bytes (2 bytes = 16 bits =&gt; src-unit-size="16") from the
+input data, that can be translated into 3 characters (dst-unit-size="3").</div>
+
+<div class="parameter_example">
+ex: rastan.xml<br>
+&lt;elt size="12" type="text" id="TOP SCORE" endianness="little_endian"
+byte-swap="2" charset="topscore" <span
+class="parameter_example_focus">src-unit-size="16"</span>/&gt;<br>
+</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_dstunitsize" name="tag_elt_dstunitsize"></a>structure &gt; elt
+?dst-unit-size="&lt;integer&gt;"</div>
+
+<div class="parameter_goal">
+optional integer specifying how many units of the defined element will be
+decoded, from the input data (default is 1 unit).<br>
+a typical example is the decoding of string of characters, where the element
+defines a size if 2 bytes (2 bytes = 16 bits =&gt; src-unit-size="16") from the
+input data, that can be translated into 3 characters (dst-unit-size="3").</div>
+
+<div class="parameter_example">
+ex: -<br>
+-</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_swapskiporder" name="tag_elt_swapskiporder"></a>structure &gt;
+elt ?swap-skip-order="&lt;property1&gt;;&lt;property2&gt;;..."</div>
+
+<div class="parameter_goal">
+all skip and swap properties are done in a pre-defined sequence, matching 99%
+of the cases.<br>
+in rare case, the sequence order must be altered to do a specific operation
+before/after another one.<br>
+this optional list must specifies all the impacted properties, separated by
+";": endian, byte-skip, nibble-skip, nibble-trim, byte-trim, byte-trunc, bitmask, byte-swap, bit-swap<br>
+default sequence: byte-swap -&gt; bit-swap -&gt; byte-skip -&gt; endian -&gt;
+byte-trunc -&gt; byte-trim -&gt; nibble-skip -&gt; nibble-trim -&gt; bitmask</div>
+
+<div class="parameter_example">
+ex: -<br>
+-</div>
+</div>
+
+<p><span style="font-weight: bold;">number/character related
+properties</span></p>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_base" name="tag_elt_base"></a>structure &gt; elt
+?base="&lt;integer&gt;"</div>
+every integer element are automatically converted from hexadecimal (base 16) to
+decimal (base= 10).<br>
+optional property specifying an additional conversion to get the real value
+from the decimal representation.<br>
+base="16" means that the value will be converted back into hexadecimal.<br>
+0123<sub>16</sub> -&gt; 291<sub>10</sub> (auto) -&gt; base="16" -&gt;
+123<sub>16</sub> -&gt; element value = 123<br>
+currently known base values used: 10, 16, 32, 40  but more are supported.<br>
+
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;elt size="2" type="int" id="MAXHIT" <span
+class="xml_focus">base="16"</span>/&gt;</div>
+</div>
+
+<p><span style="font-weight: bold;">text related properties</span></p>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_charset" name="tag_elt_charset"></a>structure &gt; elt
+?charset="&lt;charset_identifier&gt;" </div>
+
+<div class="parameter_goal">
+optional identifier specifying which charset object to use to translate
+specific bytes or sequence of bytes into ascii characters or ascii strings.<br>
+used when a generic algorithm cannot be applied to every characters.<br>
+see <a href="#tag_charset">charset</a> object for more information. </div>
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;elt size="6" type="text" id="NAME" byte-skip="odd" ascii-step="4"
+ascii-offset="32" <span
+class="parameter_example_focus">charset="ddonpach"</span>/&gt; </div>
+<br>
+
+
+<div class="parameter_goal">
+a pre-defined charset can be called from the charset attribute, additionally to
+a custom charset. <span class="since">[since version 1.2]</span><br>
+</div>
+
+<div class="parameter_example">
+&lt;elt ... charset="<span class="parameter_example_focus">CS_XXX" ...
+&gt;</span><br>
+&lt;elt ... charset="<span
+class="parameter_example_focus">CS_XXX;&lt;custom_charset_id&gt;</span>" ...
+&gt; </div>
+<br>
+
+
+<div class="parameter_goal">
+a call to a pre-defined charset can override the start offset and the delta to
+add to the current step between each char. </div>
+
+<div class="parameter_example">
+&lt;elt ... charset="<span
+class="parameter_example_focus">CS_XXX[&lt;offset&gt;]</span>" ... &gt;<br>
+&lt;elt ... charset="<span
+class="parameter_example_focus">CS_XXX[&lt;offset&gt;,&lt;delta&gt;]</span>"
+... &gt;<br>
+&lt;elt ... charset="<span
+class="parameter_example_focus">CS_XXX[&lt;offset&gt;,&lt;delta&gt;];&lt;custom_charset_id&gt;</span>"...&gt;
+</div>
+<br>
+
+
+<div class="parameter_goal">
+supported pre-defined charsets:<br>
+  CS_NUMBER, defining number from 0 to 9, using ASCII codes </div>
+
+<div class="parameter_example">
+ex: sbomber.xml<br>
+&lt;elt ... charset="<span
+class="parameter_example_focus">CS_NUMBER[-14];sbomber</span>" ... &gt; </div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_asciioffset" name="tag_elt_asciioffset"></a>structure &gt; elt
+?ascii-offset="&lt;integer&gt;"</div>
+optional integer specifying the decimal value to add to the value of each
+characters of the string, allowing to match standard ascii code.<br>
+targeted character: E -&gt; decoded value: 37 -&gt; offset: +32 -&gt; standard
+ascii code of letter E (decimal) = 37+32 = 69<br>
+see ASCII reference<a href="#ref_003"><sup>[3]</sup></a>.<br>
+
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;elt size="6" type="text" id="NAME" byte-skip="odd" ascii-step="4" <span
+class="parameter_example_focus">ascii-offset="32"</span>
+charset="ddonpach"/&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_asciistep" name="tag_elt_asciistep"></a>structure &gt; elt
+?ascii-step="&lt;integer&gt;"</div>
+optional integer specifying the decimal value separating two consecutive
+characters.<br>
+E -&gt; decimal input value: 148                 -&gt; ascii standard code: 148
+/ 4 + offset = 148 / 4 + 32 = 69 -&gt; ascii standard code = (decimal input
+value / step) + offset<br>
+F -&gt; decimal input value: 152 = 148+4   -&gt; ascii standard code: 152 / 4 +
+offset = 152 / 4 + 32 = 70<br>
+G -&gt; decimal input value: 156 = 152+4  -&gt; ascii standard code: 156 / 4 +
+offset = 156 / 4 + 32 = 71<br>
+see ASCII reference<a href="#ref_003"><sup>[3]</sup></a>.<br>
+
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;elt size="6" type="text" id="NAME" byte-skip="odd" <span
+class="parameter_example_focus">ascii-step="4"</span> ascii-offset="32"
+charset="ddonpach"/&gt;</div>
+</div>
+
+<p><span style="font-weight: bold;">elt loop related properties</span></p>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_tableindex" name="tag_elt_tableindex"></a>structure &gt; loop
+&gt; elt &gt;
+?table-index="loop_index|loop_reverse_index|last|itself|&lt;column_id&gt;:index_from_value|&lt;column_id&gt;:value_from_index"</div>
+
+<div class="parameter_goal">
+optional keyword used for an elt embedded in a loop and specifying its position
+in the resulting array in memory, and consequently in the output table
+(default: loop_index).<br>
+possible values:<br>
+<span style="font-weight: bold;">loop_index</span> =&gt; the elt index is the
+loop iterator position<br>
+<span class="xml_tags">  &lt;loop count="5"&gt;&lt;elt ... <span
+class="xml_focus">table-index="loop_index"</span>/&gt;&lt;/loop&gt;</span><br>
+loop step 0 -&gt; elt index = 0<br>
+loop step 1 -&gt; elt index = 1<br>
+loop step 2 -&gt; elt index = 2<br>
+ ...<br>
+<span style="font-weight: bold;">loop_reverse_index</span> =&gt; the elt index
+is (loop max - 1 - loop iterator position), typically used when elt order is
+inverted<br>
+<span class="xml_tags">   &lt;loop count="5"&gt;&lt;elt ... <span
+class="xml_focus">table-index="loop_reverse_index"</span>/&gt;&lt;/loop&gt;</span><br>
+loop step 0 -&gt; elt index = 4<br>
+loop step 1 -&gt; elt index = 3<br>
+loop step 2 -&gt; elt index = 2<br>
+loop step 3 -&gt; elt index = 1<br>
+loop step 4 -&gt; elt index = 0<br>
+ ...<br>
+<strong>last</strong>: the elt index is the value of the previous elt input
+data in the loop, typically used in a loop with multiple elts, the 1st one
+being the index or rank.<br>
+<span class="xml_tags">  &lt;loop count="5"&gt;<br>
+    &lt;elt id="elt1" ... <span
+class="xml_focus">table-index="itself"/</span>&gt;<br>
+    &lt;elt id="elt2" ... <span
+class="xml_focus">table-index="last"/</span>&gt;<br>
+  &lt;/loop&gt;</span><br>
+loop step 0 -&gt; elt1 index = elt1 value = X<br>
+                       elt2 index = index of last computed index = elt1 index =
+X<br>
+loop step 1 -&gt; elt1 index = elt1 value = Y<br>
+                       elt2 index = index of last computed index = elt1 index =
+Y<br>
+ ...<br>
+<strong>itself</strong>: the elt index is the value of the elt itself (see
+previous example)<br>
+<strong>&lt;column&gt;:index_from_value</strong>: the elt index is the value of
+another elt located at the same loop step<br>
+<span class="xml_tags">  &lt;loop count="10"&gt;<br>
+    &lt;elt ... type="int" id="RANKPOINTER" .../&gt;<br>
+  &lt;/loop&gt;<br>
+  &lt;loop count="10"&gt;<br>
+    &lt;elt ... id="SCORE" <span
+class="xml_focus">table-index="RANKPOINTER:index_from_value"</span> .../&gt;<br>
+  &lt;/loop&gt;<br>
+</span>loop step 0, RANKPOINTER[0].value = X -&gt; SCORE index = X<br>
+loop step 1, RANKPOINTER[1].value = Y -&gt; SCORE index = Y<br>
+ ...<br>
+<strong>&lt;column&gt;:value_from_index</strong>: the elt index is the index of
+another elt sharing the same value<br>
+</div>
+
+<div class="parameter_example">
+ex: tempest.xml<br>
+&lt;loop count="8"&gt;<br>
+  &lt;elt size="3" type="text" id="NAME" <span
+class="parameter_example_focus">table-index="loop_reverse_index"</span>
+endianness="little_endian" charset="tempest" ascii-offset="65"/&gt;<br>
+&lt;/loop&gt;<br>
+<br>
+ex: 1942.xml<br>
+&lt;loop count="25"&gt;<br>
+  &lt;elt size="1" type="int"  id="RANK"    <span
+class="parameter_example_focus">table-index="itself"</span>/&gt;<br>
+  &lt;elt size="4" type="int"  id="SCORE"   <span
+class="parameter_example_focus">table-index="last"</span> base="16"/&gt;<br>
+  &lt;elt size="8" type="text" id="NAME"    <span
+class="parameter_example_focus">table-index="last"</span> ascii-offset="55"
+charset="cs1942"/&gt;<br>
+  &lt;elt size="1" type="int"  id="STAGE"   <span
+class="parameter_example_focus">table-index="last"</span>/&gt;<br>
+  &lt;elt size="2" type="raw"  id="UNKNOWN" <span
+class="parameter_example_focus">table-index="last"</span>/&gt; &lt;!--
+completion %, hit rate % ? //--&gt;<br>
+&lt;/loop&gt;<br>
+<br>
+ex: gng.xml<br>
+&lt;loop count="10"&gt;<br>
+  &lt;elt size="2" type="int" id="RANKPOINTER" format="rp1;rp2"
+byte-skip="odd"/&gt;<br>
+&lt;/loop&gt;<br>
+&lt;loop count="10"&gt;<br>
+  &lt;elt size="4" type="int"  id="SCORE" <span
+class="parameter_example_focus">table-index="RANKPOINTER:index_from_value"</span>
+base="16"/&gt;<br>
+  &lt;elt size="3" type="text" id="NAME"  <span
+class="parameter_example_focus">table-index="RANKPOINTER:index_from_value"</span>
+charset="gng"/&gt;<br>
+&lt;/loop&gt;<br>
+</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_elt_tableindexformat" name="tag_elt_tableindexformat"></a>structure
+&gt; loop &gt; elt &gt;
+?table-index-format="&lt;format_identifier&gt;|&lt;direct_implicit_format&gt;"<br>
+structure &gt; loop &gt; elt &gt;
+?table-index-format="&lt;identifier1&gt;;&lt;identifier2&gt;;..."</div>
+
+<div class="parameter_goal">
+optional identifier specifying how to format the elt index.<br>
+the final index is the combinaison of the table-index and table-index-format
+properties.<br>
+for loop step 2, with elt table-index="loop_index", then elt preliminary index
+is loop step = 2, then table-index-format transforms it using the specified
+format, meaning that elt final index can be 5 if format is "*2;+1"..<br>
+if the format identifier is simple enough, this format definition can be
+skipped as the program will automatically create it, computing its content from
+the identifier itself.<br>
+more than one format identifier can be specified, separated by ';'</div>
+
+<div class="parameter_example">
+ex: klax.xml<br>
+&lt;loop count="5"&gt;<br>
+  &lt;elt size="7"  type="int"  id="SCORE" table-index="loop_index" <span
+class="parameter_example_focus">table-index-format="*2"</span>  
+bitmask="score_odd"/&gt;<br>
+  &lt;elt size="6"  type="text" id="NAME"  table-index="loop_index" <span
+class="parameter_example_focus">table-index-format="*2"</span>  
+bitmask="name_odd"  decoding-profile="base-40" charset="klax"
+format="+dot"/&gt;<br>
+  &lt;elt size="6"  type="int"  id="SCORE" table-index="loop_index" <span
+class="parameter_example_focus">table-index-format="*2;+1"</span>
+bitmask="score_even"/&gt;<br>
+  &lt;elt size="4"  type="text" id="NAME"  table-index="loop_index" <span
+class="parameter_example_focus">table-index-format="*2;+1"</span>
+bitmask="name_even" decoding-profile="base-40" charset="klax"
+format="+dot"/&gt;<br>
+&lt;/loop&gt;</div>
+</div>
+
+<p><span style="font-weight: bold;"><a id="tag_loop" name="tag_loop"></a><span
+style="text-decoration: underline;">loop</span></span></p>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_loop_start" name="tag_loop_start"></a>structure &gt; loop
+?start="&lt;integer&gt;"</div>
+
+<div class="parameter_goal">
+optional integer specifying the starting index value of the loop (default =
+0).</div>
+
+<div class="parameter_example">
+ex: punchout.xml<br>
+&lt;loop count="10" <span
+class="parameter_example_focus">start="40"</span>&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_loop_step" name="tag_loop_step"></a>structure &gt; loop
+?step="&lt;integer&gt;"</div>
+
+<div class="parameter_goal">
+optional integer specifying the increment for each occurence of the loop
+(default = 1)</div>
+
+<div class="parameter_example">
+ex: -<br>
+-</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_loop_count" name="tag_loop_count"></a>structure &gt; loop
+count="&lt;integer&gt;"</div>
+
+<div class="parameter_goal">
+integer specifying the number of iterations of the loop.<br>
+final loop index is start+count*step, meaning by default 0+count*1 = count</div>
+
+<div class="parameter_example">
+ex: punchout.xml<br>
+&lt;loop <span class="parameter_example_focus">count="10"</span>
+start="40"&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_loop_skiplastbytes" name="tag_loop_skiplastbytes"></a>structure &gt;
+loop ?skip-last-bytes="&lt;integer&gt;"</div>
+
+<div class="parameter_goal">
+<span class="since">[since version 1.2]</span><br>
+optional integer specifying the number of bytes at the end of the loop
+structure that must be ignored, because not dumped in the hi file.<br>
+it allows to define a loop of X entries, where the last entry is only partially
+dumped, instead of defining a loop of X-1 entries, and an additional loop of 1
+entry, with only part of the previous loop columns. 
+
+<div class="parameter_example">
+ex: ket.xml<br>
+&lt;loop count="10" <span
+class="parameter_example_focus">skip-last-bytes="6"</span>&gt;</div>
+</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_loop_skipfirstbytes" name="tag_loop_skipfirstbytes"></a>structure
+&gt; loop ?skip-first-bytes="&lt;integer&gt;"</div>
+
+<div class="parameter_goal">
+<span class="since">[since version 1.2]</span><br>
+optional integer specifying the number of bytes at the beginning of the loop
+structure that must be ignored, because not dumped in the hi file.<br>
+it allows to define a loop of X entries, where the first entry is only
+partially dumped, instead of defining a loop of 1 entry, with only part of the
+next loop columns, and an additional loop of X-1 entries. 
+
+<div class="parameter_example">
+ex: ket.xml<br>
+&lt;loop count="10" <span
+class="parameter_example_focus">skip-first-bytes="2"</span>&gt;</div>
+</div>
+
+<p><br>
+<span style="font-weight: bold;"><a id="tag_output" name="tag_output"></a><span
+style="text-decoration: underline;">output</span></span><br>
+output fields are used to display an element as a single key/value pair.<br>
+output table and embedded columns are used to display all occurences/indexes of
+a set of elements.</p>
+<br>
+
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_output_id" name="tag_output_id"></a>output id="&lt;string&gt;"</div>
+<span class="since">[since version 1.4]</span> 
+
+<div class="parameter_goal">
+output identifier allowing to link it with a structure. see '<a
+href="#tag_structure">structure</a>' object for more information. </div>
+
+<div class="parameter_example">
+ex: fixeight.xml<br>
+&lt;structure output="broken_topscore"&gt;...&lt;/structure&gt;<br>
+&lt;output <span
+class="parameter_example_focus">id="broken_topscore"</span>&gt;...&lt;/output&gt;
+</div>
+</div>
+
+<p><span style="font-weight: bold;"><a id="tag_field"
+name="tag_field"></a><span
+style="text-decoration: underline;">field</span></span></p>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_field_id" name="tag_field_id"></a>output &gt; field
+?id="&lt;field_identifier&gt;"</div>
+
+<div class="parameter_goal">
+optional identifier allowing to associate an output field to a specific input
+element sharing the same id, giving the value to be displayed<br>
+if no identifier is provided, the attribute 'src' or a non-empty content is
+expected to define the value to be displayed</div>
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;field <span class="parameter_example_focus">id="TOP SCORE"</span>
+format="*10" display="extra"/&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_field_src" name="tag_field_src"></a>output &gt; field
+?src="&lt;elt_id&gt;|index"</div>
+
+<div class="parameter_goal">
+optional identifier specifying which element must be used as input to the
+field<br>
+if 'src' is specified, the input value of the field is taken from the related
+element, whenever a field id is set or not, even using another element
+identifier.<br>
+'src' value can also be the keyword 'index', meaning that the current output
+table index is used as input to this field.<br>
+'src' value can also be the keyword 'unsorted_index', meaning that the current
+output table index, before any sorting, is used as input to this field.<br>
+</div>
+
+<div class="parameter_example">
+ex: -<br>
+</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_field_format" name="tag_field_format"></a>output &gt; field
+?format="&lt;format_identifier&gt;|&lt;direct_implicit_format&gt;"<br>
+output &gt; field ?format="&lt;identifier1&gt;;&lt;identifier2&gt;;..."</div>
+
+<div class="parameter_goal">
+
+<div class="parameter_goal">
+optional reference to a format identifier describing how to format the field to
+display it.<br>
+if the format identifier is simple enough, this format definition can be
+skipped as the program will automatically create it, computing its content from
+the identifier itself.<br>
+(note: the special implicit format identifier "0x" means that "0x" will be
+added a the beginning of the value itself, to emphasis the hexadecimal
+representation of the output if needed)</div>
+see <a href="#tag_column_format">column format</a> for more information<br>
+more than one format identifier can be specified, separated by ';'<br>
+</div>
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;field id="TOP SCORE" <span
+class="parameter_example_focus">format="*10"</span> display="extra"/&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_field_display" name="tag_field_display"></a>output &gt; field
+?display="always|extra|debug"</div>
+
+<div class="parameter_goal">
+optional keyword specifying in which context this field must be displayed
+(default is always).<br>
+always: the field is always displayed<br>
+extra: the field is displayed only if extra information are requested, using
+-ra command-line argument.<br>
+debug: the field is displayed only if debug information are requested, using
+-rd command-line argument.</div>
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;field id="TOP SCORE" format="*10" <span
+class="parameter_example_focus">display="extra"</span>/&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_field_content" name="tag_field_content"></a>output ?content</div>
+
+<div class="parameter_goal">
+the field content can be non-empty to specify hard-coded string to be
+displayed.<br>
+see <a href="#tag_column_content">column content</a> for more information.</div>
+
+<div class="parameter_example">
+ex: -<br>
+-</div>
+</div>
+
+<p><span style="font-weight: bold;"><a id="tag_table"
+name="tag_table"></a><span
+style="text-decoration: underline;">table</span></span></p>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_table_id" name="tag_table_id"></a>output &gt; table
+@?id="&lt;table_id&gt;:&lt;value&gt;"</div>
+<span class="since">[since version 1.6]</span> 
+
+<div class="parameter_goal">
+optional attribute specifying the table identifier<br>
+it is used only when extracting data in xml </div>
+
+<div class="parameter_example">
+ex: sonicwi3.xml<br>
+&lt;table <span class="parameter_example_focus">id="2 PLAYERS"</span>
+line-ignore="2P SCORE:0"&gt;<br>
+  &lt;column id="RANK" src="index" format="+1"/&gt;<br>
+  &lt;column id="2P SCORE"/&gt;<br>
+  ...</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_table_lineignore" name="tag_table_lineignore"></a>output &gt; table
+@?line-ignore="&lt;column_id&gt;:&lt;value&gt;"</div>
+
+<div class="parameter_goal">
+optional attribute specifying what are the lines to not display<br>
+for example, line-ignore="SCORE:0" means that all lines of the output table
+that have a SCORE value equals to 0 must be skipped</div>
+
+<div class="parameter_example">
+ex: tempest.xml<br>
+&lt;table <span
+class="parameter_example_focus">line-ignore="SCORE:0"</span>&gt;<br>
+  &lt;column id="RANK" format="+1" src="index"/&gt;<br>
+  &lt;column id="NAME"/&gt;<br>
+  &lt;column id="<span class="parameter_example_focus">SCORE</span>"/&gt;<br>
+&lt;/table&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_table_lineignoreoperator"
+name="tag_table_lineignoreoperator"></a>output &gt; table
+?line-ignore-operator="&lt;operator&gt;"</div>
+
+<div class="parameter_goal">
+optional operator specifying the operator to be applied to know if a specific
+table line must be skipped, according to the line-ignore attribute (default is
+'==')<br>
+supported operators: &lt;, ==, &gt;, &gt;=, &lt;=, !=</div>
+
+<div class="parameter_example">
+ex: dino.xml<br>
+&lt;table <span
+class="parameter_example_focus">line-ignore-operator="&gt;"</span>
+line-ignore="SCORE:99000000"&gt;<br>
+  &lt;column id="RANK" format="+1" src="index"/&gt;<br>
+  &lt;column id="SCORE"/&gt;<br>
+  &lt;column id="NAME"/&gt;<br>
+  &lt;column id="CHARACTER" format="character"/&gt;<br>
+  &lt;column id="STAGE"/&gt;<br>
+  &lt;column id="SPACE" display="debug"/&gt;<br>
+  &lt;column id="UNKNOWN" format="0x" display="debug"/&gt; <br>
+&lt;/table&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_table_sort" name="tag_table_sort"></a>output &gt; table
+?sort="&lt;column_id&gt;"</div>
+
+<div class="parameter_goal">
+optional identifier specifying that a column must be taken into account to sort
+the output table.<br>
+by default, the column values are converted as decimal or string, to do the
+sorting (in this priority order). it is rarely used as sorting can be done in
+99% of the cases during the input elements decoding, using 'table-index'
+attribute, which is the recommended way to sort elements as it is best fitted
+to the original display algorithm</div>
+
+<div class="parameter_example">
+ex: srumbler.xml<br>
+&lt;table sort-order="asc" <span class="parameter_example_focus">sort="SCORE
+RANK"</span>&gt;<br>
+  &lt;column id="RANK" format="+1" src="index"/&gt;<br>
+  &lt;column id="SCORE"/&gt;<br>
+  &lt;column id="<span class="parameter_example_focus">SCORE RANK</span>"
+display="debug"/&gt;<br>
+  &lt;column id="NAME"/&gt;<br>
+  &lt;column id="NAME RANK" display="debug"/&gt;<br>
+&lt;/table&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_table_sortorder" name="tag_table_sortorder"></a>output &gt; table
+@?sort-order="asc|desc"</div>
+
+<div class="parameter_goal">
+optional keyword specifying what is the sort order to be used, if 'sort'
+attribute has been defined (default is 'asc')</div>
+
+<div class="parameter_example">
+ex: srumbler.xml<br>
+&lt;table <span class="parameter_example_focus">sort-order="asc"</span>
+sort="SCORE RANK"&gt;<br>
+  &lt;column id="RANK" format="+1" src="index"/&gt;<br>
+  &lt;column id="SCORE"/&gt;<br>
+  &lt;column id="SCORE RANK" display="debug"/&gt;<br>
+  &lt;column id="NAME"/&gt;<br>
+  &lt;column id="NAME RANK" display="debug"/&gt;<br>
+&lt;/table&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_table_sortformat" name="tag_table_sortformat"></a>output &gt; table
+@?sort-format="&lt;format_identifier&gt;|&lt;direct_implicit_format&gt;"<br>
+output &gt; table
+@?sort-format="&lt;identifier1&gt;;&lt;identifier2&gt;;..."</div>
+
+<div class="parameter_goal">
+<span class="since">[since version 1.7]</span><br>
+optional identifier specifying how to format the sort column values.<br>
+if the format identifier is simple enough, this format definition can be
+skipped as the program will automatically create it, computing its content from
+the identifier itself.<br>
+more than one format identifier can be specified, separated by ';'</div>
+
+<div class="parameter_example">
+ex: kof2001.xml<br>
+&lt;table id="WINS" sort="<span class="parameter_example_focus">WIN %</span>"
+<span class="parameter_example_focus">sort-format="TrimR%"</span>
+sort-order="desc"&gt;<br>
+  &lt;column id="CHARACTER" src="unsorted_index" format="character"/&gt;<br>
+  &lt;column id="<span class="parameter_example_focus">WIN %</span>" src="WIN
+CHARACTER" format="win;Suffix%"/&gt;<br>
+  &lt;column id="TOTAL" display="debug"/&gt;<br>
+&lt;/table&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_table_linesmax" name="tag_table_linesmax"></a>output &gt; table
+?lines-max="&lt;integer&gt;"</div>
+
+<div class="parameter_goal">
+optional integer specifying the maximum number of table lines to be displayed,
+in case 'line-ignore' attribute is not adapted, which is very rare</div>
+
+<div class="parameter_example">
+ex: carnival.xml<br>
+&lt;table line-ignore="SCORE:0" <span
+class="parameter_example_focus">lines-max="3"</span>&gt;<br>
+  &lt;column id="RANK" format="+1" src="index"/&gt;<br>
+  &lt;column id="SCORE" format="*10"/&gt;<br>
+  &lt;column id="NAME"/&gt;<br>
+&lt;/table&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_table_display" name="tag_table_display"></a>output &gt; table
+?display="always|extra|debug"</div>
+<span class="since">[since version 1.6]</span> 
+
+<div class="parameter_goal">
+optional keyword specifying in which context this table must be displayed
+(default is always).<br>
+always: the table is always displayed<br>
+extra: the table is displayed only if extra information are requested, using
+-ra command-line argument.<br>
+debug: the table is displayed only if debug information are requested, using
+-rd command-line argument</div>
+
+<div class="parameter_example">
+ex: srumbler.xml<br>
+&lt;table sort-order="asc" sort="SCORE RANK"&gt;<br>
+  &lt;column id="RANK" format="+1" src="index"/&gt;<br>
+  &lt;column id="SCORE"/&gt;<br>
+  &lt;column id="SCORE RANK" <span
+class="parameter_example_focus">display="debug"</span>/&gt;<br>
+  &lt;column id="NAME"/&gt;<br>
+  &lt;column id="NAME RANK" <span
+class="parameter_example_focus">display="debug"</span>/&gt;<br>
+&lt;/table&gt;</div>
+</div>
+
+<p><span style="font-weight: bold;"><a id="tag_column"
+name="tag_column"></a><span
+style="text-decoration: underline;">column</span></span></p>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_column_id" name="tag_column_id"></a>output &gt; table &gt; column
+?id="&lt;column_identifier&gt;"</div>
+
+<div class="parameter_goal">
+
+<div class="parameter_goal">
+optional identifier allowing to associate an output column to a specific input
+element sharing the same id, giving the value to be displayed<br>
+if no identifier is provided, the attribute 'src' or a non-empty content is
+expected to define the value to be displayed</div>
+</div>
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;column <span class="parameter_example_focus">id="SCORE"</span>
+format="score"/&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_column_src" name="tag_column_src"></a>output &gt; table &gt; column
+?src="&lt;elt_id&gt;|index"</div>
+
+<div class="parameter_goal">
+optional identifier specifying which element must be used as input to the
+column<br>
+if 'src' is specified, the input value of the column is taken from the related
+element, whenever a field id is set or not, even using another element
+identifier.<br>
+'src' value can also be the keyword 'index', meaning that the current output
+table index is used as input to this column.<br>
+'src' value can also be the keyword 'unsorted_index', meaning that the current
+output table index, before any sorting, is used as input to this field.<br>
+</div>
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;column id="RANK" <span class="parameter_example_focus">src="index"</span>
+format="+1"/&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_column_format" name="tag_column_format"></a>output &gt; table &gt;
+column ?format="&lt;format_identifier&gt;|&lt;direct_implicit_format&gt;"<br>
+output &gt; table &gt; column
+?format="&lt;identifier1&gt;;&lt;identifier2&gt;;..."</div>
+
+<div class="parameter_goal">
+optional reference to a format identifier describing how to format the column
+to display it.<br>
+see format object definition below to understand the formatting
+possibilities.<br>
+<a name="auto_format" id="auto_format"></a>if the format identifier is simple
+enough, this format definition can be skipped as the program will automatically
+create it, computing its content from the identifier itself.<br>
+<br>
+
+
+<table>
+  <tbody>
+    <tr>
+      <th>operator</th>
+      <th>definition</th>
+      <th>example</th>
+      <th>introduction</th>
+    </tr>
+    <tr>
+      <td>*&lt;number&gt;</td>
+      <td><a href="#tag_format_multiply">multiply</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>/&lt;number&gt;</td>
+      <td><a href="#tag_format_divide">divide</a></td>
+      <td>5800 / 60 =&gt; 96.66666</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>d&lt;number&gt;</td>
+      <td><a href="#tag_format_dividetrunc">divide and trunc</a> as integer</td>
+      <td>5800 d 60 =&gt; 96</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>D&lt;number&gt;</td>
+      <td><a href="#tag_format_divideround">divide and round</a> to the nearest
+        integer</td>
+      <td>5800 D 60 =&gt; 97</td>
+      <td><span class="since">[since version 1.3]</span></td>
+    </tr>
+    <tr>
+      <td>-&lt;number&gt;</td>
+      <td><a href="#tag_format_substract">substract</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>+&lt;number&gt;</td>
+      <td><a href="#tag_format_add">add</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>%&lt;number&gt;</td>
+      <td><a href="#tag_format_remainder">remainder</a></td>
+      <td>5800 % 60 =&gt; 66666</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>&gt;&lt;integer&gt;</td>
+      <td><a href="#tag_format_shift">shift</a></td>
+      <td></td>
+      <td><span class="since">[since version 1.2]</span></td>
+    </tr>
+    <tr>
+      <td>LC or Lowercase</td>
+      <td><a href="#tag_format_lowercase">lowercase</a></td>
+      <td></td>
+      <td><span class="since">[since version 1.3]</span></td>
+    </tr>
+    <tr>
+      <td>UC or Uppercase</td>
+      <td><a href="#tag_format_uppercase">uppercase</a></td>
+      <td></td>
+      <td><span class="since">[since version 1.2]</span></td>
+    </tr>
+    <tr>
+      <td>Capitalize</td>
+      <td><a href="#tag_format_capitalize">capitalize</a></td>
+      <td></td>
+      <td><span class="since">[since version 1.3]</span></td>
+    </tr>
+    <tr>
+      <td>Round or R</td>
+      <td><a href="#tag_format_round">round</a></td>
+      <td></td>
+      <td><span class="since">[since version 1.3]</span></td>
+    </tr>
+    <tr>
+      <td>Trunc or T</td>
+      <td><a href="#tag_format_trunc">trunc</a></td>
+      <td></td>
+      <td><span class="since">[since version 1.3]</span></td>
+    </tr>
+    <tr>
+      <td>TrimL&lt;character&gt;</td>
+      <td><a href="#tag_format_trim">trim</a> &lt;character&gt; from left
+      side</td>
+      <td>TrimL0</td>
+      <td><span class="since">[since version 1.3]</span></td>
+    </tr>
+    <tr>
+      <td>TrimR&lt;character&gt;</td>
+      <td><a href="#tag_format_trim">trim</a> &lt;character&gt; from right
+      side</td>
+      <td>TrimR0</td>
+      <td><span class="since">[since version 1.3]</span></td>
+    </tr>
+    <tr>
+      <td>Trim&lt;character&gt;</td>
+      <td><a href="#tag_format_trim">trim</a> &lt;character&gt; from both
+      sides</td>
+      <td>Trim0</td>
+      <td><span class="since">[since version 1.3]</span></td>
+    </tr>
+    <tr>
+      <td>PadL&lt;integer&gt;&lt;character&gt;</td>
+      <td><a href="#tag_format_pad">pad</a> &lt;character&gt; from left
+        side,<br>
+        until a maximum of &lt;integer&gt; characters is reached</td>
+      <td>PadL60</td>
+      <td><span class="since">[since version 1.3]</span></td>
+    </tr>
+    <tr>
+      <td>PadR&lt;integer&gt;&lt;character&gt;</td>
+      <td><a href="#tag_format_pad">pad</a> &lt;character&gt; from right
+        side,<br>
+        until a maximum of &lt;integer&gt; characters is reached</td>
+      <td>PadR80</td>
+      <td><span class="since">[since version 1.3]</span></td>
+    </tr>
+    <tr>
+      <td>Suffix&lt;string&gt;</td>
+      <td><a href="#tag_format_suffix">concatenate</a> &lt;string&gt; at the
+        end, if not empty</td>
+      <td>Suffix%</td>
+      <td><span class="since">[since version 1.3]</span></td>
+    </tr>
+    <tr>
+      <td>Prefix&lt;string&gt;</td>
+      <td><a href="#tag_format_prefix">concatenate</a> &lt;string&gt; at the
+        beginning, if not empty</td>
+      <td>PrefixSTG</td>
+      <td><span class="since">[since version 1.3]</span></td>
+    </tr>
+    <tr>
+      <td>LoopIndex</td>
+      <td>assign <a href="#tag_format_loopindex">loop index</a> to the current
+        element</td>
+      <td></td>
+      <td><span class="since">[since version 1.3]</span></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+more than one format identifier can be specified, separated by ';'.<br>
+(note: the special implicit format identifier "0x" means that "0x" will be
+added a the beginning of the value itself, to emphasis the hexadecimal
+representation of the output if needed).<br>
+see related format operations definition for more information.</div>
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;table&gt;<br>
+  &lt;column id="RANK" src="index" <span
+class="parameter_example_focus">format="+1"</span>/&gt;<br>
+  ...<br>
+&lt;/table&gt;<br>
+&lt;<span class="parameter_example_focus">format
+id="+1"</span>&gt;&lt;add&gt;1&lt;/add&gt;&lt;/format&gt; &lt;!-- not strictly
+necessary //--&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_column_display" name="tag_column_display"></a>output &gt; table &gt;
+column ?display="always|extra|debug"</div>
+
+<div class="parameter_goal">
+optional keyword specifying in which context this column must be displayed
+(default is always).<br>
+always: the column is always displayed<br>
+extra: the column is displayed only if extra information are requested, using
+-ra command-line argument.<br>
+debug: the column is displayed only if debug information are requested, using
+-rd command-line argument</div>
+
+<div class="parameter_example">
+ex: srumbler.xml<br>
+&lt;table sort-order="asc" sort="SCORE RANK"&gt;<br>
+  &lt;column id="RANK" format="+1" src="index"/&gt;<br>
+  &lt;column id="SCORE"/&gt;<br>
+  &lt;column id="SCORE RANK" <span
+class="parameter_example_focus">display="debug"</span>/&gt;<br>
+  &lt;column id="NAME"/&gt;<br>
+  &lt;column id="NAME RANK" <span
+class="parameter_example_focus">display="debug"</span>/&gt;<br>
+&lt;/table&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_column_content" name="tag_column_content"></a>output &gt; table &gt;
+column ?content</div>
+
+<div class="parameter_goal">
+the column content can be non-empty to specify hard-coded string to be
+displayed.<br>
+in this case, column id is not necessary.</div>
+
+<div class="parameter_example">
+ex: spnchoutj.xml<br>
+&lt;format id="percentage" input-as-subcolumns-input="true"&gt;<br>
+  &lt;concat&gt;<br>
+    &lt;column format="integer"/&gt;<br>
+    <span
+class="parameter_example_focus">&lt;column&gt;.&lt;/column&gt;</span><br>
+    &lt;column format="decimal"/&gt;<br>
+    <span
+class="parameter_example_focus">&lt;column&gt;%&lt;/column&gt;</span><br>
+  &lt;/concat&gt;<br>
+&lt;/format&gt;</div>
+</div>
+
+<p><br>
+</p>
+
+<p class="xml_tags"><span>&lt;hi2txt&gt;<span style="color:#008000"><br>
+  <span
+style="color: black;">&lt;structure&gt;</span></span>...&lt;/structure&gt;<br>
+</span>  <span
+style="color: #009900;">&lt;bitmask&gt;...&lt;/bitmask&gt;</span><span><br>
+  &lt;output&gt;...&lt;/output&gt;<br>
+</span>  <span style="color: #009900;">&lt;format&gt;...&lt;/format&gt;<br>
+  &lt;charset&gt;...&lt;/charset&gt;</span><span><br>
+&lt;/hi2txt&gt;</span></p>
+
+<p></p>
+
+<p></p>
+
+<p><span style="font-weight: bold;"><a id="tag_format"
+name="tag_format"></a><span
+style="text-decoration: underline;">format</span></span></p>
+format allows to transform a value or a set of values into another value,
+embedding a set of operations for this purpose.<br>
+<br>
+
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_id" name="tag_format_id"></a>format
+id="&lt;identifier&gt;"</div>
+
+<div class="parameter_goal">
+identifier of the format, allowing it to be referenced, called by a field or
+column.</div>
+
+<div class="parameter_example">
+ex: spnchoutj.xml<br>
+&lt;format <span class="parameter_example_focus">id="percentage"</span>
+input-as-subcolumns-input="true"&gt;<br>
+  ...<br>
+&lt;/format&gt;<br>
+</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_formatter" name="tag_format_formatter"></a>format
+?formatter="&lt;regex&gt;"</div>
+
+<div class="parameter_goal">
+regular expression allowing to format the output string, after all embedded
+operations.<br>
+formatter string syntax follows the Java format string syntax described in the
+<a
+href="http://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html">Java
+doc</a> of the class 'Formatter'.</div>
+
+<div class="parameter_example">
+ex: trackfld.xml<br>
+&lt;format id="time" <span
+class="parameter_example_focus">formatter="%.2fsec"</span>&gt;<br>
+  &lt;divide&gt;100&lt;/divide&gt;<br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_applyto" name="tag_format_applyto"></a>format
+?apply-to="char|value"</div>
+
+<div class="parameter_goal">
+keyword specifying if the format is applicable on the input value as a whole or
+on each 'character' of the input value (default is value).<br>
+it is targeting 'text' inpout element.<br>
+supported keywords:<br>
+    char =&gt; format is applied on each character of the input value<br>
+    value =&gt; format is applied one time for the whole value</div>
+
+<div class="parameter_example">
+ex: klax.xml, where the format append '.' after each character of the input
+value.<br>
+&lt;format id="+dot" <span
+class="parameter_example_focus">apply-to="char"</span>&gt;<br>
+  &lt;suffix&gt;.&lt;/suffix&gt;<br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_inputassubcolumnsinput"
+name="tag_format_inputassubcolumnsinput"></a>format
+?input-as-subcolumns-input="yes|no"</div>
+
+<div class="parameter_goal">
+boolean specifying that the input value of the format must not be used by the
+embedded operations directly, but as input value of the columns/fields
+contained inside these operations (default is no).<br>
+in this case, sub-columns/fields can skip the 'id' or 'src' attribute, as the
+input value for them is implicitely the value of the input calling the
+embedding format.<br>
+it allows to re-use multiple times the same input in different parts of a
+format, without having to define intermediate columns.<br>
+note that sub-columns/fields -embedded in an operation of this format- that are
+defining a non-empty content are not impacted as this content hardcodes itself
+the column input value.<br>
+note that operation of this format that doesn't use any sub-column/field also
+ignore this attribute, allowing to chain the result of operations inside a
+format, even if the format uses 'input-as-subcolumns-input' (see tgm2.xml
+format@id="medal"/trim). <span class="since">[since version 1.2]</span> </div>
+
+<div class="parameter_example">
+ex: spnchoutj.xml<br>
+&lt;format id="percentage" <span
+class="parameter_example_focus">input-as-subcolumns-input="true"</span>&gt;<br>
+  &lt;concat&gt;<br>
+    &lt;column format="integer"/&gt;<br>
+    &lt;column&gt;.&lt;/column&gt;<br>
+    &lt;column format="decimal"/&gt;<br>
+    &lt;column&gt;%&lt;/column&gt;<br>
+  &lt;/concat&gt;<br>
+&lt;/format&gt;</div>
+</div>
+
+<p><span style="text-decoration: underline;"><span
+style="font-weight: bold;">supported format operations</span></span></p>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_add" name="tag_format_add"></a>format &gt; ?add
+&lt;integer&gt;</div>
+
+<div class="parameter_goal">
+integer added to the value of the column/field calling this format</div>
+
+<div class="parameter_example">
+ex: klax.xml<br>
+&lt;format id="+1"&gt;<br>
+  <span class="parameter_example_focus">&lt;add&gt;1&lt;/add&gt;</span><br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_prefix" name="tag_format_prefix"></a>format &gt; ?prefix
+&lt;string&gt; @empty &lt;string&gt; @consume &lt;yes|no&gt;</div>
+
+<div class="parameter_goal">
+string to concatenate in front of the value of the column/field calling this
+format.<br>
+if the input value is empty, nothing is appended.<br>
+'empty' attribute allows to define what is considered as an empty input value
+(default is no value at all, but it can be set to "0" for example). <span
+class="since">[since version 1.2]</span><br>
+'consume' attribute indicates that an empty input value must be consumed by
+this operation, which will not return any output value (only useful when
+'empty' attribute is set to something different than no value). <span
+class="since">[since version 1.2]</span><br>
+this operation can be implicitly defined when calling the format,
+using"Prefix&lt;string&gt;" (see column/field <a href="#auto_format">format</a>
+attribute). <span class="since">[since version 1.3]</span></div>
+
+<div class="parameter_example">
+ex: turfmast.xml<br>
+&lt;format id="+"&gt;<span
+class="parameter_example_focus">&lt;prefix&gt;+&lt;/prefix&gt;</span>&lt;/format&gt;<br>
+<br>
+ex: tgm2.xml =&gt; for medal value 0, nothing is appended and this '0' value is
+not returned/displayed<br>
+<span class="since">[since version 1.2]</span><br>
+&lt;format id="medal_ac"&gt;<br>
+  &lt;prefix <span class="parameter_example_focus">empty="0"
+consume="yes"</span>&gt; AC&lt;/prefix&gt;<br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_suffix" name="tag_format_suffix"></a>format &gt; ?suffix
+&lt;string&gt; @empty &lt;string&gt; @consume &lt;yes|no&gt;</div>
+
+<div class="parameter_goal">
+string to concatenate at the end of the value of the column/field calling this
+format.<br>
+if the input value is empty, nothing is appended.<br>
+'empty' attribute allows to define what is considered as an empty input value
+(default is no value at all, but it can be set to "0" for example). <span
+class="since">[since version 1.2]</span><br>
+'consume' attribute indicates that an empty input value must be consumed by
+this operation, which will not return any output value (only useful when
+'empty' attribute is set to something different than no value). <span
+class="since">[since version 1.2]</span><br>
+this operation can be implicitly defined when calling the format, using
+"Suffix&lt;string&gt;" (see column/field <a href="#auto_format">format</a>
+attribute). <span class="since">[since version 1.3]</span> </div>
+
+<div class="parameter_example">
+ex: klax.xml<br>
+&lt;format id="+dot" apply-to="char"&gt;<br>
+  <span
+class="parameter_example_focus">&lt;suffix&gt;.&lt;/suffix&gt;</span><br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_multiply" name="tag_format_multiply"></a>format &gt;
+?multiply &lt;integer&gt;</div>
+
+<div class="parameter_goal">
+integer multiplied to the value of the column/field calling this format<br>
+this operation can be implicitly defined when calling the format, using
+"*&lt;number&gt;" (see column/field <a href="#auto_format">format</a>
+attribute).</div>
+
+<div class="parameter_example">
+ex: turfmast.xml<br>
+&lt;format id="-"&gt;<br>
+  <span
+class="parameter_example_focus">&lt;multiply&gt;-1&lt;/multiply&gt;</span><br>
+  &lt;add&gt;256&lt;/add&gt;<br>
+  &lt;prefix&gt;-&lt;/prefix&gt;<br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_divide" name="tag_format_divide"></a>format &gt; ?divide
+&lt;integer&gt;</div>
+
+<div class="parameter_goal">
+integer dividing the value of the column/field calling this format: the result
+can be a float.<br>
+if the result must keep only the decimal part, see the '<a
+href="#tag_format_remainder">remainder</a>' operation.<br>
+if the result must keep only the integer part, see the' <a
+href="#tag_format_dividetrunc">divide_trunc</a>' operation.<br>
+if the result must be rounded to the nearest integer, see the' <a
+href="#tag_format_divideround">divide_round</a>' operation.<br>
+this operation can be implicitly defined when calling the format,
+using"/&lt;number&gt;" (see column/field <a href="#auto_format">format</a>
+attribute).</div>
+
+<div class="parameter_example">
+ex: trackfld.xml<br>
+&lt;format id="time" formatter="%.2fsec"&gt;<br>
+  <span
+class="parameter_example_focus">&lt;divide&gt;100&lt;/divide&gt;</span><br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_sum" name="tag_format_sum"></a>format &gt; ?sum
+(&lt;field&gt;|&lt;column&gt;)+</div>
+
+<div class="parameter_goal">
+list of columns/fields to sum all together.<br>
+these columns/fields must be number.<br>
+this operation can be implicitly defined when calling the format,
+using"+&lt;number&gt;" (see column/field <a href="#auto_format">format</a>
+attribute). </div>
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;format id="score"&gt;<br>
+  <span class="parameter_example_focus">&lt;sum&gt;<br>
+    &lt;column id="SCORE1" format="*10"/&gt;<br>
+    &lt;column id="SCORE2"/&gt;<br>
+  &lt;/sum&gt;</span><br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_concat" name="tag_format_concat"></a>format &gt; ?concat
+(&lt;field&gt;|&lt;column&gt;|&lt;txt&gt;)+</div>
+
+<div class="parameter_goal">
+list of columns/fields to be concatenated all together.<br>
+note: a specific 'txt' element can be used also to store hard-coded text with
+improved readibility <span class="since">[since version
+1.1.20140809]</span>.</div>
+
+<div class="parameter_example">
+ex: ddonpach.xml<br>
+&lt;format id="area"&gt;<br>
+  <span class="parameter_example_focus">&lt;concat&gt;<br>
+    &lt;column id="LOOP"  format="default_loop;-"/&gt;<br>
+    &lt;column id="STAGE" format="default_stage"/&gt;<br>
+  &lt;/concat&gt;</span><br>
+&lt;/format&gt;<br>
+<br>
+ex: kindmgp.xml<br>
+&lt;format id="time" input-as-subcolumns-input="yes"&gt;<br>
+  &lt;concat&gt;<br>
+    &lt;column format="MN"/&gt;<br>
+    <span class="parameter_example_focus">&lt;txt&gt;'&lt;/txt&gt;</span><br>
+    &lt;column format="SEC"/&gt;<br>
+    <span class="parameter_example_focus">&lt;txt&gt;''&lt;/txt&gt;</span><br>
+    &lt;column format="CS"/&gt;<br>
+  &lt;/concat&gt;<br>
+&lt;/format&gt;<br>
+</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_min" name="tag_format_min"></a>format &gt; ?min
+(&lt;field&gt;|&lt;column&gt;)+</div>
+
+<div class="parameter_goal">
+list of columns/fields from where the minimum value will be selected</div>
+
+<div class="parameter_example">
+ex: -<br>
+&lt;format id="score"&gt;<br>
+  <span class="parameter_example_focus">&lt;min&gt;<br>
+    &lt;field id="VALUE_1"/&gt;<br>
+    &lt;field id="VALUE_2"/&gt;<br>
+    &lt;field id="VALUE_3"/&gt;<br>
+  &lt;/min&gt;</span><br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_max" name="tag_format_max"></a>format &gt; ?max
+(&lt;field&gt;|&lt;column&gt;)+</div>
+
+<div class="parameter_goal">
+list of columns/fields from where the maximum value will be selected</div>
+
+<div class="parameter_example">
+ex: phoenix.xml<br>
+&lt;format id="score"&gt;<br>
+  <span class="parameter_example_focus">&lt;max&gt;<br>
+    &lt;field id="TOP SCORE ALT"/&gt;<br>
+    &lt;field id="SCORE 1 ALT"/&gt;<br>
+    &lt;field id="SCORE 2 ALT"/&gt;<br>
+  &lt;/max&gt;</span><br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_pad" name="tag_format_pad"></a>format &gt; ?pad
+&lt;string&gt; @direction &lt;left|right&gt; @max &lt;integer&gt;</div>
+
+<div class="parameter_goal">
+string to append before or after (attribute 'direction') the value of the
+column/field calling this format, enabling to reach the maximum number of
+characters requested ('max' attribute), but no more.<br>
+in case the initial value is already &gt;= maximum specified, nothing is
+added.<br>
+this operation can be implicitly defined when calling the format, using
+"PadL&lt;integer_for_max&gt;&lt;character&gt;",
+"PadR&lt;integer_for_max&gt;&lt;character&gt;" (see column/field <a
+href="#auto_format">format</a> attribute). <span class="since">[since version
+1.3]</span> </div>
+
+<div class="parameter_example">
+ex: spnchoutj.xml<br>
+&lt;format id="ms"&gt;<br>
+  &lt;remainder&gt;100&lt;/remainder&gt;<br>
+  <span class="parameter_example_focus">&lt;pad direction="left"
+max="2"&gt;0&lt;/pad&gt;</span><br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_trim" name="tag_format_trim"></a>format &gt; ?trim
+&lt;string&gt; @direction &lt;left|right|both&gt;</div>
+
+<div class="parameter_goal">
+all consecutive occurences of the specified string will be removed, starting
+from the start (direction="left"), the end (direction="right"), or both
+(direction="both" <span class="since">[since version 1.3]</span>) of the value
+of the column/field calling this format.<br>
+this operation can be implicitly defined when calling the format, using
+"TrimL<character_to_trim>", "TrimR<character_to_trim>" or
+"Trim<character_to_trim>" (see column/field <a href="#auto_format">format</a>
+attribute).</div>
+
+<div class="parameter_example">
+ex: twincobr.xml<br>
+&lt;format id="trim"&gt;<br>
+  <span class="parameter_example_focus">&lt;trim
+direction="left"&gt;0&lt;/trim&gt;</span><br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_substract" name="tag_format_substract"></a>format &gt;
+?substract &lt;integer&gt;</div>
+
+<div class="parameter_goal">
+integer substracted from the value of the column/field calling this format.<br>
+this operation can be implicitly defined when calling the format, using
+"-&lt;number&gt;" (see column/field <a href="#auto_format">format</a>
+attribute). </div>
+
+<div class="parameter_example">
+ex: gng.xml<br>
+&lt;format id="rp1"&gt;<br>
+  <span
+class="parameter_example_focus">&lt;substract&gt;44&lt;/substract&gt;</span><br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_remainder" name="tag_format_remainder"></a>format &gt;
+?remainder &lt;integer&gt;</div>
+
+<div class="parameter_goal">
+integer dividing the value of the column/field calling this format: only the
+remainder part is kept.<br>
+if the result must keep integer and decimal parts, see the '<a
+href="#tag_format_divide">divide</a>' operation.<br>
+if the result must keep only the integer part, see the' <a
+href="#tag_format_dividetrunc">divide_trunc</a>' operation.<br>
+if the result must be rounded to the nearest integer, see the' <a
+href="#tag_format_divideround">divide_round</a>' operation.<br>
+this operation can be implicitly defined when calling the format, using
+"%&lt;number&gt;" (see column/field <a href="#auto_format">format</a>
+attribute). </div>
+
+<div class="parameter_example">
+ex: spnchoutj.xml<br>
+&lt;format id="ms"&gt;<br>
+  <span
+class="parameter_example_focus">&lt;remainder&gt;100&lt;/remainder&gt;</span><br>
+  &lt;pad direction="left" max="2"&gt;0&lt;/pad&gt;<br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_trunc" name="tag_format_trunc"></a>format &gt; ?trunc</div>
+
+<div class="parameter_goal">
+convert a number into an integer, by skipping the decimal part.<br>
+this operation can be implicitly defined when calling the format, using "Trunc"
+(see column/field <a href="#auto_format">format</a> attribute). <span
+class="since">[since version 1.3]</span></div>
+
+<div class="parameter_example">
+ex: -<br>
+&lt;format id="integer"&gt;<br>
+  <span class="parameter_example_focus">&lt;trunc/&gt;</span><br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_round" name="tag_format_round"></a>format &gt; ?round</div>
+
+<div class="parameter_goal">
+convert a number into the nearest rounded integer.<br>
+this operation can be implicitly defined when calling the format, using "Round"
+(see column/field <a href="#auto_format">format</a> attribute). <span
+class="since">[since version 1.3]</span></div>
+
+<div class="parameter_example">
+ex: -<br>
+&lt;format id="rounded"&gt;<br>
+  <span class="parameter_example_focus">&lt;round/&gt;</span><br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_dividetrunc" name="tag_format_dividetrunc"></a>format &gt;
+?divide_trunc (&lt;value&gt;|field|column)*&gt;</div>
+
+<div class="parameter_goal">
+integer dividing the value of the column/field calling this format: only the
+integer part is kept.<br>
+if the result must keep integer and decimal parts, see the '<a
+href="#tag_format_divide">divide</a>' operation.<br>
+if the result must keep only the decimal part, see the '<a
+href="#tag_format_remainder">remainder</a>' operation.<br>
+if the result must be rounded to the nearest integer, see the' <a
+href="#tag_format_divideround">divide_round</a>' operation.<br>
+this operation can be implicitly defined when calling the format, using
+"d&lt;number&gt;" (see column/field <a href="#auto_format">format</a>
+attribute). </div>
+
+<div class="parameter_example">
+ex: spnchoutj.xml<br>
+&lt;format id="sec"&gt;<br>
+  &lt;remainder&gt;10000&lt;/remainder&gt;<br>
+  <span
+class="parameter_example_focus">&lt;divide_trunc&gt;100&lt;/divide_trunc&gt;</span><br>
+  &lt;pad direction="left" max="2"&gt;0&lt;/pad&gt;<br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_divideround" name="tag_format_divideround"></a>format &gt;
+?divide_round (&lt;value&gt;|field|column)*&gt;</div>
+
+<div class="parameter_goal">
+<span class="since">[since version 1.3]</span><br>
+integer dividing the value of the column/field calling this format: the result
+is rounded to the nearest integer .<br>
+if the result must keep integer and decimal parts, see the '<a
+href="#tag_format_divide">divide</a>' operation.<br>
+if the result must keep only the decimal part, see the '<a
+href="#tag_format_remainder">remainder</a>' operation.<br>
+if the result must keep only the integer part, see the' <a
+href="#tag_format_dividetrunc">divide_trunc</a>' operation.<br>
+this operation can be implicitly defined when calling the format, using
+"D&lt;number&gt;" (see column/field <a href="#auto_format">format</a>
+attribute). </div>
+
+<div class="parameter_example">
+ex: mushitam.xml<br>
+&lt;format id="time" input-as-subcolumns-input="yes"&gt;<br>
+  &lt;concat&gt;<br>
+    &lt;column format="d60;d60"/&gt;<br>
+    &lt;txt&gt;:&lt;/txt&gt;<br>
+    &lt;column format="d60;%60;PadL20"/&gt;<br>
+    &lt;txt&gt;:&lt;/txt&gt;<br>
+    &lt;column format="%60;*100;<span
+class="parameter_example_focus">D60</span>;PadL20"/&gt;<br>
+  &lt;/concat&gt;<br>
+&lt;/format&gt; </div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_replace" name="tag_format_replace"></a>format &gt; ?replace
+@src &lt;string&gt; @dst &lt;string&gt;</div>
+
+<div class="parameter_goal">
+all occurences of the 'src' string will be replaced by the 'dst' string</div>
+
+<div class="parameter_example">
+ex: suprmrio.xml<br>
+&lt;format id="world"&gt;<br>
+  <span class="parameter_example_focus">&lt;replace src="0"
+dst="W-"/&gt;</span><br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_shift" name="tag_format_shift"></a>format &gt; ?shift
+<number></div>
+
+<div class="parameter_goal">
+<span class="since">[since version 1.2]</span><br>
+input number is shifted<a href="#ref_007"><sup>[7]</sup></a> by the specified
+value.<br>
+if the bit sequence 0001 0111 (decimal 23) were subjected to a logical shift of
+one bit position to the left would yield: 0010 1110 (decimal 46).<br>
+this operation can be implicitly defined when calling the format, using
+"&gt;&lt;number&gt;" (see column/field <a href="#auto_format">format</a>
+attribute). </div>
+
+<div class="parameter_example">
+ex:<br>
+&lt;format id="medal"&gt;<br>
+  <span class="parameter_example_focus">&lt;shift&gt;2&lt;/shift&gt;</span><br>
+&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_lowercase" name="tag_format_lowercase"></a>format &gt;
+?lowercase</div>
+
+<div class="parameter_goal">
+<span class="since">[since version 1.3]</span><br>
+all characters of input data are put in lower case.<br>
+this operation can be implicitly defined when calling the format, using
+"Lowercase" or "LC" (see column/field <a href="#auto_format">format</a>
+attribute).</div>
+
+<div class="parameter_example">
+ex:<br>
+&lt;format id="trial"&gt;<br>
+  <span class="parameter_example_focus">&lt;lowercase/&gt;<br>
+</span>&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_uppercase" name="tag_format_uppercase"></a>format &gt;
+?uppercase</div>
+
+<div class="parameter_goal">
+<span class="since">[since version 1.2, behavior modified in 1.3]</span><br>
+all characters of input data are put in upper case.<br>
+this operation can be implicitly defined when calling the format, using
+"Uppercase" or "UC" (see column/field <a href="#auto_format">format</a>
+attribute).</div>
+
+<div class="parameter_example">
+ex: guwange.xml<br>
+&lt;column id="NAME H" format="transliteration;<span
+class="parameter_example_focus">UC</span>;parenthesis"/&gt;<br>
+<br>
+ex:<br>
+&lt;format id="trial"&gt;<br>
+  <span class="parameter_example_focus">&lt;uppercase/&gt;<br>
+</span>&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_capitalize" name="tag_format_capitalize"></a>format &gt;
+?capitalize</div>
+
+<div class="parameter_goal">
+<span class="since">[since version 1.3]</span><br>
+first character of input data is put in upper case.<br>
+this operation can be implicitly defined when calling the format, using
+"Capitalize" (see column/field <a href="#auto_format">format</a>
+attribute).</div>
+
+<div class="parameter_example">
+ex:<br>
+&lt;format id="trial"&gt;<br>
+  <span class="parameter_example_focus">&lt;capitalize/&gt;<br>
+</span>&lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_loopindex" name="tag_format_loopindex"></a>format &gt;
+?loopindex</div>
+
+<div class="parameter_goal">
+<span class="since">[since version 1.3]</span><br>
+the formatted element takes the value of the loop index, if it is inside a
+loop.<br>
+this operation is done after "table-index" attribute management, allowing to
+use the real data as the index inside the table (@table-index="itself"), but
+after, modifying this data to be the loop index.<br>
+the main usage is to handle a list of pointers on the real data, allowing to
+sort them.<br>
+this operation can be implicitly defined when calling the format, using
+"LoopIndex" (see column/field <a href="#auto_format">format</a>
+attribute).</div>
+
+<div class="parameter_example">
+ex: inthehunt.xml<br>
+&lt;structure file=".hi"&gt;<br>
+  ...<br>
+  &lt;loop count="12"&gt;<br>
+    &lt;elt size="2" type="int" id="POINTER" endianness="little_endian"
+table-index="itself" table-index-format="-384;/16" <span
+class="parameter_example_focus">format="LoopIndex"</span>/&gt;<br>
+  &lt;/loop&gt;<br>
+&lt;/structure&gt;<br>
+&lt;output&gt;<br>
+  &lt;table line-ignore="NAME:" sort="POINTER"&gt;<br>
+  ...<br>
+  &lt;/table&gt;<br>
+&lt;/output&gt;<br>
+</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_case" name="tag_format_case"></a>format &gt; ?case*</div>
+
+<div class="parameter_goal">
+operation converting an input value into a specific value.<br>
+multiple cases can be defined.<br>
+inside the same format, multiple groups of 'case' can be defined, separated by
+other operations, allowing to chain multiple operations, including 'case'.
+<span class="since">[since version 1.2]</span></div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_case_src" name="tag_format_src"></a>format &gt; ?case
+@src="?" @dst="?" @default="yes|no"</div>
+'src' attribute specifies which input value matches the case (the src value can
+be a value in base 10 (nn)or in base 16 (0xnn)).<br>
+'dst' attribute specifies in which string the input will be converted, if the
+'src' matches the input.<br>
+'default' attribute specifies which 'case' among the list of cases will be used
+if the input value doesn't match any case 'src'.<br>
+
+
+<div class="parameter_example">
+ex: 1941.xml<br>
+&lt;format id="grade_mapping"&gt;<br>
+  &lt;case src="0" dst="SECOND LIEUTENANT" <span
+class="parameter_example_focus">default="yes"</span>/&gt;<br>
+  &lt;case src="1" dst="FIRST LIEUTENANT"/&gt;<br>
+  &lt;case <span class="parameter_example_focus">src="2"</span>
+dst="CAPTAIN"/&gt;<br>
+  &lt;case src="3" dst="MAJOR"/&gt;<br>
+  &lt;case src="4" <span class="parameter_example_focus">dst="LIEUTENANT
+COLONEL"</span>/&gt;<br>
+  &lt;case src="5" dst="COLONEL"/&gt;<br>
+  &lt;case src="6" dst="6"/&gt;<br>
+  &lt;case src="7" dst="7"/&gt;<br>
+&lt;/format&gt;<br>
+<br>
+ex: ad2083.xml<br>
+&lt;format id="ad2083" apply-to="char"&gt;<br>
+  &lt;case <span class="parameter_example_focus">src="0x40"</span> dst="
+"/&gt;<br>
+  &lt;case src="0x5C" dst="."/&gt;<br>
+&lt;/format&gt;<br>
+<br>
+ex: multiple and different groups of 'case'<br>
+&lt;format id="medal"&gt;<br>
+  <span class="parameter_example_focus">&lt;case src="A"
+dst="10"/&gt;</span><br>
+  <span class="parameter_example_focus">&lt;case src="B"
+dst="100"/&gt;</span><br>
+  &lt;pad direction="left" max="3"&gt;0&lt;/pad&gt;<br>
+  <span class="parameter_example_focus2">&lt;case src="000"
+dst=""/&gt;</span><br>
+&lt;/format&gt;<br>
+<br>
+</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_case_operator" name="tag_format_case_operator"></a>format
+&gt; ?case @operator &lt;operator&gt;</div>
+
+<div class="parameter_goal">
+operator defining how to check if the input value matches the 'src' (default is
+'==')<br>
+supported operators: &lt;, ==, &gt;, &gt;=, &lt;=, !=</div>
+
+<div class="parameter_example">
+ex: turfmast.xml<br>
+  &lt;format id="score"&gt;<br>
+    &lt;case src="0"                    dst="EVEN"/&gt;<br>
+    &lt;case src="240" <span
+class="parameter_example_focus">operator="&amp;lt;"</span>  format="+"/&gt;<br>
+    &lt;case src="240" <span
+class="parameter_example_focus">operator="&amp;gt;="</span> format="-"/&gt;<br>
+  &lt;/format&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_case_operatorformat"
+name="tag_format_case_operatorformat"></a>format &gt; ?case @operator-format
+"&lt;format_identifier&gt;|&lt;direct_implicit_format&gt;"<br>
+format &gt; ?case @operator-format
+"&lt;identifier1&gt;;&lt;identifier2&gt;;..."</div>
+
+<div class="parameter_goal">
+identifier allowing to format input value before applied the match.<br>
+    input value + operator-format = formated input value<br>
+    formated input value + operator + src value = 'case' matches or not<br>
+more than one format identifier can be specified, separated by ';'</div>
+
+<div class="parameter_example">
+ex: dariusg.xml<br>
+&lt;case src="16" <span
+class="parameter_example_focus">operator-format="-1792;%256"</span>
+operator="&amp;lt;" dst="ABDGKQW"/&gt;<br>
+</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_format_case_format" name="tag_format_case_format"></a>format &gt;
+?case@format="&lt;format_identifier&gt;|&lt;direct_implicit_format&gt;"<br>
+format &gt; ?case@format="&lt;identifier1&gt;;&lt;identifier2&gt;;..."</div>
+
+<div class="parameter_goal">
+identifier allowing to format the input value to produce the result.<br>
+more than one format identifier can be specified, separated by ';'</div>
+
+<div class="parameter_example">
+
+<div class="parameter_example">
+ex: turfmast.xml<br>
+  &lt;format id="score"&gt;<br>
+    &lt;case src="0"                    dst="EVEN"/&gt;<br>
+    &lt;case src="240" operator="&amp;lt;"  <span
+class="parameter_example_focus">format="+"</span>/&gt;<br>
+    &lt;case src="240" operator="&amp;gt;=" <span
+class="parameter_example_focus">format="-"</span>/&gt;<br>
+  &lt;/format&gt;</div>
+</div>
+</div>
+<br>
+<br>
+<span style="font-weight: bold;"><a id="tag_charset"
+name="tag_charset"></a><span
+style="text-decoration: underline;">charset</span></span><br>
+charset is a set of translations from a raw value into a character (char).<br>
+<br>
+
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_charset_id" name="tag_charset_id"></a>charset
+id="&lt;identifier&gt;"</div>
+
+<div class="parameter_goal">
+identifier of the charset, allowing it to be referenced, called by a field or
+column.<br>
+</div>
+
+<div class="parameter_example">
+ex: ddonpach.j<br>
+&lt;structure&gt;<br>
+  ...<br>
+  &lt;loop count="5"&gt;&lt;elt size="6" type="text" id="NAME" ... <span
+class="parameter_example_focus">charset="ddonpach"</span>/&gt;&lt;/loop&gt;<br>
+  ...<br>
+&lt;/structure&gt;<br>
+ ...<br>
+&lt;charset <span class="parameter_example_focus">id="ddonpach"</span>&gt;<br>
+  &lt;char src="0x00" dst=" "/&gt;<br>
+  &lt;char src="0x38" dst="."/&gt;<br>
+&lt;/charset&gt;</div>
+<br>
+pre-defined charsets are defined: see <a
+href="#tag_elt_charset">elt@charset</a> section. <span class="since">[since
+version 1.2]</span><br>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_charset_char" name="tag_charset_char"></a>charset &gt; char</div>
+
+<div class="parameter_goal">
+operation converting an input character into an output character or string<br>
+multiple chars can be defined.</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_charset_char_src" name="tag_charset_char_src"></a>charset &gt; char
+@src="" @dst="" ?@default="yes|no"</div>
+
+<div class="parameter_goal">
+'src' attribute specifies which input value matches the char (the src value can
+be a value in base 10 (nn)or in base 16 (0xnn)).<br>
+'dst' attribute specifies in which string the input will be converted, if the
+'src' matches the input: it can be a single letter, an empty string, a string
+with multiple characters, including special characters.<br>
+'default' attribute specifies which 'case' among the list of cases will be used
+if the input value doesn't match any case 'src'.</div>
+
+<div class="parameter_example">
+ex: ddonpach.j<br>
+&lt;charset id="ddonpach"&gt;<br>
+  <span class="parameter_example_focus">&lt;char src="0x00" dst=" "/&gt;<br>
+  &lt;char src="0x38" dst="."/&gt;</span><br>
+&lt;/charset&gt;<br>
+<br>
+ex: mooncrst.xml<br>
+&lt;char src="0xFF" <span class="parameter_example_focus">dst=""</span>/&gt;
+&lt;!-- 'end of name' indicator specific to mooncrstg //--&gt;<br>
+<br>
+ex: gigawing.xml<br>
+&lt;char src="0x063E" <span
+class="parameter_example_focus">dst="Dr."</span>/&gt;<br>
+&lt;char src="0x0642" dst=".Jr"/&gt;<br>
+&lt;char src="0x0646" dst="St."/&gt;<br>
+&lt;char src="0x07B6" <span
+class="parameter_example_focus">dst="&amp;black-heart;"</span>/&gt;<br>
+&lt;char src="0x07BA" dst="&amp;black-diamond;"/&gt;<br>
+&lt;char src="0x07BE" dst="&amp;black-club;"/&gt;</div>
+</div>
+<br>
+<br>
+<span style="font-weight: bold;"><a id="tag_bitmask"
+name="tag_bitmask"></a><span
+style="text-decoration: underline;">bitmask</span></span><br>
+bitmask is a set of data selection at bit level (character), mainly targetting
+character extraction.<br>
+<br>
+
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_bitmask_id" name="tag_bitmask_id"></a>bitmask
+@id="&lt;identifier&gt;"</div>
+
+<div class="parameter_goal">
+identifier of the bitmask, allowing it to be referenced, called by a field or
+column. 
+
+<div class="parameter_goal">
+</div>
+</div>
+
+<div class="parameter_example">
+ex: rtype.xml<br>
+&lt;elt size="3" type="int"  id="SCORE" <span
+class="parameter_example_focus">bitmask="score"</span> base="16"/&gt;<br>
+ ...<br>
+&lt;<span class="parameter_example_focus">bitmask id="score"</span>&gt; &lt;!--
+bytes re-ordering: 1 - 0 - 2 //--&gt;<br>
+  &lt;character mask="00000000 11111111 00000000"/&gt;<br>
+  &lt;character mask="11111111 00000000 00000000"/&gt;<br>
+  &lt;character mask="00000000 00000000 11111111"/&gt;<br>
+&lt;/bitmask&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_bitmask_bytecompletion"
+name="tag_bitmask_bytecompletion"></a>bitmask &gt;
+?@byte-completion="yes|no"</div>
+
+<div class="parameter_goal">
+default is yes.<br>
+activate or not completion up to 8 bits (1 byte) for each individual
+'character/mask' result.<br>
+when each character mask defines a single characters, and less than 8 bits is
+selected, it is necessary to indicates that completion up to a full byte is
+necessary for each of these characters.<br>
+when character mask selects less than 8 bits, but multiple characters are
+defined only to re-order bytes (ex: take 4 end bits, then 4 first bits, using 2
+characters), this completion is inadequate.<br>
+note that the final output is always stored as a bytes array, meaning
+autocompletion of the final result.</div>
+
+<div class="parameter_example">
+ex: slapfigh.xml<br>
+&lt;bitmask id="score" <span
+class="parameter_example_focus">byte-completion="no"</span>&gt; &lt;!-- low
+nibble 3rd byte + 2nd byte + 1st byte + high nibble 3rd byte //--&gt;<br>
+  &lt;character mask="00000000 00000000 00001111"/&gt;<br>
+  &lt;character mask="00000000 11111111 00000000"/&gt;<br>
+  &lt;character mask="11111111 00000000 00000000"/&gt;<br>
+  &lt;character mask="00000000 00000000 11110000"/&gt;<br>
+&lt;/bitmask&gt;</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_bitmask_character" name="tag_bitmask_character"></a>bitmask &gt;
+character</div>
+
+<div class="parameter_goal">
+a character can be used to<br>
+
+<ul>
+  <li>skip unused bits</li>
+  <li>select individual bits to build each output character</li>
+  <li>re-order bits to be able to decode the full string</li>
+  <li>etc.</li>
+</ul>
+</div>
+</div>
+
+<div class="parameter">
+
+<div class="parameter_syntax">
+<a id="tag_bitmask_character_mask"
+name="tag_bitmask_character_mask"></a>bitmask &gt; character
+@mask="&lt;mask&gt;"</div>
+
+<div class="parameter_goal">
+sequence of 0 and 1, allowing to skip/select specific bits from the full input
+value<br>
+each mask takes the full input data and create an individual 'character' output
+(set of bits, with completion or not).<br>
+[IMPORTANT NOTE] each character is working on the full input: it means that the mask must define all bits from the full entry. So, for a 3 characters name (on 3 bytes), each character mask must define 3*8 bits and put enough  bits to 1 to specify how to extract one character.<br>
+the outputs of all masks are concatenated together, at bit level.<br>
+note that the final output is always stored as a bytes array, meaning
+autocompletion of the final result.</div>
+
+<div class="parameter_example">
+ex: rtype.xml<br>
+&lt;bitmask id="score"&gt; &lt;!-- bytes re-ordering: 1 - 0 - 2 //--&gt;<br>
+  &lt;character <span class="parameter_example_focus">mask="00000000 11111111
+00000000"</span>/&gt;<br>
+  &lt;character <span class="parameter_example_focus">mask="11111111 00000000
+00000000"</span>/&gt;<br>
+  &lt;character <span class="parameter_example_focus">mask="00000000 00000000
+11111111"</span>/&gt;<br>
+&lt;/bitmask&gt;<br>
+<br>
+ex: solarq.xml<br>
+&lt;bitmask id="name"&gt;<br>
+  &lt;character <span class="parameter_example_focus">mask="00000000 00111111
+00000000 00000000"</span>/&gt;<br>
+  &lt;character <span class="parameter_example_focus">mask="00111111 11000000
+00000000 00000000"</span>/&gt;<br>
+  &lt;character <span class="parameter_example_focus">mask="00000000 00000000
+00000000 00111111"</span>/&gt;<br>
+&lt;/bitmask&gt;<br>
+<br>
+example: byte-completion = 'yes'<br>
+    input 00000000 11111111 10101010<br>
+    input + mask 1 "00001111 1111" =&gt; 00001111 (already 8 bits, so no need
+for completion)<br>
+    input + mask 2 "00000000 00000000 1111" =&gt; 1010 + completion =&gt;
+00001010<br>
+    output "0000111100001010" already on 2 bytes<br>
+<br>
+example: byte-completion = 'no'<br>
+    input 00000000 11111111 10101010<br>
+    input + mask 1 "00001111 1111" =&gt; 00001111<br>
+    input + mask 2 "00000000 00000000 1111" =&gt; 1010 (no completion)<br>
+    output "000011111010" meaning "00000000 11111010" on 2 bytes  </div>
+</div>
+<br>
+<br>
+<span
+style="font-weight: bold; text-decoration: underline;">References</span><br>
+<br>
+<a id="ref_001" name="ref_001"></a>1. "A Tutorial on Data Representation",
+section 3.9 'Big Endian vs Little Endian', Chua Hock-Chuan<br>
+<a
+href="http://www3.ntu.edu.sg/home/ehchua/programming/java/DataRepresentation.html">http://www3.ntu.edu.sg/home/ehchua/programming/java/DataRepresentation.html</a><br>
+<a id="ref_002" name="ref_002"></a>2. "Slimming Strings With Custom Base-40
+Packing", Al Williams<br>
+<a
+href="http://www.drdobbs.com/embedded-systems/slimming-strings-with-custom-base-40-pac/229400732">http://www.drdobbs.com/embedded-systems/slimming-strings-with-custom-base-40-pac/229400732</a><br>
+<a id="ref_003" name="ref_003"></a> 3. "ASCII", Wikipedia<br>
+<a
+href="http://en.wikipedia.org/wiki/US-ASCII">http://en.wikipedia.org/wiki/US-ASCII</a><br>
+<a id="ref_004" name="ref_004"></a>4. "Unicode entities", Wikipedia<br>
+<a
+href="http://en.wikibooks.org/wiki/Unicode">http://en.wikibooks.org/wiki/Unicode</a><br>
+<a
+href="http://en.wikibooks.org/wiki/Unicode/Character_reference">http://en.wikibooks.org/wiki/Unicode/Character_reference</a><br>
+<a
+href="http://en.wikibooks.org/wiki/Unicode/List_of_useful_symbols">http://en.wikibooks.org/wiki/Unicode/List_of_useful_symbols</a><br>
+<a href="http://unicode-table.com/">http://unicode-table.com</a><br>
+<a id="ref_005" name="ref_005"></a>5. "<span>Binary-to-text encoding",
+Wikipedia<br>
+</span><a
+href="Binary-to-text%20encoding">http://en.wikipedia.org/wiki/Binary-to-text_encoding</a><br>
+<a id="ref_006" name="ref_006"></a>6. "Base 32", Wikipedia<br>
+<a
+href="http://en.wikipedia.org/wiki/Base32">http://en.wikipedia.org/wiki/Base32</a><br>
+<a id="ref_007" name="ref_007"></a>7. "Shift operation", Wikipedia<br>
+<a
+href="http://en.wikipedia.org/wiki/Logical_shift">http://en.wikipedia.org/wiki/Logical_shift</a><br>
+<span style="font-weight: bold; text-decoration: underline;"><br>
+<br>
+History</span><br>
+<br>
+2020-03-13 v1.9: add decoding parameter 'nibble-trim', introduced in hi2txt v1.11<br>
+2019-09-01 v1.8: add decoding parameter 'byte-trunc', introduced in hi2txt v1.10<br>
+2017-01-23 more details about "bitmask character" behavior<br>
+2016-04-09 aligned with hi2txt v1.7<br>
+2015-28-11 aligned with hi2txt v1.6<br>
+ ...<br>
+2014-09-01 v1.2<br>
+</p>
+</div>
+</div>
+</body>
+</html>
