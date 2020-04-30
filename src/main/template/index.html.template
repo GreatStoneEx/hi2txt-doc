@@ -51,9 +51,22 @@ href="history.txt"><b>What's new</b></a>]</p>
 
 <h2>Where can I get it?</h2>
 
-<p>Java version, requiring Java 7+: [<a title="download" href="archives/hi2txt@1.11@20200412-Java.7z">Download hi2txt@1.11@20200412-Java.7z</a> (1,4 MB)]</p>
-<p>C# version, requiring .NET framework 4.5+: [<a title="download" href="archives/hi2txt@1.11@20200412-CSharp.7z">Download hi2txt@1.11@20200412-CSharp.7z</a> (1,4 MB)]</p>
+<%
+def formatSize(long v) {
+               if (v < 1024) return v + " B";
+               int z = (63 - Long.numberOfLeadingZeros(v)) / 10;
+               return String.format("%.1f %sB", (double)v / (1L << (z*10)), " KMGTPE".charAt(z));
+           }
 
+def releases = layout.files(new File("$projectDir/docs/archives").listFiles()).collect().stream().map{file -> file.name.replace("hi2txt@","").replaceAll("@.*","")}.distinct().collect().sort().reverse()
+def latest_release = releases[0];
+
+def latest_jfile = layout.files(new File("$projectDir/docs/archives").listFiles()).collect().stream().filter{file -> file.name.contains("Java") && file.name.contains("@"+latest_release+"@")}.collect()[0]
+println "<p>Java version, requiring Java 7+: [<a title=\"download\" href=\"archives/${latest_jfile.name}\">Download ${latest_jfile.name}</a> (${formatSize(latest_jfile.length())})]</p>"
+
+def latest_cfile = layout.files(new File("$projectDir/docs/archives").listFiles()).collect().stream().filter{file -> file.name.contains("CSharp") && file.name.contains("@"+latest_release+"@")}.collect()[0]
+println "<p>C# version, requiring .NET framework 4.5+: [<a title=\"download\" href=\"archives/${latest_cfile.name}\">Download ${latest_cfile.name}</a> (${formatSize(latest_cfile.length())})]</p>"
+%>
 
 <p>[<a href="archives.html">Archives</a>]</p>
 
