@@ -1,33 +1,19 @@
-<!DOCTYPE html>
+<%
+GroovyShell shell = new GroovyShell()
+def utils = shell.parse(new File('src/main/template/utils.gvy'))
+%><!DOCTYPE html>
 <html>
 <head>
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KGB744P');</script>
-  <!-- End Google Tag Manager -->
+  <%=utils.GTM()%>
   <meta content="text/html; charset=windows-1252" http-equiv="content-type">
   <link rel="icon" href="favicon.ico" />
   <title>hi2txt</title>
   <script type="text/javascript" src="jquery-2.1.1.min.js">
   </script>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-53295420-2"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-53295420-2');
-  </script>
 </head>
 
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KGB744P"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+<%=utils.GTMNoScript()%>
 <h1 style="text-align: center;">hi2txt</h1>
 
 <p><span style="color:#0000ff">...Breaking News: 2020-04-12: <b>v1.11</b>
@@ -52,20 +38,13 @@ href="history.txt"><b>What's new</b></a>]</p>
 <h2>Where can I get it?</h2>
 
 <%
-def formatSize(long v) {
-               if (v < 1024) return v + " B";
-               int z = (63 - Long.numberOfLeadingZeros(v)) / 10;
-               return String.format("%.1f %sB", (double)v / (1L << (z*10)), " KMGTPE".charAt(z));
-           }
+def latest_release = utils.releases(projectDir, layout)[0];
 
-def releases = layout.files(new File("$projectDir/docs/archives").listFiles()).collect().stream().map{file -> file.name.replace("hi2txt@","").replaceAll("@.*","")}.distinct().collect().sort().reverse()
-def latest_release = releases[0];
+def latest_jfile = utils.javaArchives(projectDir, layout, latest_release)[0]
+println "<p>Java version, requiring Java 7+: [<a title=\"download\" href=\"archives/${latest_jfile.name}\">Download ${latest_jfile.name}</a> (${utils.formatSize(latest_jfile.length())})]</p>"
 
-def latest_jfile = layout.files(new File("$projectDir/docs/archives").listFiles()).collect().stream().filter{file -> file.name.contains("Java") && file.name.contains("@"+latest_release+"@")}.collect()[0]
-println "<p>Java version, requiring Java 7+: [<a title=\"download\" href=\"archives/${latest_jfile.name}\">Download ${latest_jfile.name}</a> (${formatSize(latest_jfile.length())})]</p>"
-
-def latest_cfile = layout.files(new File("$projectDir/docs/archives").listFiles()).collect().stream().filter{file -> file.name.contains("CSharp") && file.name.contains("@"+latest_release+"@")}.collect()[0]
-println "<p>C# version, requiring .NET framework 4.5+: [<a title=\"download\" href=\"archives/${latest_cfile.name}\">Download ${latest_cfile.name}</a> (${formatSize(latest_cfile.length())})]</p>"
+def latest_cfile = utils.csharpArchives(projectDir, layout, latest_release)[0]
+println "<p>C# version, requiring .NET framework 4.5+: [<a title=\"download\" href=\"archives/${latest_cfile.name}\">Download ${latest_cfile.name}</a> (${utils.formatSize(latest_cfile.length())})]</p>"
 %>
 
 <p>[<a href="archives.html">Archives</a>]</p>

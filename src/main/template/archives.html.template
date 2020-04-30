@@ -1,43 +1,28 @@
-<html>
+<%
+GroovyShell shell = new GroovyShell()
+def utils = shell.parse(new File('src/main/template/utils.gvy'))
+%><html>
     <head>
-        <!-- Google Tag Manager -->
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KGB744P');</script>
-        <!-- End Google Tag Manager -->
+        <%=utils.GTM()%>
         <title>Archives</title>
     </head>
     <body>
-        <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KGB744P"
-                       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        <!-- End Google Tag Manager (noscript) -->
+        <%=utils.GTMNoScript()%>
         <table border="1">
-          <tr><th>Release</th><th>Java 7+</th><th>C#, using .NET framework 4.5+</th></tr>
-        <%
-           def formatSize(long v) {
-               if (v < 1024) return v + " B";
-               int z = (63 - Long.numberOfLeadingZeros(v)) / 10;
-               return String.format("%.1f %sB", (double)v / (1L << (z*10)), " KMGTPE".charAt(z));
-           }
-           def releases = layout.files(new File("$projectDir/docs/archives").listFiles()).collect().stream().map{file -> file.name.replace("hi2txt@","").replaceAll("@.*","")}.distinct().collect().sort().reverse()
+          <tr><th>Release</th><th>Java 7+</th><th>C#, using .NET framework 4.5+</th></tr><%
+           def releases = utils.releases(projectDir, layout)
            println ""
            releases.each{ rel ->
              print "<tr><td>$rel</td>"
-             def jfiles = layout.files(new File("$projectDir/docs/archives").listFiles()).collect().stream().filter{file -> file.name.contains("Java") && file.name.contains("@"+rel+"@")}.collect()
+             def jfiles = utils.javaArchives(projectDir, layout, rel)
              if (!jfiles.isEmpty()) {
-               def jfile = jfiles[0]
-               print "<td><a href=\"archives/${jfile.name}\">${jfile.name}</a> (${formatSize(jfile.length())})</td>"
+               print "<td><a href=\"archives/${jfiles[0].name}\">${jfiles[0].name}</a> (${utils.formatSize(jfiles[0].length())})</td>"
              }
-             def cfiles = layout.files(new File("$projectDir/docs/archives").listFiles()).collect().stream().filter{file -> file.name.contains("CSharp") && file.name.contains("@"+rel+"@")}.collect()
-             if (cfiles.size() == 1) {
-               def cfile = cfiles[0]
-               print "<td><a href=\"archives/${cfile.name}\">${cfile.name}</a> (${formatSize(cfile.length())})</td>"
+             def cfiles = utils.csharpArchives(projectDir, layout, rel)
+             if (!cfiles.isEmpty()) {
+               print "<td><a href=\"archives/${cfiles[0].name}\">${cfiles[0].name}</a> (${utils.formatSize(cfiles[0].length())})</td>"
              }
              println "</tr>"
-           }%>
-        </table>
+           }%>        </table>
     </body>
 </html>

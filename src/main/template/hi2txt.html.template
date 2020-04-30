@@ -1,0 +1,20 @@
+<%
+GroovyShell shell = new GroovyShell()
+def utils = shell.parse(new File('src/main/template/utils.gvy'))
+%><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <%=utils.GTM()%>
+    <title>Hi2txt: home</title>
+    <meta http-equiv="refresh" content="0;URL='https://greatstoneex.github.io/hi2txt-doc/index.html'"/>
+    <script language="javascript">
+       <!--
+       location.replace("https://greatstoneex.github.io/hi2txt-doc/index.html")
+       //-->
+    </script>
+  </head>
+  <body>
+    <%=utils.GTMNoScript()%>
+    <p>This page has moved to a <a href="https://greatstoneex.github.io/hi2txt-doc/index.html">
+      https://greatstoneex.github.io/hi2txt-doc/index.html</a>.</p>
+  </body>
+</html>
