@@ -1,10 +1,11 @@
 <%
 GroovyShell shell = new GroovyShell()
-def utils = shell.parse(new File('src/main/template/utils.gvy'))
+def utils = shell.parse(new File('src/main/utils.gvy'))
+def tmpl = shell.parse(new File('src/main/template.gvy'))
 %><!DOCTYPE html>
 <html>
 <head>
-  <%=utils.GTM()%>
+  <%=tmpl.snippet(projectDir, "gtm")%>
   <meta content="text/html; charset=windows-1252" http-equiv="content-type">
   <link rel="icon" href="favicon.ico" />
   <title>hi2txt</title>
@@ -13,7 +14,7 @@ def utils = shell.parse(new File('src/main/template/utils.gvy'))
 </head>
 
 <body>
-<%=utils.GTMNoScript()%>
+<%=tmpl.snippet(projectDir, "gtm_noscript")%>
 <h1 style="text-align: center;">hi2txt</h1>
 
 <p><span style="color:#0000ff">...Breaking News: 2020-04-12: <b>v1.11</b>

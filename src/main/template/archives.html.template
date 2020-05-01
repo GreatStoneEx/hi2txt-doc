@@ -1,13 +1,14 @@
 <%
 GroovyShell shell = new GroovyShell()
-def utils = shell.parse(new File('src/main/template/utils.gvy'))
+def utils = shell.parse(new File('src/main/utils.gvy'))
+def tmpl = shell.parse(new File('src/main/template.gvy'))
 %><html>
     <head>
-        <%=utils.GTM()%>
+        <%=tmpl.snippet(projectDir, "gtm")%>
         <title>Archives</title>
     </head>
     <body>
-        <%=utils.GTMNoScript()%>
+        <%=tmpl.snippet(projectDir, "gtm_noscript")%>
         <table border="1">
           <tr><th>Release</th><th>Java 7+</th><th>C#, using .NET framework 4.5+</th></tr><%
            def releases = utils.releases(projectDir, layout)
