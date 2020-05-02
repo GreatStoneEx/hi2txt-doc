@@ -6,6 +6,7 @@ task expandTemplates(type: Copy) {
     expand(projectDir: projectDir, layout: layout)
 }
 
+/*
 markdownToHtml {
     sourceDir = file("src/main/markdown")
     outputDir = file("docs")
@@ -14,6 +15,7 @@ markdownToHtml {
 task call_markdownToHtml() {
     dependsOn "markdownToHtml"
 }
+*/
 
 /*
 stats
