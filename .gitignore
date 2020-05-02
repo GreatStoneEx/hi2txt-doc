@@ -110,3 +110,7 @@ gradle-app.setting
 **/build/
 
 # End of https://www.gitignore.io/api/gradle,intellij
+
+### stats ###
+src/main/stats/tmp_metadata/
+src/main/stats/frontend/cache/
