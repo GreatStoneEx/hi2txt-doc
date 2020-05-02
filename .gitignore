@@ -112,6 +112,6 @@ gradle-app.setting
 # End of https://www.gitignore.io/api/gradle,intellij
 
 ### stats ###
-src/main/stats/latest_metadata/mame.xml
+src/main/stats/latest_metadata/**
 src/main/stats/tmp_metadata/
 src/main/stats/frontend/cache/
