@@ -1,0 +1,128 @@
+<h2>release 1.12@20200503</h2>
+<p>Engine improvement(s)<br/>+ add a 'corrupted data' detection mechanism to avoid displaying them </p>
+<p>2020-05-02 engine: improve 'corrupted data' detection mechanism error message to display the faulty value<br/>2020-04-28 engine: add a 'corrupted data' detection mechanism to avoid displaying them </p>
+<h2>release 1.11@20200412</h2>
+<p>Engine improvements<br/>+ add new instruction 'nibble-trim' to decode score<br/>+ allow xml file without any structure<br/>+ check "divide by 0" xml instruction</p>
+<p>2020-03-13 engine: add new instruction 'nibble-trim' to decode score<br/>2020-03-13 engine: allow xml file without any structure nor output to mark a game as "supported because there is no score inside" </p>
+<h2>release 1.10@20190908</h2>
+<p>2019-09-01 engine: add 'byte-trunc' instruction to decode an element.<br/>It will trunc this element and all bytes after it.<br/>Ex: "xmultipl" game can save a name shorter than the previous one, but ending the new one with "0x00" without erasing the following bytes.<br/>data: 42 4F 42 00 48 41 4e 00 00 00<br/>decoded by: <code>&lt;elt size=&quot;9&quot; type=&quot;text&quot; id=&quot;NAME&quot; byte-trunc=&quot;0x00&quot;/&gt;</code><br/>will read: BOB<br/>instead of: BOBHAN<br/>Thanks to contributor T. Busse for this finding!<br/>2019-08-31 engine: improvement allowing structure file name to match end of hiscore filename, instead of just its extension<br/>2018-11-29 engine: fix wrong check if file size is specified but not hiscore.dat location<br/>2018-11-29 utility: new command implementation trial to automatically discover xml description<br/>2018-10-23 engine: improvement to detect hi file also when nvram file is provided as input<br/>2018-10-16 engine: minor fix to avoid a crash if charset:char@src value has a length &lt; 2<br/>2018-10-14 engine: minor fix to avoid a crash if too many data than available are specified in the xml </p>
+<h2>release 1.9@20172212</h2>
+<h2>release 1.8@20170218</h2>
+<p>2017-01-22 tip: for windows, to display unicode characters in the command prompt: &gt;chcp 65001 + use NSimSun font in console properties<br/>2017-01-10 engine: support new hiscore.dat syntax ('_' and ':' in cputag, optional prefill, softwarename) </p>
+<h2>release 1.7@20160409</h2>
+<p>hi2txt general improvements + imp: now compatible with mame 0.172 containing native lua script for hiscore saving, which is providing a new specific hiscore.dat file format + imp: add 'sort-format' attribute to 'output table' to apply specific modification allowing the expected sorting (used in kof2001) + fix: output table sort attribute is now applying decimal, then string conversion on column values, instead of crashing if values cannot be converted into numbers (used in kof2001) + imp: format operation 'sum' can now sum all values of a column (used in kof2001)</p>
+<p>2016-03-25 engine: support hiscore.lua by borgar@borgar.net<br/>2015-12-09 engine: add experimental JavaScript support for all 'format' attributes (for the fun, mostly)<br/>2015-12-07 engine: add 'sort-format' attribute to 'output table' to apply specific modification allowing the expected sorting<br/> ex: kof2001.xml<br/> ... sort-format="TrimR%"<br/>2015-12-06 engine: output table sort attribute is now applying decimal, then string conversion on column values, instead of crashing if values cannot be converted into numbers.<br/>2015-12-05 engine: format operation 'sum' can now sum all values of a column<br/> ex: kof2001.xml<br/> <code>&lt;sum&gt;&lt;column id=&quot;WIN CHARACTER&quot;/&gt;&lt;/sum&gt;</code> </p>
+<h2>release 1.6@20151127</h2>
+<ul>
+  <li>front-end integration</li>
+  <li>HyperSpin (done if executable is renamed HiToText)</li>
+  <li>RocketLauncher for HyperSpin (done)</li>
+  <li>GameEx (on-going)</li>
+  <li>hi2txt general improvements</li>
+  <li>imp: add -xml parameter allowing to display data in XML, for easier front-end integration (requested by GameEx team)</li>
+  <li>imp: output table now accepts 'display' attribute</li>
+  <li>fix: divide operation is now using a scale factor to avoid "non-terminating decimal expansion" error</li>
+  <li>imp: operations can now use a unique field value to work on all values of a table column (ex: kof97)</li>
+  <li>imp: nvram file is now supported as argument of hi2txt</li>
+  <li>fix: display table columns and values even if all columns are using "format" or "src" attributes to build their values</li>
+</ul>
+<p>2015-11-25 engine: output table now accepts 'display' attribute<br/>2015-11-25 engine: divide operation is now using a scale factor to avoid "non-terminating decimal expansion" error<br/>2015-11-25 engine: operations can now use a unique field value to work on all values of a table column (ex: kof97)<br/>2015-11-25 engine: nvram file is now supported as argument of hi2txt<br/> .../hi/kof96.hi<br/> .../hi/kof96<br/> .../nvram/kof96/saveram &lt;= new!<br/> .../nvram/kof96<br/> .../nvram/kof96.nv<br/> kof96 (if related working directory is used)<br/>2015-11-21 engine: display table columns and values even if all columns are using "format" attribute to build their values<br/>2015-11-18 engine: display table columns and values even if all columns are using "src" attribute to build their values<br/>2015-11-04 engine: add -xml parameter allowing to display extracted data in XML format, targeting easier front-end integration like GameEx </p>
+<h2>release 1.5@20151003</h2>
+<ul>
+  <li>hi2txt general improvements</li>
+  <li>decoding speed significantly improved</li>
+  <li>xml files now bundled as one zip for easier installation</li>
+  <li>now compatible with HyperSpin -&gt; installation guide:
+    <ul>
+      <li>1.copy hi2txt.exe and hi2txt.zip in the same folder than HyperSpin.exe</li>
+      <li>2.rename hi2txt.exe into HiToText.exe</li>
+    </ul>
+  </li>
+</ul>
+<p>2015-10-03 engine: improve decoding speed (564 testcases done in 1mn30s instead of 10mn)<br/>2015-10-03 engine: now compatible with HyperSpin<br/> -l parameter can work without using -hiscoredat parameter<br/> -r parameter displays output readable by HyperSpin (all lines displayed in one call)<br/> do not forget to rename hi2txt.exe into HiToText.exe as HyperSpin doesn't understand currently this new name </p>
+<h2>release 1.4@20150912</h2>
+<ul>
+  <li>hi2txt general improvements:
+    <ul>
+      <li>a native C# version exists!</li>
+      <li>output customization and filtering, through command-line parameters (see doc for more information): -score-grouping, -score-grouping-separator, -score-grouping-size -keep-field, -keep-table-value, -keep-first-score, -keep-first-table, -hide-field -max-lines, -max-columns</li>
+      <li>support Unicode characters</li>
+      <li>all XML can be stored inside a hi2txt.zip file</li>
+      <li>unknown clone is extractable if at least one games of the same family (see hiscore.dat content) is supported</li>
+    </ul>
+  </li>
+  <li>XML engine improved, for easier 'hi/nvram' files description:
+    <ul>
+      <li>multiple structure, output and link between them can be defined for the same game, to support different versions of hiscore.dat</li>
+    </ul>
+  </li>
+</ul>
+<p>2015-09-12 engine: there are now 2 versions of hi2txt =&gt; Java and C#!<br/>2015-09-12 engine: minor modifications to ease the C# version<br/>2015-09-10 engine: support a hi2txt.zip file to store all XML descriptions<br/>2015-09-10 engine: support a game hiscores file if at least one member of the same hiscore.dat family is already supported<br/> it avoids to explicitely create the related 'sameas' xml file, i.e. automatic clones support<br/>2015-05-11 engine: do not display output field if the related value is not found or empty<br/>2015-05-09 engine: 'structure' object, describing how to extract the data, can be bow linked to a specific 'output' object, dscribing how to display the extracted data<br/> for 'fixeight' game , the improved structure needs a new output, and this feature allows to keep retro-compatibility with older version of hiscore.dat</p>
+<p><code>
+  &lt;hi2txt&gt;    
+    &lt;structure output=&quot;o1&quot;&gt;...&lt;/structure&gt;    
+    &lt;structure output=&quot;o2&quot;&gt;...&lt;/structure&gt;    
+    &lt;output id=&quot;o1&quot;&gt;...&lt;/output&gt;    
+    &lt;output id=&quot;o2&quot;&gt;...&lt;/output&gt;    
+  &lt;/hi2txt&gt;
+</code><br/>2015-01-01 engine: field are now always taking into account the attribute 'display' to be displayed or not<br/>2014-10-13 engine: allow output customization and filtering<br/>Split SCORE by group of integers, to easily identify very big score + -score-grouping "yes|no" (default: no) + -score-grouping-separator "<code>&lt;string&gt;</code>" (default: ".") + -score-grouping-size <code>&lt;integer&gt;</code> (default: 3)</p>
+<p>``` example: SCORE|NAME 10000000|CAP 9000000|COM</p>
+<p>-score-grouping yes SCORE|NAME 10.000.000|CAP 9.000.000|COM</p>
+<p>-score-grouping yes -score-grouping-separator "," SCORE|NAME 10,000,000|CAP 9,000,000|COM</p>
+<p>-score-grouping yes -score-grouping-separator "," -score-grouping-size 2 SCORE|NAME 10,00,00,00|CAP 9,00,00,00|COM</p>
+<p><code>
+Filter lines to keep only lines having a specific column value, allowing for example to keep only your own score
++ -keep-field &quot;`&lt;field_name&gt;`&quot; (this arg can be repeated to declare multiple values)
++ -keep-table-value  &quot;`&lt;Field&gt;:&lt;value&gt;`&quot; (this arg can be repeated to declare multiple values)
++ -keep-first-score &quot;`&lt;yes|no&gt;`&quot; (force to keep first line, even if not in the scope of -keep-table-value)
++ -keep-first-table &quot;`&lt;yes|no&gt;`&quot; (display only the 1st table)
++ -max-lines `&lt;integer&gt;` (display only `&lt;integer&gt;` lines in a table)
++ -max-columns `&lt;integer&gt;` (display only `&lt;integer&gt;` columns in a table)
+</code> example: SCORE|NAME 10000000|CAP 9000000|COM 8000000|CAP</p>
+<p>-keep-table-value "NAME:COM" SCORE|NAME 9000000|COM</p>
+<p>-keep-table-value "NAME:COM" -keep-first-score SCORE|NAME 10000000|CAP 9000000|COM</p>
+<p><code>
+Filter columns to hide one (this arg can be repeated to declare multiple values)
++ -hide-field &quot;`&lt;field_name&gt;`&quot;
+</code> example: SCORE|NAME 10000000|CAP 9000000|COM 8000000|CAP</p>
+<p>-hide-field "NAME" SCORE 10000000 9000000 8000000</p>
+<p>``` 2014-10-08 engine: fix CS_NUMBER charset usage, now usable without any other charset defined<br/>2014-10-05 engine: display Unicode characters correctly on output console </p>
+<h2>release 1.3@20141004</h2>
+<ul>
+  <li>XML engine improved, for easier 'hi/nvram' files description:</li>
+  <li>new format operation 'divide_round'</li>
+  <li>new format operation 'round'</li>
+  <li>new format operation 'capitalize'</li>
+  <li>new format operation 'lowercase'</li>
+  <li>new format operation 'loopindex'</li>
+  <li>new @direction="both" for format operation 'trim'</li>
+  <li>lot of new implicit format syntaxes</li>
+  <li>minor improvements and fixes</li>
+</ul>
+<p>2014-10-04 engine: add format/trunc implicit format</p>
+<p><code>
+&lt;column ... format=&quot;Trunc&quot;&gt;
+or &lt;column ... format=&quot;T&quot;&gt;
+</code> 2014-09-17 engine: add format/loopindex operation, which is setting the input data value to the loop index, if inside a loop, but after table_index usage<br/>this operation bypass any other operation set before or after itself <code>&lt;format&gt;&lt;loopindex/&gt;&lt;/format&gt;</code><br/>with a related implicit format:<br/><code>&lt;column ... format=&quot;LoopIndex&quot;&gt;</code><br/>see inthunt.xml: structure/POINTER<br/>2014-09-17 engine: when not displaying an output field (display="extra|debug"), it can still be used to sort the output table or other operations<br/> see inthunt.xml: output/table@sort, output/table/POINTER<br/>2014-09-16 engine: improve decoding of truncated data<br/>2014-09-13 engine: do not display output/table header if all lines are not displayed<br/> it allows to better support a clone for which all data (versus its parent) are not extracted<br/> see cosmccop.xml with 'gallop' game<br/>2014-09-13 engine: allow empty value for output/table@line-ignore, matching either empty or null table value<br/> it allows to ignore lines referencing a non-existing table column (meaning related value is null)<br/>2014-09-13 engine: fix format/pad to not crash with unknown column/field<br/>2014-09-13 engine: fix output/column to select data from @src first (if it exists), then @id<br/> it allows to support 2 columns with the same id in two different output tables, one related to the input data of the same id, the other using @src<br/> see cosmccop.xml<br/>2014-09-11 engine: add format/capitalize to put the 1st character of a string in uppercase<br/> <code>&lt;format&gt;&lt;capitalize/&gt;&lt;/format&gt;</code><br/> with a related implicit format:<br/> <code>&lt;column ... format=&quot;Capitalize&quot;&gt;</code><br/>2014-09-11 engine: add format/lowercase format<br/> <code>&lt;column ... format=&quot;LC&quot;&gt; or &lt;column ... format=&quot;LowerCase&quot;&gt;</code><br/>2014-09-11 engine: add format/uppercase implicit format<br/> <code>&lt;column ... format=&quot;UC&quot;&gt; or &lt;column ... format=&quot;UpperCase&quot;&gt;</code><br/>2014-09-11 engine: modify format/uppercase to put all the string in uppercase, not only the 1st letter<br/>2014-09-11 engine: add format/prefix implicit format<br/> <code>&lt;column ... format=&quot;Prefix&lt;string&gt;&quot;&gt;</code><br/> ex: <code>&lt;column ... format=&quot;PrefixSTG&quot;&gt;</code> =&gt; add prefix 'STG'<br/>2014-09-11 engine: add format/suffix implicit format<br/> <code>&lt;column ... format=&quot;Suffix&lt;string&gt;&quot;&gt;</code><br/> ex: <code>&lt;column ... format=&quot;Suffix%&quot;&gt;</code> =&gt; add suffix '%'<br/> see 1944.xml<br/>2014-09-11 engine: add format/pad implicit format<br/> <code>&lt;column ... format=&quot;Pad&lt;pad_direction:L|R&gt;&lt;trim_char&gt;&quot;&gt;</code><br/> ex: <code>&lt;column ... format=&quot;PadL20&quot;&gt;</code> =&gt; pad left, max = 2, using '0'<br/> ex: <code>&lt;column ... format=&quot;PadR4 &quot;&gt;</code> =&gt; pad right, max = 4, using ' '<br/> see uopoko.xml<br/>2014-09-11 engine: add format/trim implicit format<br/> <code>&lt;column ... format=&quot;Trim&lt;trim_direction:L|R&gt;&lt;trim_char&gt;&quot;&gt;</code><br/> ex: <code>&lt;column ... format=&quot;Trim0&quot;&gt;</code> =&gt; trim '0' on both sides<br/> ex: <code>&lt;column ... format=&quot;TrimL0&quot;&gt;</code> =&gt; trim left '0'<br/> ex: <code>&lt;column ... format=&quot;TrimR &quot;&gt;</code> =&gt; trim right ' '<br/> see airass.xml<br/>2014-09-11 engine: add a new possible direction 'both' for format/trim, allowing to trim left and right<br/>2014-09-09 engine: add format/round operation, allowing to round a decimal value<br/> round: 96.6666 R 97<br/> <code>&lt;format&gt;&lt;round/&gt;&lt;/format&gt;</code><br/> related shortcut:<br/> <code>&lt;column ... format=&quot;Round&quot;/&gt;</code><br/> or <code>&lt;column ... format=&quot;R&quot;/&gt;</code><br/> updated hi2txt.dtd<br/>2014-09-09 engine: add format/divide_round operation, allowing to round the result instead of truncating it<br/> divide: 5800 / 60 =&gt; 96.66666<br/> divide_trunc: 5800 d 60 =&gt; 96<br/> divide_round: 5800 D 60 =&gt; 97<br/> <code>&lt;format&gt;&lt;divide_round&gt;60&lt;/divide_round&gt;&lt;/format&gt;</code><br/> related shortcut: <code>&lt;column ... format=&quot;D60&quot;/&gt;</code><br/> updated hi2txt.dtd<br/> see mushitam.xml format@id="time" </p>
+<h2>release 1.2@20140901</h2>
+<ul>
+  <li>XML engine improved, for easier 'hi/nvram' files description:</li>
+  <li>japanese Hiragana defined as entities</li>
+  <li>add pre-defined charset for number</li>
+  <li>new operation 'uppercase' is supported for format</li>
+  <li>new operation 'shift' is supported for format</li>
+  <li>new attribute 'skip-first-bytes' and 'skip-last-bytes' for loop</li>
+  <li>different groups of 'case' are supported inside the same format definition</li>
+  <li>new attribute 'empty' and 'consume' for prefix and suffix operations</li>
+  <li>minor fixes</li>
+</ul>
+<p>2014-08-31 add japanese hiragana into hitotxt.dtd<br/> see guwange.xml<br/>2014-08-31 add format/uppercase operation to put the first letter of a string in upper case<br/> see guwange.xml<br/>2014-08-31 charset/char@default is now working<br/>2014-08-25 add loop@skip-last-bytes allowing to define a loop where x last bytes of the last iteration have been skipped<br/> see ket.xml<br/>2014-08-25 add loop@skip-first-bytes allowing to define a loop where x first bytes of the first iteration have been skipped<br/> see ket.xml<br/>2014-08-24 method to get application root modified because of Unix non-compliance optional -descr parameter is perhaps now really optional :) )<br/>2014-08-24 protect format@divide from non-integer result and provide user-friendly error message<br/>2014-08-22 add prefix@empty to define what is considered as empty to apply or not this prefix<br/> add prefix@consume to define what to do in case of empty input: return input as-is (consume="no" =&gt; default) or do not return anything (consume="yes")<br/> add suffix@empty, suffix@consume<br/> see tgm2.xml format@id="medal_ac"<br/>2014-08-22 add shift operation<br/> <code>&lt;shift&gt;integer&lt;/shift&gt;</code><br/> also in possible using implicit format; ex: <code>&lt;column ... format=&quot;&gt;2&quot;&gt;</code><br/> see tgm2.xml format@id="medal"<br/>2014-08-22 format/case(s) ordering taken into account. multiple different case groups possible inside the same format<br/> see tgm2.xml format@id="medal_ac"<br/>2014-08-22 trim/concat/pad/prefix/replace/suffix operations return "" instead of null if input = ""<br/>2014-08-22 operations contained in a format where input-as-subcolumns-input="yes" but without declaring themselves any colum/field ignore input-as-subcolumns-input and have the regular input<br/> it allows to chain operations in the same format, operation n2 taking the result of operation n1, if operation n2 doesn't have an explicit column/field itself<br/> see tgm2.xml format@id="medal"/trim<br/>2014-08-21 add pre-defined charsets, to reduce custom charset definition<br/> a pre-defined charset can be called from the elt@charset attribute, additionally to a custom charset<br/> <code>&lt;elt ... charset=&quot;CS_XXX&quot; ... &gt;</code><br/> <code>&lt;elt ... charset=&quot;CS_XXX;&lt;custom_charset_id&gt;&quot; ... &gt;</code><br/> a call to a pre-defined charset can override the start offset and the delta to add to the current step between each char<br/> <code>&lt;elt ... charset=&quot;CS_XXX[&lt;offset&gt;]&quot; ... &gt;</code><br/> <code>&lt;elt ... charset=&quot;CS_XXX[&lt;offset&gt;,&lt;delta&gt;]&quot; ... &gt;</code><br/> <code>&lt;elt ... charset=&quot;CS_XXX[&lt;offset&gt;,&lt;delta&gt;];&lt;custom_charset_id&gt;&quot; ... &gt;</code><br/> the pre-defined charset 'CS_NUMBER' has been added<br/> ex: sbomber.xml<br/> <code>&lt;elt ... charset=&quot;CS_NUMBER[-14];sbomber&quot; ... &gt;</code> </p>
+<h2>release 1.1@20140809</h2>
+<ul>
+  <li>better format@formatter possibilities</li>
+  <li>new 'txt' element for better XML readibility</li>
+  <li>minor fixes</li>
+</ul>
+<p>2014-08-04 add new 'txt' element for 'concat' format operation, allowing clearer notation to concatenate hard-coded text (see 'kingdmgp' game)<br/>2014-08-04 improve possibility of format@formatter allowing '%[flags][width][.precision]conversion' instead of just '%conversion'<br/>2014-08-04 fix format@formatter to catch formatting exception, improving error reporting<br/>2014-08-03 charset/char@dst is now able to store a string instead of one character (see 'gigawing', 'fixeight' games)<br/>2014-08-03 table@lines-max is now taking into account potential table@line-ignore (see 'bgareggabl' game)<br/>2014-07-28 avoid a null pointer exception if a trim format is applied on a non-existing column occurences </p>
+<h2>release 1.0@20140725</h2>
+<p>2014-07-25 allow implicit format for elt@format and elt@table-index-format, remove code duplication to handle formats between elt and column/field<br/>2014-07-23 when an output field is applied on an unknown input field, using a format/case, there is no more a null pointer exception<br/>2014-07-19 add new byte-skip flavors to experimental finder utility<br/>2014-07-19 add 4 new byte-skip flavors: 1000, 0100, 0010, 0001 (see 'espgal' example and doc)<br/>2014-07-17 when format F1 uses format F2, F2 can be defined after or before F1 (only 'after' was allowed previously)<br/>2014-07-15 add a new experimental utility allowing to find text or integers in a file, mainly combining all possibilities at all locations inside the file<br/> <code>java -jar hi2txt.jar find &lt;file&gt; &lt;target&gt;</code><br/> ex: <code>java -jar hi2txt.jar find ../mame/hi/espgal.hi &quot;WKB&quot;</code><br/> number of trials can be reduced by forcing a specific value for a parameter<br/> ex: <code>java -jar hi2txt.jar find -ascii-step 4 ../mame/hi/espgal.hi &quot;WKB&quot;</code><br/> it will be deeply explained in the doc when more mature :)<br/>(not recorded) </p>

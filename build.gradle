@@ -1,9 +1,27 @@
+plugins {
+    // allow to have automatic clean<Task> task
+    id 'base'
+    id 'org.kordamp.gradle.markdown' version '2.1.0'
+}
+
 version '1.0-SNAPSHOT'
 
-task expandTemplates(type: Copy) {
-    from 'src/main/template'
-    into 'docs'
-    include '*.html.template'
-    rename '(.*).template', '$1'
-    expand(projectDir: projectDir, layout: layout)
+apply from: 'build.internal.gradle'
+
+task call_1_ExpandTemplates {
+    dependsOn "expandTemplates", "call_markdownToHtml"
+    group "Package"
+    description "Expand groovy templates and markdowns to html"
+}
+
+task call_2_GenerateStatistics {
+    dependsOn "js2stats"
+    group "Package"
+    description "Generate statistics on supported games (quite long)"
+}
+
+task call_Clean {
+    dependsOn "customClean"
+    group "Package"
+    description "Cleaning of temporary files"
 }

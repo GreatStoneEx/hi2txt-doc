@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<format id="mame_mame_xml" type="xml">
+  <item     key="name"         path="/mame/machine@name" unique="yes"/>
+  <property key="label"        path="/mame/machine/description"/>
+  <property key="cloneof"      path="/mame/machine@cloneof"/>
+  <property key="year"         path="/mame/machine/year" transform="property.value.replace(/^(\?{2,}|[0-9]{1,3})$/,'?').replace(/^([0-9?]{4})[0-9?]+$/,'$1')"/>
+  <property key="decade"       transform="item.year.replace(/^.*(19[0-9]|20[0-9])([0-9\?]).*$/, '$10')"/>
+  <property key="company"      path="/mame/machine/manufacturer"/>
+  <property key="isbios"       path="/mame/machine@isbios"/>
+  <property key="isdevice"     path="/mame/machine@isdevice"/>
+  <property key="ismechanical" path="/mame/machine@ismechanical"/>
+  <property key="displaytype"  path="/mame/machine/display@type"/>
+  <property key="coins"        path="/mame/machine/input@coins"/>
+  <property key="buttons"      path="/mame/machine/input@buttons"/>
+  <property key="players"      path="/mame/machine/input@players"/>
+  <property key="controltype"  path="/mame/machine/input/control@type" multivalue="yes"/>
+  <property key="control"      path="/mame/machine/input/control" transform="concat(attributes.type,'_',attributes.ways)" multivalue="yes"/>
+  <property key="control"      path="/mame/machine/input@buttons" transform="prefix('button_',property.value)" multivalue="yes"/>
+  <property key="disk"         path="/mame/machine/disk@region"/>
+  <property key="driverstatus" path="/mame/machine/driver@status"/>
+</format>

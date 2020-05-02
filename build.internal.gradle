@@ -1,0 +1,113 @@
+task expandTemplates(type: Copy) {
+    from 'src/main/template'
+    into 'docs'
+    include '*.html.template'
+    rename '(.*).template', '$1'
+    expand(projectDir: projectDir, layout: layout)
+}
+
+markdownToHtml {
+    sourceDir = file("src/main/markdown")
+    outputDir = file("docs")
+}
+
+task call_markdownToHtml() {
+    dependsOn "markdownToHtml"
+}
+
+/*
+stats
+=====
+pre-requisites
+  hi2txt.jar
+  CabDataFormat.jar
+  node
+
+Each new mame
+  [manual] download genre.ini, version.ini, category.ini from progetto web site
+  [manual] create last mame.xml: mame -listxml > mame.xml
+  [manual] copy mame/plugins/hiscore/hiscore.dat into src/main/stats/latest_metadata/
+
+transform hiscore.dat into into xml
+    hi2txt.bat hiscoredat2xml -hiscoredat src/main/stats/latest_metadata/hiscore.dat -xml src/main/stats/tmp_metadata/hiscore.xml
+dump a full database in json
+   cd src/main/stats/cabdataformat
+   java -jar CabDataFormat.jar -data src/main/stats/data.xml -export-json src/main/stats/tmp_metadata/data.json -export-fields "year,hi2txt,label,version,cloneof,hiscoredat,genre,name,company,category"
+add additional "parent" info into the db
+   add parent info
+     cd src/main/stats/
+     node code__data_with_parent.js
+   copy src/main/stats/tmp_metadata/data_h2tp.json as src/main/stats/tmp_metadata/data.js
+   add "var data = " into src/main/stats/tmp_metadata/data.js
+   copy src/main/stats/tmp_metadata/data.js in docs/stats/
+*/
+
+task hiscoredat2xml(type: Exec) {
+    group "Stats"
+    description "Statistics: convert hiscore.dat into hiscore.xml"
+    inputs.file "$projectDir/src/main/stats/latest_metadata/hiscore.dat"
+    outputs.file "$projectDir/src/main/stats/tmp_metadata/hiscore.xml"
+    commandLine "$projectDir/../hi2txt/bin/hi2txt.bat", "hiscoredat2xml", "-hiscoredat", inputs.files[0], "-xml", outputs.files[0]
+}
+
+task metadata2json(type: Exec) {
+    group "Stats"
+    description "Statistics: filter hiscore.xml, mame.xml, category.ini, genre.ini, version.ini into a json database"
+    dependsOn "hiscoredat2xml"
+    inputs.files "$projectDir/src/main/stats/data.xml",
+            "$projectDir/src/main/stats/latest_metadata/hiscore.xml",
+            "$projectDir/src/main/stats/latest_metadata/category.ini",
+            "$projectDir/src/main/stats/latest_metadata/genre.ini",
+            "$projectDir/src/main/stats/latest_metadata/mame.xml",
+            "$projectDir/src/main/stats/latest_metadata/version.ini",
+            "$projectDir/src/main/stats/frontend/formats/hi2txt_file.xml",
+            "$projectDir/src/main/stats/frontend/formats/mame_category_ini.xml",
+            "$projectDir/src/main/stats/frontend/formats/mame_genre_ini.xml",
+            "$projectDir/src/main/stats/frontend/formats/mame_version_ini.xml",
+            "$projectDir/src/main/stats/frontend/formats/mame_hiscoredat_xml.xml",
+            "$projectDir/src/main/stats/frontend/formats/mame_mame_xml.xml"
+    outputs.files "$projectDir/src/main/stats/tmp_metadata/data.json", "$projectDir/src/main/stats/frontend/cache/db/cabview.mv.db"
+    commandLine "java", "-jar", "$projectDir/src/main/stats/cabdataformat/CabDataFormat.jar", "-data", "$projectDir/src/main/stats/data.xml", "-export-json", outputs.files[0], "-export-fields", "year,hi2txt,label,version,cloneof,hiscoredat,genre,name,company,category"
+}
+
+task jsonAddParent(type: Exec) {
+    group "Stats"
+    description "Statistics: add parent information to the json database"
+    dependsOn "metadata2json"
+    inputs.file "$projectDir/src/main/stats/tmp_metadata/data.json"
+    outputs.file "$projectDir/src/main/stats/tmp_metadata/data_h2tp.json"
+    workingDir "$projectDir/src/main/stats"
+    commandLine "node", "code__data_with_parent.js"
+}
+
+task json2js() {
+    group "Stats"
+    description "Statistics: convert the json database into a js array"
+    dependsOn "jsonAddParent"
+    inputs.file "$projectDir/src/main/stats/tmp_metadata/data_h2tp.json"
+    outputs.file "$projectDir/src/main/stats/tmp_metadata/data.js"
+    doLast {
+        def filename = outputs.files[0]
+        file(filename).text = "var data = "
+        file(filename).append(file(inputs.files[0]).getText())
+    }
+}
+
+task js2stats(type: Copy) {
+    group "Stats"
+    description "Statistics: copy js array into website docs"
+    dependsOn "json2js"
+    from "$projectDir/src/main/stats/tmp_metadata"
+    into "$projectDir/docs/stats"
+    include 'data.js'
+}
+
+task customClean() {
+    dependsOn "cleanJson2js", "cleanJsonAddParent", "cleanMetadata2json", "cleanHiscoredat2xml"
+    doLast {
+        delete "$projectDir/docs/stats/data.js"
+        delete "$projectDir/docs/archives.html"
+        delete "$projectDir/docs/hi2txt.html"
+        delete "$projectDir/docs/index.html"
+    }
+}

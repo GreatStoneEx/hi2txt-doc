@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<format id="mame_version_ini" type="ini">
+  <item     key="name"         path="property_name" unique="yes"/>
+  <property key="version"      path="section"/>
+  <skip                        path="section" value="FOLDER_SETTINGS"/>
+  <skip                        path="section" value="ROOT_FOLDER"/>
+</format>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<format id="hi2txt_file" type="ini">
+  <item     key="name"   path="file_basename" unique="yes"/>
+  <property key="hi2txt" path="file_basename" transform="property.value.replace(/^(.+)$/,'yes')"/>
+</format>

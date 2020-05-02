@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<format id="mame_hiscoredat_xml" type="xml">
+  <item     key="name"       path="/hiscoredat/game@name" unique="yes"/>
+  <property key="hiscoredat" path="/hiscoredat/game/location" transform="property.value.replace(/^(.+)$/,'yes')"/>
+</format>

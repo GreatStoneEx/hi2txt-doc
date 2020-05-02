@@ -2,6 +2,8 @@
 GroovyShell shell = new GroovyShell()
 def utils = shell.parse(new File('src/main/utils.gvy'))
 def tmpl = shell.parse(new File('src/main/template.gvy'))
+def getDate() { new Date().format('yyyy-MM-dd') }
+def latest_release = utils.releases(projectDir, layout)[0];
 %><!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +19,8 @@ def tmpl = shell.parse(new File('src/main/template.gvy'))
 <%=tmpl.snippet(projectDir, "gtm_noscript")%>
 <h1 style="text-align: center;">hi2txt</h1>
 
-<p><span style="color:#0000ff">...Breaking News: 2020-04-12: <b>v1.11</b>
-with 26 new games, 84 new clones and aligned to mame 0.219, all games from mame 0.1 to 0.28 supported</span></p>
+<p><span style="color:#0000ff">...Breaking News: <%=getDate()%>: release <b><%=latest_release%></b> is out with
+25 games fixed, 4 added, 10 improved and a more robust engine versus corrupted data</span></p>
 
 <h2>What is it?</h2>
 
@@ -31,16 +33,13 @@ If you appreciate the tool, all possible help to support more games and suggest
 new features, is warmly welcome, or at least a little thank you (contact:
 hi2txt at free.fr) !</p>
 
-<p>[<a title="doc" href="doc/index.html">Documentation</a>] [<a
-href="history.txt"><b>What's new</b></a>]</p>
+<p>[<a title="doc" href="doc/index.html">Documentation</a>] [<b>What's new for the <a href="engine.CHANGELOG.html">engine</a> and the <a href="games.CHANGELOG.html">games</a></b>]</p>
 
 <p></p>
 
 <h2>Where can I get it?</h2>
 
 <%
-def latest_release = utils.releases(projectDir, layout)[0];
-
 def latest_jfile = utils.javaArchives(projectDir, layout, latest_release)[0]
 println "<p>Java version, requiring Java 7+: [<a title=\"download\" href=\"archives/${latest_jfile.name}\">Download ${latest_jfile.name}</a> (${utils.formatSize(latest_jfile.length())})]</p>"
 
@@ -54,8 +53,7 @@ println "<p>C# version, requiring .NET framework 4.5+: [<a title=\"download\" hr
 
 <h2>How many games are supported?</h2>
 
-<p>statistics (<a href="stats/index.html">full statistics details</a>):<br>
-mame 0.219 has 8815 'acceptable' games [2571 are supported (<b>29.2%</b>)]</p>
+<p>Statistics on supported games: <a href="stats/index.html">full statistics details</a></p>
 
 <p></p>
 
@@ -103,6 +101,8 @@ mame 0.219 has 8815 'acceptable' games [2571 are supported (<b>29.2%</b>)]</p>
 suggest new features, is warmly welcome, or at least a little thank you! </p>
 Contact: <b>hi2txt at free.fr</b><br/>
 <a href="https://twitter.com/hi2txt?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @hi2txt</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>GitHub repository to contribute to individual XML games descriptions: <a href="https://github.com/GreatStoneEx/hi2txt-xml">https://github.com/GreatStoneEx/hi2txt-xml</a></p>
 
 <p>Discussion forums:</p>
 <ul>
