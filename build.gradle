@@ -1,7 +1,7 @@
 plugins {
     // allow to have automatic clean<Task> task
     id 'base'
-    //id 'org.kordamp.gradle.markdown' version '2.1.0'
+    id 'org.kordamp.gradle.markdown' version '2.1.0'
 }
 
 version '1.0-SNAPSHOT'
@@ -9,8 +9,7 @@ version '1.0-SNAPSHOT'
 apply from: 'build.internal.gradle'
 
 task call_1_ExpandTemplates {
-    //dependsOn "expandTemplates", "call_markdownToHtml"
-    //dependsOn "expandTemplates"
+    dependsOn "expandTemplates", "call_markdownToHtml"
     group "Package"
     description "Expand groovy templates and markdowns to html"
 }

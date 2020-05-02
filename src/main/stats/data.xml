@@ -1,6 +1,6 @@
 <data>
-  <items id="h2t" root="data.root+'/latest_metadata'">
-    <properties path="data.root+'/latest_metadata/mame.xml'" format="mame_mame_xml"/>
+  <items id="h2t" root="data.root+'/metadata'">
+    <properties path="data.root+'/metadata/mame.xml'" format="mame_mame_xml"/>
     <filter remove-if="item.driverstatus.contains('preliminary')"/>
     <filter remove-if="item.ismechanical.equals('yes')"/>
     <filter remove-if="isempty(item.displaytype)"/>
@@ -8,10 +8,10 @@
     <filter remove-if="item.isdevice.equals('yes')"/>
     <filter remove-if="item.isbios.equals('yes')"/>
     <filter remove-if="isempty(item.label)"/>
-    <properties path="data.root+'/latest_metadata/genre.ini'" format="mame_genre_ini"/>
+    <properties path="data.root+'/metadata/genre.ini'" format="mame_genre_ini"/>
     <filter remove-if="matches(item.genre,/^(casino|electromechanical|handheld|medal game|misc.|multiplay|quiz|tabletop|utilities)$/i)"/>
-    <properties path="data.root+'/latest_metadata/category.ini'" format="mame_category_ini"/>
-    <properties path="data.root+'/latest_metadata/version.ini'" format="mame_version_ini"/>-->
+    <properties path="data.root+'/metadata/category.ini'" format="mame_category_ini"/>
+    <properties path="data.root+'/metadata/version.ini'" format="mame_version_ini"/>-->
 	<properties path="data.root+'/../../../../hi2txt_xml/src/main/db/*.xml'" format="hi2txt_file"/>
 	<properties path="data.root+'/tmp_metadata/hiscore.xml'" format="mame_hiscoredat_xml"/>
   </items>
